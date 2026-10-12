@@ -1,0 +1,9 @@
+The Week 1 Consultancy Task
+The client asks:
+
+How should Northstar modernise the deployment, configuration and operational management of its existing infrastructure while maintaining security, reliability and appropriate administrative control?
+
+
+From the case study:
+
+"The company wants to reduce its dependence on manual CLI configuration. The consultancy should investigate model-driven network programmability using: YANG → RESTCONF/NETCONF → network device. The PoC should demonstrate retrieving operational/configuration information and making a controlled configuration change. For example: Create or modify an interface/VLAN using RESTCONF and verify the resulting configuration. A small Python application could then retrieve information from several devices."
