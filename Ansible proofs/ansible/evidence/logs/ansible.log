@@ -1,0 +1,219 @@
+2026-10-29 15:05:27,084 p=591 u=yassine n=ansible INFO| # /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/collections/ansible_collections
+Collection        Version
+----------------- -------
+
+2026-10-29 15:05:27,086 p=591 u=yassine n=ansible INFO| ansible.netcommon 8.7.1  
+2026-10-29 15:05:27,088 p=591 u=yassine n=ansible INFO| ansible.posix     2.2.2  
+2026-10-29 15:05:27,089 p=591 u=yassine n=ansible INFO| cisco.ios         11.6.0 
+2026-10-29 15:05:27,091 p=591 u=yassine n=ansible INFO| community.general 13.5.0 
+2026-10-29 15:05:59,970 p=605 u=yassine n=ansible INFO| Starting galaxy collection install process
+2026-10-29 15:05:59,974 p=605 u=yassine n=ansible WARNING| [WARNING]: The specified collections path '/home/yassine/.ansible/collections' is not part of the configured Ansible collections paths '/mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/collections'. The installed collection will not be picked up in an Ansible run, unless within a playbook-adjacent collections directory.
+
+2026-10-29 15:05:59,978 p=605 u=yassine n=ansible INFO| Process install dependency map
+2026-10-29 15:06:16,742 p=605 u=yassine n=ansible INFO| Starting collection install process
+2026-10-29 15:06:16,772 p=605 u=yassine n=ansible INFO| Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/cisco-ios-11.6.0.tar.gz to /home/yassine/.ansible/tmp/ansible-local-605v40396h4/tmpn37o9v85/cisco-ios-11.6.0-mj036wr6
+2026-10-29 15:06:19,844 p=605 u=yassine n=ansible INFO| Installing 'cisco.ios:11.6.0' to '/home/yassine/.ansible/collections/ansible_collections/cisco/ios'
+2026-10-29 15:06:19,598 p=605 u=yassine n=ansible INFO| cisco.ios:11.6.0 was installed successfully
+2026-10-29 15:06:19,621 p=605 u=yassine n=ansible INFO| Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/ansible-netcommon-8.7.1.tar.gz to /home/yassine/.ansible/tmp/ansible-local-605v40396h4/tmpn37o9v85/ansible-netcommon-8.7.1-5s3eqxfp
+2026-10-29 15:06:24,236 p=605 u=yassine n=ansible INFO| Installing 'ansible.netcommon:8.7.1' to '/home/yassine/.ansible/collections/ansible_collections/ansible/netcommon'
+2026-10-29 15:06:24,598 p=605 u=yassine n=ansible INFO| ansible.netcommon:8.7.1 was installed successfully
+2026-10-29 15:06:24,624 p=605 u=yassine n=ansible INFO| Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/ansible-posix-2.2.2.tar.gz to /home/yassine/.ansible/tmp/ansible-local-605v40396h4/tmpn37o9v85/ansible-posix-2.2.2-o1mmbe6f
+2026-10-29 15:06:26,615 p=605 u=yassine n=ansible INFO| Installing 'ansible.posix:2.2.2' to '/home/yassine/.ansible/collections/ansible_collections/ansible/posix'
+2026-10-29 15:06:26,863 p=605 u=yassine n=ansible INFO| ansible.posix:2.2.2 was installed successfully
+2026-10-29 15:06:26,893 p=605 u=yassine n=ansible INFO| Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-general-13.5.0.tar.gz to /home/yassine/.ansible/tmp/ansible-local-605v40396h4/tmpn37o9v85/community-general-13.5.0-6cla_mus
+2026-10-29 15:06:31,249 p=605 u=yassine n=ansible INFO| Installing 'community.general:13.5.0' to '/home/yassine/.ansible/collections/ansible_collections/community/general'
+2026-10-29 15:06:36,903 p=605 u=yassine n=ansible INFO| community.general:13.5.0 was installed successfully
+2026-10-29 15:06:36,929 p=605 u=yassine n=ansible INFO| Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/ansible-utils-6.1.1.tar.gz to /home/yassine/.ansible/tmp/ansible-local-605v40396h4/tmpn37o9v85/ansible-utils-6.1.1-3t37r7no
+2026-10-29 15:06:38,742 p=605 u=yassine n=ansible INFO| Installing 'ansible.utils:6.1.1' to '/home/yassine/.ansible/collections/ansible_collections/ansible/utils'
+2026-10-29 15:06:39,167 p=605 u=yassine n=ansible INFO| ansible.utils:6.1.1 was installed successfully
+2026-10-29 15:06:39,192 p=605 u=yassine n=ansible INFO| Downloading https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-library_inventory_filtering_v1-1.1.5.tar.gz to /home/yassine/.ansible/tmp/ansible-local-605v40396h4/tmpn37o9v85/community-library_inventory_filtering_v1-1.1.5-nexfwuzf
+2026-10-29 15:06:44,347 p=605 u=yassine n=ansible INFO| Installing 'community.library_inventory_filtering_v1:1.1.5' to '/home/yassine/.ansible/collections/ansible_collections/community/library_inventory_filtering_v1'
+2026-10-29 15:06:44,425 p=605 u=yassine n=ansible INFO| community.library_inventory_filtering_v1:1.1.5 was installed successfully
+2026-10-29 15:06:45,654 p=613 u=yassine n=ansible INFO| # /home/yassine/.ansible/collections/ansible_collections
+Collection                               Version
+---------------------------------------- -------
+
+2026-10-29 15:06:45,656 p=613 u=yassine n=ansible INFO| ansible.netcommon                        8.7.1  
+2026-10-29 15:06:45,657 p=613 u=yassine n=ansible INFO| ansible.posix                            2.2.2  
+2026-10-29 15:06:45,658 p=613 u=yassine n=ansible INFO| ansible.utils                            6.1.1  
+2026-10-29 15:06:45,660 p=613 u=yassine n=ansible INFO| cisco.ios                                11.6.0 
+2026-10-29 15:06:45,661 p=613 u=yassine n=ansible INFO| community.general                        13.5.0 
+2026-10-29 15:06:45,663 p=613 u=yassine n=ansible INFO| community.library_inventory_filtering_v1 1.1.5  
+2026-10-29 15:07:21,501 p=414 u=yassine n=ansible INFO| @all:
+  |--@ungrouped:
+  |--@linux_servers:
+  |  |--srv-main-01
+  |  |--srv-acq-01
+  |--@ios_devices:
+  |  |--@routers:
+  |  |  |--rtr-main-01
+  |  |--@switches:
+  |--@site_main:
+  |  |--srv-main-01
+  |  |--rtr-main-01
+  |--@site_acquired:
+  |  |--srv-acq-01
+2026-10-29 15:07:27,494 p=421 u=yassine n=ansible INFO| srv-acq-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+
+2026-10-29 15:07:27,762 p=421 u=yassine n=ansible INFO| srv-main-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+
+2026-10-29 15:07:29,382 p=447 u=yassine n=ansible INFO| PLAY [Verify Linux servers are reachable and manageable] ***********************
+2026-10-29 15:07:29,627 p=447 u=yassine n=ansible INFO| TASK [Gathering Facts] *********************************************************
+2026-10-29 15:07:29,629 p=447 u=yassine n=ansible INFO| Thursday 29 October 2026  15:07:29 +0000 (0:00:00.256)       0:00:00.256 ****** 
+2026-10-29 15:07:33,161 p=447 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-10-29 15:07:33,183 p=447 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-10-29 15:07:33,205 p=447 u=yassine n=ansible INFO| TASK [Check SSH login, sudo and Python with the ping module] *******************
+2026-10-29 15:07:33,207 p=447 u=yassine n=ansible INFO| Thursday 29 October 2026  15:07:33 +0000 (0:00:03.577)       0:00:03.834 ****** 
+2026-10-29 15:07:34,227 p=447 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-10-29 15:07:34,231 p=447 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-10-29 15:07:34,256 p=447 u=yassine n=ansible INFO| TASK [Show what Ansible found on each server] **********************************
+2026-10-29 15:07:34,258 p=447 u=yassine n=ansible INFO| Thursday 29 October 2026  15:07:34 +0000 (0:00:01.050)       0:00:04.884 ****** 
+2026-10-29 15:07:34,396 p=447 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    msg: 'srv-main-01 (192.168.56.21): Ubuntu 24.04, kernel 6.8.0-86-generic, hostname
+        srv-main-01, groups linux_servers, site_main'
+
+2026-10-29 15:07:34,408 p=447 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    msg: 'srv-acq-01 (192.168.56.22): Ubuntu 24.04, kernel 6.8.0-86-generic, hostname
+        srv-acq-01, groups linux_servers, site_acquired'
+
+2026-10-29 15:07:34,415 p=447 u=yassine n=ansible INFO| PLAY [Verify IOS devices are reachable and manageable] *************************
+2026-10-29 15:07:34,544 p=447 u=yassine n=ansible INFO| TASK [Gather minimal facts over SSH (network_cli)] *****************************
+2026-10-29 15:07:34,546 p=447 u=yassine n=ansible INFO| Thursday 29 October 2026  15:07:34 +0000 (0:00:00.288)       0:00:05.173 ****** 
+2026-10-29 15:07:36,604 p=447 u=yassine n=ansible INFO| network_os is set to cisco.ios.ios
+2026-10-29 15:07:37,406 p=475 u=yassine n=ansible WARNING| [WARNING]: The ssh_*_args options are deprecated and will be removed in a release after 2026-01-01. Please use the proxy_command option instead.
+
+2026-10-29 15:07:37,409 p=475 n=ansible-pylibssh WARNING| ssh_strict_fopen: Failed to open a file /home/yassine/.ssh/config for reading: No such file or directory
+2026-10-29 15:07:37,409 p=475 u=yassine n=ansible-pylibssh WARNING| ssh_strict_fopen: Failed to open a file /home/yassine/.ssh/config for reading: No such file or directory
+2026-10-29 15:08:05,065 p=447 u=yassine n=ansible ERROR| [ERROR]: Task failed: Action failed: ssh connection failed: ssh connect failed: Timeout connecting to 192.168.56.10
+Origin: /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/playbooks/verify_connectivity.yml:26:7
+
+24   gather_facts: false
+25   tasks:
+26     - name: Gather minimal facts over SSH (network_cli)
+         ^ column 7
+
+
+2026-10-29 15:08:05,067 p=447 u=yassine n=ansible INFO| fatal: [rtr-main-01]: FAILED! => 
+    changed: false
+    msg: 'ssh connection failed: ssh connect failed: Timeout connecting to 192.168.56.10'
+
+2026-10-29 15:08:05,072 p=447 u=yassine n=ansible INFO| PLAY RECAP *********************************************************************
+2026-10-29 15:08:05,074 p=447 u=yassine n=ansible INFO| rtr-main-01                : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2026-10-29 15:08:05,075 p=447 u=yassine n=ansible INFO| srv-acq-01                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-10-29 15:08:05,077 p=447 u=yassine n=ansible INFO| srv-main-01                : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-10-29 15:08:05,078 p=447 u=yassine n=ansible INFO| TASKS RECAP ********************************************************************
+2026-10-29 15:08:05,080 p=447 u=yassine n=ansible INFO| Thursday 29 October 2026  15:08:05 +0000 (0:00:30.533)       0:00:35.706 ****** 
+2026-10-29 15:08:05,081 p=447 u=yassine n=ansible INFO| =============================================================================== 
+2026-10-29 15:08:05,082 p=447 u=yassine n=ansible INFO| Gather minimal facts over SSH (network_cli) ---------------------------- 30.53s
+2026-10-29 15:08:05,083 p=447 u=yassine n=ansible INFO| Gathering Facts --------------------------------------------------------- 3.58s
+2026-10-29 15:08:05,085 p=447 u=yassine n=ansible INFO| Check SSH login, sudo and Python with the ping module ------------------- 1.05s
+2026-10-29 15:08:05,086 p=447 u=yassine n=ansible INFO| Show what Ansible found on each server ---------------------------------- 0.29s
+2026-10-29 15:08:05,087 p=447 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
+2026-10-29 15:08:05,089 p=447 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 0 minutes, 35 seconds
+
+2026-10-29 15:08:05,178 p=475 u=yassine n=ansible INFO| shutdown complete
+2026-10-29 15:08:10,541 p=499 u=yassine n=ansible INFO| Starting galaxy collection install process
+2026-10-29 15:08:10,622 p=499 u=yassine n=ansible INFO| Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2026-10-29 15:08:11,891 p=502 u=yassine n=ansible WARNING| [WARNING]: Collection at '/home/yassine/.venvs/ansible/lib/python3.12/site-packages/ansible/_internal/ansible_collections/ansible/_protomatter' does not have a MANIFEST.json file, nor has it galaxy.yml: cannot detect version.
+
+2026-10-29 15:08:11,903 p=502 u=yassine n=ansible INFO| {"/home/yassine/.ansible/collections/ansible_collections": {"ansible.netcommon": {"version": "8.7.1"}, "ansible.posix": {"version": "2.2.2"}, "ansible.utils": {"version": "6.1.1"}, "cisco.ios": {"version": "11.6.0"}, "community.general": {"version": "13.5.0"}, "community.library_inventory_filtering_v1": {"version": "1.1.5"}}, "/home/yassine/.venvs/ansible/lib/python3.12/site-packages/ansible/_internal/ansible_collections": {"ansible._protomatter": {"version": "*"}}}
+2026-10-29 15:08:15,512 p=510 u=yassine n=ansible INFO| ansible-playbook [core 2.21.5]
+  config file = /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/ansible.cfg
+  configured module search path = ['/mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/.ansible/modules', '/home/yassine/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/yassine/.venvs/ansible/lib/python3.12/site-packages/ansible
+  ansible collection location = /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/.ansible/collections:/home/yassine/.ansible/collections:/home/yassine/.venvs/ansible/lib/python3.12/dist-packages:/home/yassine/.venvs/ansible/lib/python3/dist-packages:/home/yassine/.venvs/ansible/local/lib/python3.12/dist-packages:/home/yassine/.venvs/ansible/lib/python3.12/site-packages
+  executable location = /home/yassine/.venvs/ansible/bin/ansible-playbook
+  python version = 3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0] (/home/yassine/.venvs/ansible/bin/python3)
+  jinja version = 3.1.6
+  pyyaml version = 6.0.3 (with libyaml v0.2.5)
+2026-10-29 15:08:15,515 p=509 u=yassine n=ansible INFO| ansible-playbook [core 2.21.5]
+  config file = /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/ansible.cfg
+  configured module search path = ['/mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/.ansible/modules', '/home/yassine/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/yassine/.venvs/ansible/lib/python3.12/site-packages/ansible
+  ansible collection location = /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/.ansible/collections:/home/yassine/.ansible/collections:/home/yassine/.venvs/ansible/lib/python3.12/dist-packages:/home/yassine/.venvs/ansible/lib/python3/dist-packages:/home/yassine/.venvs/ansible/local/lib/python3.12/dist-packages:/home/yassine/.venvs/ansible/lib/python3.12/site-packages
+  executable location = /home/yassine/.venvs/ansible/bin/ansible-playbook
+  python version = 3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0] (/home/yassine/.venvs/ansible/bin/python3)
+  jinja version = 3.1.6
+  pyyaml version = 6.0.3 (with libyaml v0.2.5)
+2026-10-29 15:08:15,516 p=509 u=yassine n=ansible INFO| Using /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/ansible.cfg as config file
+2026-10-29 15:08:16,030 p=510 u=yassine n=ansible INFO| 2 plays in playbooks/verify_connectivity.yml
+2026-10-29 15:08:16,036 p=510 u=yassine n=ansible INFO| playbook: playbooks/verify_connectivity.yml
+2026-10-29 15:08:16,093 p=509 u=yassine n=ansible INFO| 2 plays in playbooks/site.yml
+2026-10-29 15:08:16,098 p=509 u=yassine n=ansible INFO| playbook: playbooks/site.yml
+2026-10-29 15:08:19,301 p=517 u=yassine n=ansible INFO| playbook: playbooks/verify_connectivity.yml
+2026-10-29 15:08:21,816 p=522 u=yassine n=ansible WARNING| [WARNING]: Collection at '/home/yassine/.venvs/ansible/lib/python3.12/site-packages/ansible/_internal/ansible_collections/ansible/_protomatter' does not have a MANIFEST.json file, nor has it galaxy.yml: cannot detect version.
+
+2026-10-29 15:08:22,142 p=522 u=yassine n=ansible INFO| {
+    "ansible.builtin.runas": "Run As user",
+    "ansible.builtin.su": "Substitute User",
+    "ansible.builtin.sudo": "Substitute User DO",
+    "ansible.netcommon.enable": "Switch to elevated permissions on a network device",
+    "community.general.doas": "Do As user",
+    "community.general.dzdo": "Centrify's Direct Authorize",
+    "community.general.ksu": "Kerberos substitute user",
+    "community.general.machinectl": "Systemd's machinectl privilege escalation",
+    "community.general.pbrun": "PowerBroker run",
+    "community.general.pfexec": "Profile based execution",
+    "community.general.pmrun": "Privilege Manager run",
+    "community.general.run0": "Systemd's run0",
+    "community.general.sesu": "CA Privileged Access Manager",
+    "community.general.sudosu": "Run tasks using sudo su -"
+}
+2026-10-29 15:17:16,390 p=773 u=yassine n=ansible INFO| Starting galaxy collection install process
+2026-10-29 15:17:16,461 p=773 u=yassine n=ansible INFO| Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2026-10-29 15:17:22,449 p=799 u=yassine n=ansible INFO| Starting galaxy collection install process
+2026-10-29 15:17:22,544 p=799 u=yassine n=ansible INFO| Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+2026-10-29 15:17:23,818 p=802 u=yassine n=ansible WARNING| [WARNING]: Collection at '/home/yassine/.venvs/ansible/lib/python3.12/site-packages/ansible/_internal/ansible_collections/ansible/_protomatter' does not have a MANIFEST.json file, nor has it galaxy.yml: cannot detect version.
+
+2026-10-29 15:17:23,831 p=802 u=yassine n=ansible INFO| {"/home/yassine/.ansible/collections/ansible_collections": {"ansible.netcommon": {"version": "8.7.1"}, "ansible.posix": {"version": "2.2.2"}, "ansible.utils": {"version": "6.1.1"}, "cisco.ios": {"version": "11.6.0"}, "community.general": {"version": "13.5.0"}, "community.library_inventory_filtering_v1": {"version": "1.1.5"}}, "/home/yassine/.venvs/ansible/lib/python3.12/site-packages/ansible/_internal/ansible_collections": {"ansible._protomatter": {"version": "*"}}}
+2026-10-29 15:17:30,426 p=807 u=yassine n=ansible INFO| ansible-playbook [core 2.21.5]
+  config file = /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/ansible.cfg
+  configured module search path = ['/mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/.ansible/modules', '/home/yassine/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/yassine/.venvs/ansible/lib/python3.12/site-packages/ansible
+  ansible collection location = /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/.ansible/collections:/home/yassine/.ansible/collections:/home/yassine/.venvs/ansible/lib/python3.12/dist-packages:/home/yassine/.venvs/ansible/lib/python3/dist-packages:/home/yassine/.venvs/ansible/local/lib/python3.12/dist-packages:/home/yassine/.venvs/ansible/lib/python3.12/site-packages
+  executable location = /home/yassine/.venvs/ansible/bin/ansible-playbook
+  python version = 3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0] (/home/yassine/.venvs/ansible/bin/python3)
+  jinja version = 3.1.6
+  pyyaml version = 6.0.3 (with libyaml v0.2.5)
+2026-10-29 15:17:30,428 p=807 u=yassine n=ansible INFO| Using /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/ansible.cfg as config file
+2026-10-29 15:17:30,437 p=808 u=yassine n=ansible INFO| ansible-playbook [core 2.21.5]
+  config file = /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/ansible.cfg
+  configured module search path = ['/mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/.ansible/modules', '/home/yassine/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/yassine/.venvs/ansible/lib/python3.12/site-packages/ansible
+  ansible collection location = /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/.ansible/collections:/home/yassine/.ansible/collections:/home/yassine/.venvs/ansible/lib/python3.12/dist-packages:/home/yassine/.venvs/ansible/lib/python3/dist-packages:/home/yassine/.venvs/ansible/local/lib/python3.12/dist-packages:/home/yassine/.venvs/ansible/lib/python3.12/site-packages
+  executable location = /home/yassine/.venvs/ansible/bin/ansible-playbook
+  python version = 3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0] (/home/yassine/.venvs/ansible/bin/python3)
+  jinja version = 3.1.6
+  pyyaml version = 6.0.3 (with libyaml v0.2.5)
+2026-10-29 15:17:30,439 p=808 u=yassine n=ansible INFO| Using /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/ansible.cfg as config file
+2026-10-29 15:17:30,941 p=808 u=yassine n=ansible INFO| 2 plays in playbooks/verify_connectivity.yml
+2026-10-29 15:17:30,947 p=808 u=yassine n=ansible INFO| playbook: playbooks/verify_connectivity.yml
+2026-10-29 15:17:30,981 p=807 u=yassine n=ansible INFO| 2 plays in playbooks/site.yml
+2026-10-29 15:17:30,986 p=807 u=yassine n=ansible INFO| playbook: playbooks/site.yml
+2026-10-29 15:17:33,682 p=815 u=yassine n=ansible INFO| playbook: playbooks/verify_connectivity.yml
+2026-10-29 15:17:37,657 p=822 u=yassine n=ansible WARNING| [WARNING]: Collection at '/home/yassine/.venvs/ansible/lib/python3.12/site-packages/ansible/_internal/ansible_collections/ansible/_protomatter' does not have a MANIFEST.json file, nor has it galaxy.yml: cannot detect version.
+
+2026-10-29 15:17:37,946 p=822 u=yassine n=ansible INFO| {
+    "ansible.builtin.runas": "Run As user",
+    "ansible.builtin.su": "Substitute User",
+    "ansible.builtin.sudo": "Substitute User DO",
+    "ansible.netcommon.enable": "Switch to elevated permissions on a network device",
+    "community.general.doas": "Do As user",
+    "community.general.dzdo": "Centrify's Direct Authorize",
+    "community.general.ksu": "Kerberos substitute user",
+    "community.general.machinectl": "Systemd's machinectl privilege escalation",
+    "community.general.pbrun": "PowerBroker run",
+    "community.general.pfexec": "Profile based execution",
+    "community.general.pmrun": "Privilege Manager run",
+    "community.general.run0": "Systemd's run0",
+    "community.general.sesu": "CA Privileged Access Manager",
+    "community.general.sudosu": "Run tasks using sudo su -"
+}

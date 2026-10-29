@@ -1,0 +1,11 @@
+---
+# Settings shared by EVERY device at NEL, whatever its type or site.
+nel_org_name: Northstar Engineering Ltd
+nel_domain: nel.local
+nel_timezone: Europe/London
+nel_ntp_servers:
+  - 0.uk.pool.ntp.org
+  - 1.uk.pool.ntp.org
+nel_login_banner: >-
+  Authorised access to Northstar Engineering Ltd systems only.
+  All activity is logged and monitored.

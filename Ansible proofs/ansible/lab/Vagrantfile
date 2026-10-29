@@ -1,0 +1,50 @@
+# -*- mode: ruby -*-
+# Lab stand-ins for servers freshly built by Jack's PXE/iPXE pipeline.
+#
+# Each VM is left in the agreed "PXE handoff state" (see docs/DECISIONS.md):
+#   - Ubuntu 24.04, static IP on the 192.168.56.0/24 lab network
+#   - user "ansible" with passwordless sudo
+#   - the Ansible control node's public key in ~ansible/.ssh/authorized_keys
+# Everything beyond that state is Ansible's job, not Vagrant's.
+#
+# Usage (from Windows, in this folder):  vagrant up
+
+PUBKEY_FILE = File.join(__dir__, "control_node.pub")
+abort("Missing #{PUBKEY_FILE} - copy the control node public key here first") unless File.exist?(PUBKEY_FILE)
+PUBKEY = File.read(PUBKEY_FILE).strip
+
+SERVERS = {
+  "srv-main-01" => "192.168.56.21", # main site
+  "srv-acq-01"  => "192.168.56.22", # acquired site
+}
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-24.04"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  SERVERS.each do |name, ip|
+    config.vm.define name do |node|
+      node.vm.hostname = name
+      node.vm.network "private_network", ip: ip
+
+      node.vm.provider "virtualbox" do |vb|
+        vb.name   = "nel-#{name}"
+        vb.memory = 1024
+        vb.cpus   = 1
+        vb.linked_clone = true
+      end
+
+      # Simulate the PXE handoff: create the ansible user and trust the control node key.
+      node.vm.provision "shell", inline: <<-SHELL
+        set -e
+        id ansible >/dev/null 2>&1 || useradd -m -s /bin/bash ansible
+        echo 'ansible ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/ansible
+        chmod 440 /etc/sudoers.d/ansible
+        install -d -m 700 -o ansible -g ansible /home/ansible/.ssh
+        echo '#{PUBKEY}' > /home/ansible/.ssh/authorized_keys
+        chown ansible:ansible /home/ansible/.ssh/authorized_keys
+        chmod 600 /home/ansible/.ssh/authorized_keys
+      SHELL
+    end
+  end
+end

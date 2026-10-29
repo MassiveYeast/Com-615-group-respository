@@ -1,0 +1,5 @@
+# Force LF line endings: this repo is cloned on Windows (core.autocrlf=true),
+# but the files are read by Ansible/yamllint on Linux, where CRLF breaks linting.
+* text=auto eol=lf
+*.png binary
+*.jpg binary

@@ -1,0 +1,11 @@
+# 2026-10-29T15:07:19+00:00  $ ansible --version
+ansible [core 2.21.5]
+  config file = /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/ansible.cfg
+  configured module search path = ['/home/yassine/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/yassine/.venvs/ansible/lib/python3.12/site-packages/ansible
+  ansible collection location = /home/yassine/.ansible/collections
+  executable location = /home/yassine/.venvs/ansible/bin/ansible
+  python version = 3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0] (/home/yassine/.venvs/ansible/bin/python3)
+  jinja version = 3.1.6
+  pyyaml version = 6.0.3 (with libyaml v0.2.5)
+# exit code: 0

@@ -1,0 +1,16 @@
+# 2026-10-29T15:07:20+00:00  $ ansible-inventory --graph
+@all:
+  |--@ungrouped:
+  |--@linux_servers:
+  |  |--srv-main-01
+  |  |--srv-acq-01
+  |--@ios_devices:
+  |  |--@routers:
+  |  |  |--rtr-main-01
+  |  |--@switches:
+  |--@site_main:
+  |  |--srv-main-01
+  |  |--rtr-main-01
+  |--@site_acquired:
+  |  |--srv-acq-01
+# exit code: 0

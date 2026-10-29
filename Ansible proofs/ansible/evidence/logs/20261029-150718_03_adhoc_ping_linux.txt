@@ -1,0 +1,12 @@
+# 2026-10-29T15:07:21+00:00  $ ansible linux_servers -m ansible.builtin.ping
+srv-acq-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+srv-main-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+# exit code: 0

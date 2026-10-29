@@ -1,0 +1,57 @@
+# 2026-10-29T15:07:27+00:00  $ ansible-playbook playbooks/verify_connectivity.yml
+
+PLAY [Verify Linux servers are reachable and manageable] ***********************
+
+TASK [Gathering Facts] *********************************************************
+Thursday 29 October 2026  15:07:29 +0000 (0:00:00.256)       0:00:00.256 ****** 
+ok: [srv-acq-01]
+ok: [srv-main-01]
+
+TASK [Check SSH login, sudo and Python with the ping module] *******************
+Thursday 29 October 2026  15:07:33 +0000 (0:00:03.577)       0:00:03.834 ****** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [Show what Ansible found on each server] **********************************
+Thursday 29 October 2026  15:07:34 +0000 (0:00:01.050)       0:00:04.884 ****** 
+ok: [srv-main-01] => 
+    msg: 'srv-main-01 (192.168.56.21): Ubuntu 24.04, kernel 6.8.0-86-generic, hostname
+        srv-main-01, groups linux_servers, site_main'
+ok: [srv-acq-01] => 
+    msg: 'srv-acq-01 (192.168.56.22): Ubuntu 24.04, kernel 6.8.0-86-generic, hostname
+        srv-acq-01, groups linux_servers, site_acquired'
+
+PLAY [Verify IOS devices are reachable and manageable] *************************
+
+TASK [Gather minimal facts over SSH (network_cli)] *****************************
+Thursday 29 October 2026  15:07:34 +0000 (0:00:00.288)       0:00:05.173 ****** 
+[ERROR]: Task failed: Action failed: ssh connection failed: ssh connect failed: Timeout connecting to 192.168.56.10
+Origin: /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/playbooks/verify_connectivity.yml:26:7
+
+24   gather_facts: false
+25   tasks:
+26     - name: Gather minimal facts over SSH (network_cli)
+         ^ column 7
+
+fatal: [rtr-main-01]: FAILED! => 
+    changed: false
+    msg: 'ssh connection failed: ssh connect failed: Timeout connecting to 192.168.56.10'
+
+PLAY RECAP *********************************************************************
+rtr-main-01                : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+srv-acq-01                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+srv-main-01                : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+TASKS RECAP ********************************************************************
+Thursday 29 October 2026  15:08:05 +0000 (0:00:30.533)       0:00:35.706 ****** 
+=============================================================================== 
+Gather minimal facts over SSH (network_cli) ---------------------------- 30.53s
+Gathering Facts --------------------------------------------------------- 3.58s
+Check SSH login, sudo and Python with the ping module ------------------- 1.05s
+Show what Ansible found on each server ---------------------------------- 0.29s
+
+PLAYBOOK RECAP *****************************************************************
+Playbook run took 0 days, 0 hours, 0 minutes, 35 seconds
+
+# exit code: 2

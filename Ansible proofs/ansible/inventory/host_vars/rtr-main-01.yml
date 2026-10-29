@@ -1,0 +1,5 @@
+---
+# Cisco CSR1000v (IOS XE) - same image and address as the router Ester uses for RESTCONF,
+# so Manual CLI vs RESTCONF vs Ansible can be compared on identical devices.
+ansible_host: 192.168.56.10
+nel_role: main site edge router

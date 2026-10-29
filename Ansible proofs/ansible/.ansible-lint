@@ -1,0 +1,8 @@
+---
+# Strictest built-in rule profile
+profile: production
+
+exclude_paths:
+  - collections/
+  - lab/
+  - evidence/

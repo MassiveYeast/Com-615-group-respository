@@ -1,0 +1,37 @@
+---
+# Phase 1 check: can the control node reach and authenticate to every managed system?
+# Read-only - changes nothing on any device.
+#
+#   ansible-playbook playbooks/verify_connectivity.yml
+
+- name: Verify Linux servers are reachable and manageable
+  hosts: linux_servers
+  gather_facts: true
+  tasks:
+    - name: Check SSH login, sudo and Python with the ping module
+      ansible.builtin.ping:
+
+    - name: Show what Ansible found on each server
+      ansible.builtin.debug:
+        msg: >-
+          {{ inventory_hostname }} ({{ ansible_host }}):
+          {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }},
+          kernel {{ ansible_facts['kernel'] }}, hostname {{ ansible_facts['hostname'] }},
+          groups {{ group_names | join(', ') }}
+
+- name: Verify IOS devices are reachable and manageable
+  hosts: ios_devices
+  gather_facts: false
+  tasks:
+    - name: Gather minimal facts over SSH (network_cli)
+      cisco.ios.ios_facts:
+        gather_subset:
+          - min
+
+    - name: Show what Ansible found on each device
+      ansible.builtin.debug:
+        msg: >-
+          {{ inventory_hostname }} ({{ ansible_host }}):
+          {{ ansible_facts['net_model'] | default('unknown model') }},
+          IOS XE {{ ansible_facts['net_version'] }}, hostname {{ ansible_facts['net_hostname'] }},
+          serial {{ ansible_facts['net_serialnum'] | default('n/a') }}

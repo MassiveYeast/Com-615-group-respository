@@ -1,0 +1,9 @@
+---
+# Master playbook: applies NEL's whole standard configuration to every system.
+#
+#   ansible-playbook playbooks/site.yml
+#
+# Baseline playbooks (linux_baseline, network_baseline, ...) are added here in later phases.
+
+- name: Check connectivity to all managed systems
+  ansible.builtin.import_playbook: verify_connectivity.yml

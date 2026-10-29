@@ -1,0 +1,14 @@
+---
+# Pinned collection versions = everyone on the team gets identical module behaviour.
+# Versions are the ones actually installed and tested on 2026-10-29.
+#
+#   ansible-galaxy collection install -r requirements.yml -p ~/.ansible/collections
+collections:
+  - name: cisco.ios           # IOS / IOS XE modules (ios_facts, ios_config, ios_user, ...)
+    version: "11.6.0"
+  - name: ansible.netcommon   # network_cli connection plugin used by cisco.ios
+    version: "8.7.1"
+  - name: ansible.posix       # authorized_key, sysctl, profile_tasks/timer callbacks
+    version: "2.2.2"
+  - name: community.general   # ufw and other general Linux modules
+    version: "13.5.0"

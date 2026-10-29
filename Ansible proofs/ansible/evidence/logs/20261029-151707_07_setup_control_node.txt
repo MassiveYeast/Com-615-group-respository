@@ -1,0 +1,24 @@
+# 2026-10-29T15:17:07+00:00  $ bash control-node/setup_control_node.sh
+
+==> 1/7 OS packages
+Ubuntu 24.04.5 LTS
+
+==> 2/7 WSL mount options (metadata, so Ansible trusts ansible.cfg)
+Updated /etc/wsl.conf - run 'wsl --shutdown' in Windows, then reopen WSL.
+
+==> 3/7 Python venv with pinned tools (requirements-dev.txt)
+ansible [core 2.21.5]
+
+==> 4/7 Pinned Ansible collections (requirements.yml) on the Linux filesystem (D-04)
+Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+
+==> 5/7 SSH key for managing servers
+/home/yassine/.ssh/nel_ansible_ed25519 already exists
+
+==> 6/7 Vault password file
+/home/yassine/.ansible/nel_vault_pass present (mode 600)
+
+==> 7/7 Check: does Ansible load the project config?
+  config file = /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/ansible.cfg
+project folder permissions: 755
+# exit code: 0

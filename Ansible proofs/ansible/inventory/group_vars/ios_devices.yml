@@ -1,0 +1,12 @@
+---
+# How Ansible reaches Cisco IOS / IOS XE devices: an interactive CLI session over SSH.
+# Credentials come from the encrypted vault (group_vars/all/vault.yml).
+ansible_connection: ansible.netcommon.network_cli
+ansible_network_os: cisco.ios.ios
+ansible_user: "{{ vault_ios_username }}"
+ansible_password: "{{ vault_ios_password }}"
+# The lab account is privilege 15, so no "enable" step is needed.
+ansible_become: false
+# Use libssh (ansible-pylibssh); trust a new device key on first connect.
+ansible_network_cli_ssh_type: libssh
+ansible_host_key_auto_add: true
