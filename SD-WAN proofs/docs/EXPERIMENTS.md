@@ -149,6 +149,6 @@ See `docs/ARCHITECTURE.md` for the diagram (Figure source).
 
 - **Limit found in practice:** the always-on sandbox is read-only, so the Ansible→Manager path was not exercised; only read access was proven (SD-02).
 
-## References used in this file (Harvard, full list in `../report/REFERENCES.md`)
+## References used in this file (Harvard; full list kept with the individual report)
 
 Cisco (2024) *Cisco Catalyst SD-WAN Design Guide*; Cisco DevNet (n.d.) *Postman for AlwaysOn Cisco SD-WAN*; Cisco DevNet (n.d.) *Ansible Collections - Catalyst SD-WAN*; Kent and Seo (2005) RFC 4301; Katz and Ward (2010) RFC 5880; Fu, Wang and Wang (2024); Ouamri et al. (2025).
