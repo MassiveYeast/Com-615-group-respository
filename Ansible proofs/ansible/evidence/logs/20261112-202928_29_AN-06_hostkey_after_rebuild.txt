@@ -1,0 +1,50 @@
+# 1) Ansible ping right after rebuild (old host key still in known_hosts) - 2026-11-12T20:29:28+00:00
+[ERROR]: Task failed: Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22 port 22: Connection timed out
+Task failed.
+Origin: <adhoc 'ansible.builtin.ping' task>
+{'action': 'ansible.builtin.ping', 'args': {}, 'timeout': 0, 'async_val': 0, 'poll': 15}
+<<< caused by >>>
+Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22 port 22: Connection timed out
+srv-acq-01 | UNREACHABLE! => 
+    changed: false
+    msg: 'Task failed: Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22
+        port 22: Connection timed out'
+    unreachable: true
+# exit 4
+
+# 2) Remove the stale key (deliberate admin action after a known rebuild) - 2026-11-12T20:29:38+00:00
+# Host 192.168.56.22 found: line 1
+/home/yassine/.ssh/known_hosts updated.
+Original contents retained as /home/yassine/.ssh/known_hosts.old
+
+# 3) Ping again (new key accepted once by StrictHostKeyChecking=accept-new)
+srv-acq-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+# exit 0
+
+# 4) Clean-state check (read-only): nothing from the baseline should exist yet
+srv-acq-01 | CHANGED | rc=0 >>
++++-==============-============-============-=================================
+un  chrony         <none>       <none>       (no description available)
+ls: cannot access '/var/www/nel': No such file or directory
+ls: cannot access '/etc/ssh/sshd_config.d/10-nel-hardening.conf': No such file or directory
+Timezone=Etc/UTC
+Status: inactive
+
+# NOTE: attempt 1 above failed with a network timeout (VM network not yet ready), so it did NOT test host-key checking.
+# 5) Proper test: connect with the PRE-rebuild known_hosts (~/.ssh/known_hosts.old) and the same option ansible.cfg uses - 2026-11-12T20:29:55+00:00
+# exit 0
+
+# 6) Result of 5 was exit 0 with no warning: the REBUILT VM presented the SAME host key as before.
+#    Compare host-key fingerprints of both servers (ssh-keyscan, public keys only) - 2026-11-12T20:30:06+00:00
+## 192.168.56.21
+256 SHA256:JugftJKDQxAP3c6SLRCgc6ecqMvviUCep6D5Svl+jrw 192.168.56.21 (ECDSA)
+256 SHA256:VjufUgJCRplYbNSq6ATc0g/DLpYxoTbOJ7Eaml2Enlc 192.168.56.21 (ED25519)
+3072 SHA256:9iM/KPaKIF9KIXrzD68PVPOHtbG432peFiAyeMndMm8 192.168.56.21 (RSA)
+## 192.168.56.22
+256 SHA256:JugftJKDQxAP3c6SLRCgc6ecqMvviUCep6D5Svl+jrw 192.168.56.22 (ECDSA)
+256 SHA256:VjufUgJCRplYbNSq6ATc0g/DLpYxoTbOJ7Eaml2Enlc 192.168.56.22 (ED25519)
+3072 SHA256:9iM/KPaKIF9KIXrzD68PVPOHtbG432peFiAyeMndMm8 192.168.56.22 (RSA)

@@ -1,0 +1,9 @@
+# AN-06 reference: SHA-256 of the five Ansible-managed files on srv-acq-01,
+# captured over SSH (ansible@192.168.56.22, sudo sha256sum) shortly BEFORE the VM was destroyed
+# for the manual test (state = after AN-05 recovery run, changed=0).
+# The manual build must reproduce these hashes to count as identical.
+8097c11b74119aa66f61c046b5f5d664cb774d71b8342299fb4fea53631f1c9e  /etc/chrony/chrony.conf
+378c078e3b77249063b74b20ad5c65609747fb97bce1831d4f36d1ddde9ac2ba  /etc/issue.net
+9b0ce30a17fc9c76e40dc37f6dc2196078386cf4ea000cbf59e69b4a6c867b05  /etc/ssh/sshd_config.d/10-nel-hardening.conf
+b4e2348c9f1ee7cb7a8d7df01115f734044f1524223829c64dce6063e422881a  /var/www/nel/index.html
+99df73da07b2f785e6f1e3023ed66eafe2c6f16e2c8849bc692799e6485ab7a8  /etc/nginx/sites-available/nel.conf

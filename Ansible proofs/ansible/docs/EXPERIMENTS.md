@@ -161,3 +161,25 @@ Raw output: `evidence/logs/20261112-200116_23_AN-05_halt...` to `..._200254_26_A
   - Recovery is a targeted re-run (`--limit`), with no manual reconfiguration. Retry files are disabled in `ansible.cfg`, so the host must be named.
   - Compared with EXP-06, a cold boot recovered cleanly where a resume from saved state did not.
 - **Limitation:** a clean power-off is the simplest failure. Partial failures (SSH up but apt mirror unreachable, disk full, a task failing mid-run) behave differently and were not tested.
+
+## EXP-11 (AN-06 preparation) - Rebuild of srv-acq-01 and a host-key finding
+
+Raw output: `evidence/logs/…_27_AN-06_rebuild_srv-acq-01.txt`, `…_28_AN-06_reference_hashes.txt`, `…_29_AN-06_hostkey_after_rebuild.txt`.
+
+- **Method:**
+  - Recorded the SHA-256 hashes of the five Ansible-managed files on srv-acq-01 (the reference for AN-06).
+  - Rebuilt the VM with `vagrant destroy -f` + `vagrant up`, which took 52 s and returned it to the PXE-handoff state.
+  - Confirmed the clean state: no chrony, no `/var/www/nel`, no SSH drop-in, timezone `Etc/UTC`, ufw inactive.
+- **Expected:** a rebuilt server has a new SSH host key, so the control node (`StrictHostKeyChecking=accept-new`, D-11) should refuse it until the stale `known_hosts` entry is removed.
+- **Actual:**
+  - The first Ansible attempt failed with a *network timeout* (VM network not ready, as in EXP-06), so it did not test host keys.
+  - A proper test, SSH with the pre-rebuild `known_hosts.old`, **succeeded with no warning**: the rebuilt VM presented the same host key.
+  - `ssh-keyscan` then showed that **srv-main-01 and srv-acq-01 have identical ECDSA, ED25519 and RSA host keys** (e.g. ED25519 `SHA256:VjufUgJC…`). They are baked into the `bento/ubuntu-24.04` box and reused by every clone.
+- **Analysis:**
+  - Host-key checking only proves a server's identity if every server has a unique key. With cloned keys, any server built from the image can impersonate any other to the control node and to admins: a man-in-the-middle risk.
+  - If Northstar's PXE pipeline deploys from a golden image, the same flaw would affect production.
+  - Removing the stale `known_hosts` entry (`ssh-keygen -R`) is the normal admin step after an intentional rebuild. Here it was not even needed, which is itself the symptom.
+- **Design decision / recommendation:**
+  - Host keys must be regenerated on first boot, as part of the PXE/autoinstall stage, *before* the Ansible handoff (e.g. remove `/etc/ssh/ssh_host_*` in the image and run `ssh-keygen -A` / cloud-init on first boot).
+  - Raise this with Jack (PXE owner) as a change to the D-06 handoff contract.
+  - Not fixed in this lab, to keep the AN-06 starting point identical to AN-02. Recorded as a security limitation of the PoC.

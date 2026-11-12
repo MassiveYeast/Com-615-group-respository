@@ -1611,3 +1611,35 @@ Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22 port 2
 2026-11-12 20:03:20,829 p=1894 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
 2026-11-12 20:03:20,829 p=1894 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 0 minutes, 24 seconds
 
+2026-11-12 20:29:38,648 p=407 u=yassine n=ansible ERROR| [ERROR]: Task failed: Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22 port 22: Connection timed out
+
+Task failed.
+Origin: <adhoc 'ansible.builtin.ping' task>
+
+{'action': 'ansible.builtin.ping', 'args': {}, 'timeout': 0, 'async_val': 0, 'poll': 15}
+
+<<< caused by >>>
+
+Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22 port 22: Connection timed out
+
+
+2026-11-12 20:29:38,650 p=407 u=yassine n=ansible INFO| srv-acq-01 | UNREACHABLE! => 
+    changed: false
+    msg: 'Task failed: Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22
+        port 22: Connection timed out'
+    unreachable: true
+
+2026-11-12 20:29:40,653 p=426 u=yassine n=ansible INFO| srv-acq-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+
+2026-11-12 20:29:41,769 p=439 u=yassine n=ansible INFO| srv-acq-01 | CHANGED | rc=0 >>
++++-==============-============-============-=================================
+un  chrony         <none>       <none>       (no description available)
+ls: cannot access '/var/www/nel': No such file or directory
+ls: cannot access '/etc/ssh/sshd_config.d/10-nel-hardening.conf': No such file or directory
+Timezone=Etc/UTC
+Status: inactive
+
