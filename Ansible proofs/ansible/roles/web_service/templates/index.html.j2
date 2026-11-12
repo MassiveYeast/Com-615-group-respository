@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<!-- {{ ansible_managed }} -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ inventory_hostname }} - {{ nel_org_name }}</title>
+</head>
+<body>
+  <h1>{{ nel_org_name }}</h1>
+  <table>
+    <tr><th>Host</th><td>{{ inventory_hostname }}</td></tr>
+    <tr><th>Site</th><td>{{ nel_site_name }} ({{ nel_site_code }})</td></tr>
+    <tr><th>Role</th><td>{{ nel_role }}</td></tr>
+    <tr><th>Address</th><td>{{ ansible_host }}</td></tr>
+  </table>
+  <p>This page is managed by Ansible. Manual edits will be overwritten on the next run.</p>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# command : ansible linux_servers -m ansible.builtin.ping
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-12T19:49:08+00:00
+
+srv-acq-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+srv-main-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+
+# end     : 2026-11-12T19:49:10+00:00
+# exit    : 0
+# wall_s  : 1.933

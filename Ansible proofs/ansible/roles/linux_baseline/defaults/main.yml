@@ -1,0 +1,25 @@
+---
+# Defaults for the NEL Linux security/operations baseline (S1).
+# Organisation-wide values (NTP servers, timezone, banner) come from
+# inventory/group_vars/all/vars.yml; these are role-level knobs only.
+
+# Base packages every NEL Linux server should have.
+linux_baseline_packages:
+  - chrony   # NTP client (replaces systemd-timesyncd on Ubuntu 24.04)
+  - ufw      # host firewall front-end
+  - curl     # used by the verification tasks and by admins
+
+# SSH hardening, written to a drop-in file so the distro's sshd_config is untouched.
+linux_baseline_ssh_settings:
+  PermitRootLogin: "no"
+  PasswordAuthentication: "no"
+  KbdInteractiveAuthentication: "no"
+  X11Forwarding: "no"
+  MaxAuthTries: "3"
+  LoginGraceTime: "30"
+  ClientAliveInterval: "300"
+  ClientAliveCountMax: "2"
+  Banner: /etc/issue.net
+
+# Host firewall: default deny inbound, allow SSH. Other roles open their own ports.
+linux_baseline_ufw_allow_ssh_port: "22"

@@ -1,0 +1,91 @@
+﻿# AN-02 independent verification (not via Ansible) - 2026-11-12T19:52:37.4269443+00:00
+## HTTP from Windows host to 192.168.56.21
+status=200 server=nginx x-content-type-options=nosniff x-frame-options=DENY
+    <tr><th>Host</th><td>srv-main-01</td></tr>
+    <tr><th>Site</th><td>Main site (MAIN)</td></tr>
+    <tr><th>Role</th><td>general server (main site)</td></tr>
+    <tr><th>Address</th><td>192.168.56.21</td></tr>
+## HTTP from Windows host to 192.168.56.22
+status=200 server=nginx x-content-type-options=nosniff x-frame-options=DENY
+    <tr><th>Host</th><td>srv-acq-01</td></tr>
+    <tr><th>Site</th><td>Acquired site (ACQ)</td></tr>
+    <tr><th>Role</th><td>general server (acquired site)</td></tr>
+    <tr><th>Address</th><td>192.168.56.22</td></tr>
+## On srv-main-01 (vagrant ssh): effective sshd settings, firewall, time, file perms
+maxauthtries 3
+permitrootlogin no
+passwordauthentication no
+kbdinteractiveauthentication no
+x11forwarding no
+banner /etc/issue.net
+---
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    Anywhere                   # NEL management SSH
+80/tcp                     ALLOW IN    Anywhere                   # NEL internal web service
+22/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL management SSH
+80/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL internal web service
+
+---
+                Time zone: Europe/London (GMT, +0000)
+System clock synchronized: yes
+              NTP service: active
+MS Name/IP address         Stratum Poll Reach LastRx Last sample               
+===============================================================================
+^- 178.215.228.24                2   6    17    20   +217us[ +217us] +/-   12ms
+^- 131.111.8.61                  2   6    17    19   -750us[ -750us] +/- 6003us
+^* 139.143.5.30                  1   6    17    20    +72us[-1151us] +/- 4523us
+^- 131.111.8.63                  2   6    17    19  -1526us[-1526us] +/- 6798us
+---
+drwxr-x--- root:www-data /var/www/nel
+stat: cannot statx '/var/www/nel/index.html': Permission denied
+nel.conf
+enabled
+active
+## On srv-acq-01 (vagrant ssh): effective sshd settings, firewall, time, file perms
+maxauthtries 3
+permitrootlogin no
+passwordauthentication no
+kbdinteractiveauthentication no
+x11forwarding no
+banner /etc/issue.net
+---
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    Anywhere                   # NEL management SSH
+80/tcp                     ALLOW IN    Anywhere                   # NEL internal web service
+22/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL management SSH
+80/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL internal web service
+
+---
+                Time zone: Europe/London (GMT, +0000)
+System clock synchronized: yes
+              NTP service: active
+MS Name/IP address         Stratum Poll Reach LastRx Last sample               
+===============================================================================
+^+ 131.111.8.61                  2   6    17    25   -407us[  -11us] +/- 6283us
+^+ 178.215.228.24                2   6    17    26   -757us[ -361us] +/-   12ms
+^- 131.111.8.63                  2   6    17    25   -675us[ -675us] +/- 7119us
+^+ 139.143.5.30                  1   6    17    26   -274us[ +123us] +/- 4626us
+---
+drwxr-x--- root:www-data /var/www/nel
+stat: cannot statx '/var/www/nel/index.html': Permission denied
+nel.conf
+enabled
+active
+
+## Note: 'Permission denied' above = unprivileged user 'vagrant' cannot traverse the 0750 root:www-data web root (intended). Privileged check:
+## srv-main-01
+-rw-r----- root:www-data /var/www/nel/index.html
+## srv-acq-01
+-rw-r----- root:www-data /var/www/nel/index.html

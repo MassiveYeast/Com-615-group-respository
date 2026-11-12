@@ -1,0 +1,6 @@
+---
+# Defaults for the NEL internal web service (experiment AN-02).
+web_service_root: /var/www/nel
+web_service_port: 80
+# Group the nginx worker runs as on Ubuntu; content is readable by it but not world-readable.
+web_service_group: www-data

@@ -1,0 +1,10 @@
+﻿# srv-acq-01 state after --check (must still be drifted: check mode changes nothing) - 2026-11-12T19:59:47.3702756+00:00
+1e1c592b50a7fc2f4bd76ae176a7f720b58bb3baa363436804be66202fbe528e  /var/www/nel/index.html
+82164ada7c28dde6906a02e394a3a987d55965a37fedd520a9ea87f45a9a334c  /etc/ssh/sshd_config.d/10-nel-hardening.conf
+passwordauthentication yes
+[ 1] 22/tcp                     ALLOW IN    Anywhere                   # NEL management SSH
+[ 2] 80/tcp                     ALLOW IN    Anywhere                   # NEL internal web service
+[ 3] 8080/tcp                   ALLOW IN    Anywhere                   # manual test rule
+[ 4] 22/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL management SSH
+[ 5] 80/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL internal web service
+[ 6] 8080/tcp (v6)              ALLOW IN    Anywhere (v6)              # manual test rule

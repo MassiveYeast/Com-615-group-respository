@@ -1,0 +1,49 @@
+---
+# Read-only checks: they never report "changed" and fail the run if the service is wrong.
+# A successful ping proves only SSH works; these prove the SERVICE works (AN-02).
+
+- name: Collect service state
+  ansible.builtin.service_facts:
+
+- name: Assert nginx is running and enabled
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.services['nginx.service'].state == 'running'
+      - ansible_facts.services['nginx.service'].status == 'enabled'
+    fail_msg: nginx is not running and enabled on {{ inventory_hostname }}
+    success_msg: nginx running and enabled on {{ inventory_hostname }}
+
+# uri is skipped in --check mode by default, which left the asserts below with no data
+# (AN-04 run 17 failed this way). A GET changes nothing, so it is safe to always run it.
+- name: Fetch the page locally on the server
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ web_service_port }}/"
+    return_content: true
+  check_mode: false
+  register: web_service_local
+
+# From the control node: proves the page is reachable through the host firewall.
+- name: Fetch the page from the control node over the lab network
+  ansible.builtin.uri:
+    url: "http://{{ ansible_host }}:{{ web_service_port }}/"
+    return_content: true
+  delegate_to: localhost
+  become: false
+  check_mode: false
+  register: web_service_remote
+
+- name: Assert both fetches return this host's identification page
+  ansible.builtin.assert:
+    that:
+      - inventory_hostname in web_service_local.content
+      - inventory_hostname in web_service_remote.content
+      - nel_site_name in web_service_remote.content
+    fail_msg: Page served by {{ ansible_host }} does not identify {{ inventory_hostname }}
+    success_msg: "{{ inventory_hostname }} serves its own page ({{ nel_site_name }})"
+
+- name: Assert the server does not advertise its nginx version
+  ansible.builtin.assert:
+    that:
+      - web_service_remote.server | default('nginx') == 'nginx'
+    fail_msg: "Server header leaks the version: {{ web_service_remote.server | default('') }}"
+    success_msg: Server header hides the nginx version

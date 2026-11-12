@@ -1,0 +1,51 @@
+﻿# vagrant up - 2026-11-12T19:38:58.5764834+00:00
+Bringing machine 'srv-main-01' up with 'virtualbox' provider...
+Bringing machine 'srv-acq-01' up with 'virtualbox' provider...
+==> srv-main-01: Checking if box 'bento/ubuntu-24.04' version '202510.26.0' is up to date...
+==> srv-main-01: Resuming suspended VM...
+==> srv-main-01: Booting VM...
+==> srv-main-01: Waiting for machine to boot. This may take a few minutes...
+    srv-main-01: SSH address: 127.0.0.1:2222
+    srv-main-01: SSH username: vagrant
+    srv-main-01: SSH auth method: private key
+==> srv-main-01: Machine booted and ready!
+==> srv-main-01: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> srv-main-01: flag to force provisioning. Provisioners marked to run always will still run.
+==> srv-acq-01: Checking if box 'bento/ubuntu-24.04' version '202510.26.0' is up to date...
+==> srv-acq-01: Resuming suspended VM...
+==> srv-acq-01: Booting VM...
+==> srv-acq-01: Waiting for machine to boot. This may take a few minutes...
+    srv-acq-01: SSH address: 127.0.0.1:2200
+    srv-acq-01: SSH username: vagrant
+    srv-acq-01: SSH auth method: private key
+vagrant : Timed out while waiting for the machine to boot. This means that
+At line:1 char:577
++ ... out; $sw=[Diagnostics.Stopwatch]::StartNew(); vagrant up *>&1 | Out-F ...
++                                                   ~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Timed out while...This means that:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Vagrant was unable to communicate with the guest machine within
+the configured ("config.vm.boot_timeout" value) time period.
+
+If you look above, you should be able to see the error(s) that
+Vagrant had when attempting to connect to the machine. These errors
+are usually good hints as to what may be wrong.
+
+If you're using a custom box, make sure that networking is properly
+working and you're able to connect to the machine. It is a common
+problem that networking isn't setup properly in these boxes.
+Verify that authentication configurations are also setup properly,
+as well.
+
+If the box appears to be booting properly, you may want to increase
+the timeout ("config.vm.boot_timeout") value.
+# exit=1 elapsed_s=344
+Current machine states:
+
+srv-main-01               running (virtualbox)
+srv-acq-01                running (virtualbox)
+
+This environment represents multiple VMs. The VMs are all listed
+above with their current state. For more information about a specific
+VM, run `vagrant status NAME`.

@@ -1,0 +1,29 @@
+# command : ansible linux_servers -m ansible.builtin.ping
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-12T19:45:21+00:00
+
+srv-main-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+[ERROR]: Task failed: Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22 port 22: No route to host
+
+Task failed.
+Origin: <adhoc 'ansible.builtin.ping' task>
+
+{'action': 'ansible.builtin.ping', 'args': {}, 'timeout': 0, 'async_val': 0, 'poll': 15}
+
+<<< caused by >>>
+
+Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22 port 22: No route to host
+
+srv-acq-01 | UNREACHABLE! => 
+    changed: false
+    msg: 'Task failed: Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22
+        port 22: No route to host'
+    unreachable: true
+
+# end     : 2026-11-12T19:45:24+00:00
+# exit    : 4
+# wall_s  : 3.303

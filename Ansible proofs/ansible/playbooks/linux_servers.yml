@@ -1,0 +1,14 @@
+---
+# Applies NEL's standard Linux configuration to every Linux server at every site.
+#
+#   ansible-playbook playbooks/linux_servers.yml            # apply
+#   ansible-playbook playbooks/linux_servers.yml --check --diff   # report drift, change nothing
+#
+# Experiments: AN-02 (first run), AN-03 (idempotency), AN-04 (drift), AN-05 (failure).
+
+- name: Apply the NEL Linux baseline and web service
+  hosts: linux_servers
+  gather_facts: true
+  roles:
+    - role: linux_baseline
+    - role: web_service

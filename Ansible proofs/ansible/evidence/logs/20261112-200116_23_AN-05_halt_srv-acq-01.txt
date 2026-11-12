@@ -1,0 +1,7 @@
+﻿# AN-05: controlled outage - graceful power-off of disposable lab VM srv-acq-01 - 2026-11-12T20:01:16.2524620+00:00
+==> srv-acq-01: Attempting graceful shutdown of VM...
+
+srv-main-01               running (virtualbox)
+srv-acq-01                poweroff (virtualbox)
+
+

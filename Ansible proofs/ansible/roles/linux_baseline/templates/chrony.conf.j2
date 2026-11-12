@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+# NEL time synchronisation - sources come from inventory/group_vars/all/vars.yml
+{% for server in nel_ntp_servers %}
+pool {{ server }} iburst
+{% endfor %}
+
+driftfile /var/lib/chrony/chrony.drift
+makestep 1.0 3
+rtcsync
+logdir /var/log/chrony

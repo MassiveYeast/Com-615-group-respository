@@ -217,3 +217,1397 @@ Origin: /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/play
     "community.general.sesu": "CA Privileged Access Manager",
     "community.general.sudosu": "Run tasks using sudo su -"
 }
+2026-11-12 19:45:23,272 p=423 u=yassine n=ansible INFO| srv-main-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+
+2026-11-12 19:45:24,763 p=423 u=yassine n=ansible ERROR| [ERROR]: Task failed: Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22 port 22: No route to host
+
+Task failed.
+Origin: <adhoc 'ansible.builtin.ping' task>
+
+{'action': 'ansible.builtin.ping', 'args': {}, 'timeout': 0, 'async_val': 0, 'poll': 15}
+
+<<< caused by >>>
+
+Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22 port 22: No route to host
+
+
+2026-11-12 19:45:24,764 p=423 u=yassine n=ansible INFO| srv-acq-01 | UNREACHABLE! => 
+    changed: false
+    msg: 'Task failed: Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22
+        port 22: No route to host'
+    unreachable: true
+
+2026-11-12 19:49:10,225 p=399 u=yassine n=ansible INFO| srv-acq-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+
+2026-11-12 19:49:10,434 p=399 u=yassine n=ansible INFO| srv-main-01 | SUCCESS => 
+    ansible_facts:
+        discovered_interpreter_python: /usr/bin/python3.12
+    changed: false
+    ping: pong
+
+2026-11-12 19:51:22,890 p=467 u=yassine n=ansible INFO| PLAY [Apply the NEL Linux baseline and web service] ****************************
+2026-11-12 19:51:22,980 p=467 u=yassine n=ansible INFO| TASK [Gathering Facts] *********************************************************
+2026-11-12 19:51:22,981 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:51:22 +0000 (0:00:00.095)       0:00:00.095 ***** 
+2026-11-12 19:51:25,399 p=467 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:51:25,504 p=467 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:51:25,517 p=467 u=yassine n=ansible INFO| TASK [linux_baseline : Install baseline packages] ******************************
+2026-11-12 19:51:25,518 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:51:25 +0000 (0:00:02.537)       0:00:02.632 ***** 
+2026-11-12 19:51:50,194 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:51:52,809 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:51:52,826 p=467 u=yassine n=ansible INFO| TASK [linux_baseline : Set the system timezone] ********************************
+2026-11-12 19:51:52,827 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:51:52 +0000 (0:00:27.308)       0:00:29.941 ***** 
+2026-11-12 19:51:53,587 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:51:53,592 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:51:53,610 p=467 u=yassine n=ansible INFO| TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+2026-11-12 19:51:53,610 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:51:53 +0000 (0:00:00.783)       0:00:30.725 ***** 
+2026-11-12 19:51:54,691 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:51:54,708 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:51:54,724 p=467 u=yassine n=ansible INFO| TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+2026-11-12 19:51:54,725 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:51:54 +0000 (0:00:01.114)       0:00:31.839 ***** 
+2026-11-12 19:51:55,493 p=467 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:51:55,513 p=467 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:51:55,530 p=467 u=yassine n=ansible INFO| TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+2026-11-12 19:51:55,531 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:51:55 +0000 (0:00:00.805)       0:00:32.645 ***** 
+2026-11-12 19:51:56,336 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:51:56,396 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:51:56,413 p=467 u=yassine n=ansible INFO| TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+2026-11-12 19:51:56,414 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:51:56 +0000 (0:00:00.883)       0:00:33.528 ***** 
+2026-11-12 19:51:57,180 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:51:57,230 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:51:57,248 p=467 u=yassine n=ansible INFO| TASK [linux_baseline : Allow SSH through the host firewall] ********************
+2026-11-12 19:51:57,248 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:51:57 +0000 (0:00:00.834)       0:00:34.362 ***** 
+2026-11-12 19:51:58,278 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:51:58,302 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:51:58,319 p=467 u=yassine n=ansible INFO| TASK [linux_baseline : Enable the host firewall with default deny inbound] *****
+2026-11-12 19:51:58,319 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:51:58 +0000 (0:00:01.070)       0:00:35.433 ***** 
+2026-11-12 19:52:00,919 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:52:01,172 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:52:01,222 p=467 u=yassine n=ansible INFO| TASK [web_service : Install nginx] *********************************************
+2026-11-12 19:52:01,223 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:01 +0000 (0:00:02.903)       0:00:38.337 ***** 
+2026-11-12 19:52:11,027 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:52:11,385 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:52:11,402 p=467 u=yassine n=ansible INFO| TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+2026-11-12 19:52:11,403 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:11 +0000 (0:00:10.179)       0:00:48.517 ***** 
+2026-11-12 19:52:11,888 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:52:11,903 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:52:11,919 p=467 u=yassine n=ansible INFO| TASK [web_service : Deploy the identification page] ****************************
+2026-11-12 19:52:11,919 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:11 +0000 (0:00:00.516)       0:00:49.033 ***** 
+2026-11-12 19:52:12,735 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:52:12,779 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:52:12,796 p=467 u=yassine n=ansible INFO| TASK [web_service : Deploy the NEL site configuration] *************************
+2026-11-12 19:52:12,797 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:12 +0000 (0:00:00.877)       0:00:49.911 ***** 
+2026-11-12 19:52:13,601 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:52:13,661 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:52:13,678 p=467 u=yassine n=ansible INFO| TASK [web_service : Enable the NEL site] ***************************************
+2026-11-12 19:52:13,678 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:13 +0000 (0:00:00.881)       0:00:50.793 ***** 
+2026-11-12 19:52:14,032 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:52:14,052 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:52:14,067 p=467 u=yassine n=ansible INFO| TASK [web_service : Disable the distribution default site] *********************
+2026-11-12 19:52:14,068 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:14 +0000 (0:00:00.389)       0:00:51.182 ***** 
+2026-11-12 19:52:14,433 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:52:14,447 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:52:14,465 p=467 u=yassine n=ansible INFO| TASK [web_service : Allow HTTP through the host firewall] **********************
+2026-11-12 19:52:14,465 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:14 +0000 (0:00:00.397)       0:00:51.579 ***** 
+2026-11-12 19:52:15,287 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:52:15,428 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:52:15,445 p=467 u=yassine n=ansible INFO| TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+2026-11-12 19:52:15,446 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:15 +0000 (0:00:00.980)       0:00:52.560 ***** 
+2026-11-12 19:52:16,093 p=467 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:52:16,098 p=467 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:52:16,114 p=467 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 19:52:16,115 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:16 +0000 (0:00:00.669)       0:00:53.229 ***** 
+2026-11-12 19:52:16,122 p=467 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 19:52:16,123 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:16 +0000 (0:00:00.007)       0:00:53.237 ***** 
+2026-11-12 19:52:16,130 p=467 u=yassine n=ansible INFO| RUNNING HANDLER [linux_baseline : Restart chrony] ******************************
+2026-11-12 19:52:16,130 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:16 +0000 (0:00:00.007)       0:00:53.245 ***** 
+2026-11-12 19:52:16,863 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:52:16,906 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:52:16,917 p=467 u=yassine n=ansible INFO| RUNNING HANDLER [linux_baseline : Reload ssh] **********************************
+2026-11-12 19:52:16,918 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:16 +0000 (0:00:00.787)       0:00:54.032 ***** 
+2026-11-12 19:52:17,578 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:52:17,625 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:52:17,636 p=467 u=yassine n=ansible INFO| RUNNING HANDLER [web_service : Check nginx configuration] **********************
+2026-11-12 19:52:17,637 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:17 +0000 (0:00:00.719)       0:00:54.751 ***** 
+2026-11-12 19:52:18,119 p=467 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:52:18,140 p=467 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:52:18,151 p=467 u=yassine n=ansible INFO| RUNNING HANDLER [web_service : Reload nginx] ***********************************
+2026-11-12 19:52:18,151 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:18 +0000 (0:00:00.514)       0:00:55.266 ***** 
+2026-11-12 19:52:18,765 p=467 u=yassine n=ansible INFO| changed: [srv-main-01]
+2026-11-12 19:52:18,801 p=467 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:52:18,824 p=467 u=yassine n=ansible INFO| TASK [web_service : Collect service state] *************************************
+2026-11-12 19:52:18,825 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:18 +0000 (0:00:00.673)       0:00:55.939 ***** 
+2026-11-12 19:52:23,047 p=467 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:52:23,399 p=467 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:52:23,425 p=467 u=yassine n=ansible INFO| TASK [web_service : Assert nginx is running and enabled] ***********************
+2026-11-12 19:52:23,426 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:23 +0000 (0:00:04.600)       0:01:00.540 ***** 
+2026-11-12 19:52:23,463 p=467 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-main-01
+
+2026-11-12 19:52:23,475 p=467 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-acq-01
+
+2026-11-12 19:52:23,499 p=467 u=yassine n=ansible INFO| TASK [web_service : Fetch the page locally on the server] **********************
+2026-11-12 19:52:23,500 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:23 +0000 (0:00:00.074)       0:01:00.614 ***** 
+2026-11-12 19:52:24,190 p=467 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:52:24,198 p=467 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:52:24,223 p=467 u=yassine n=ansible INFO| TASK [web_service : Fetch the page from the control node over the lab network] ***
+2026-11-12 19:52:24,224 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:24 +0000 (0:00:00.723)       0:01:01.338 ***** 
+2026-11-12 19:52:24,610 p=467 u=yassine n=ansible INFO| ok: [srv-main-01 -> localhost]
+2026-11-12 19:52:24,621 p=467 u=yassine n=ansible INFO| ok: [srv-acq-01 -> localhost]
+2026-11-12 19:52:24,644 p=467 u=yassine n=ansible INFO| TASK [web_service : Assert both fetches return this host's identification page] ***
+2026-11-12 19:52:24,644 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:24 +0000 (0:00:00.420)       0:01:01.759 ***** 
+2026-11-12 19:52:24,684 p=467 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: srv-main-01 serves its own page (Main site)
+
+2026-11-12 19:52:24,695 p=467 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: srv-acq-01 serves its own page (Acquired site)
+
+2026-11-12 19:52:24,719 p=467 u=yassine n=ansible INFO| TASK [web_service : Assert the server does not advertise its nginx version] ****
+2026-11-12 19:52:24,720 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:24 +0000 (0:00:00.075)       0:01:01.834 ***** 
+2026-11-12 19:52:24,767 p=467 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 19:52:24,778 p=467 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 19:52:24,810 p=467 u=yassine n=ansible INFO| PLAY RECAP *********************************************************************
+2026-11-12 19:52:24,811 p=467 u=yassine n=ansible INFO| srv-acq-01                 : ok=27   changed=17   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 19:52:24,811 p=467 u=yassine n=ansible INFO| srv-main-01                : ok=27   changed=17   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 19:52:24,812 p=467 u=yassine n=ansible INFO| TASKS RECAP ********************************************************************
+2026-11-12 19:52:24,812 p=467 u=yassine n=ansible INFO| Thursday 12 November 2026  19:52:24 +0000 (0:00:00.092)       0:01:01.926 ***** 
+2026-11-12 19:52:24,813 p=467 u=yassine n=ansible INFO| =============================================================================== 
+2026-11-12 19:52:24,813 p=467 u=yassine n=ansible INFO| linux_baseline : Install baseline packages ----------------------------- 27.31s
+2026-11-12 19:52:24,814 p=467 u=yassine n=ansible INFO| web_service : Install nginx -------------------------------------------- 10.18s
+2026-11-12 19:52:24,814 p=467 u=yassine n=ansible INFO| web_service : Collect service state ------------------------------------- 4.60s
+2026-11-12 19:52:24,815 p=467 u=yassine n=ansible INFO| linux_baseline : Enable the host firewall with default deny inbound ----- 2.90s
+2026-11-12 19:52:24,815 p=467 u=yassine n=ansible INFO| Gathering Facts --------------------------------------------------------- 2.54s
+2026-11-12 19:52:24,816 p=467 u=yassine n=ansible INFO| linux_baseline : Configure chrony with the NEL NTP servers -------------- 1.11s
+2026-11-12 19:52:24,816 p=467 u=yassine n=ansible INFO| linux_baseline : Allow SSH through the host firewall -------------------- 1.07s
+2026-11-12 19:52:24,817 p=467 u=yassine n=ansible INFO| web_service : Allow HTTP through the host firewall ---------------------- 0.98s
+2026-11-12 19:52:24,817 p=467 u=yassine n=ansible INFO| linux_baseline : Set the pre-login banner shown by SSH ------------------ 0.88s
+2026-11-12 19:52:24,818 p=467 u=yassine n=ansible INFO| web_service : Deploy the NEL site configuration ------------------------- 0.88s
+2026-11-12 19:52:24,818 p=467 u=yassine n=ansible INFO| web_service : Deploy the identification page ---------------------------- 0.88s
+2026-11-12 19:52:24,819 p=467 u=yassine n=ansible INFO| linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 0.83s
+2026-11-12 19:52:24,819 p=467 u=yassine n=ansible INFO| linux_baseline : Ensure chrony is enabled and running ------------------- 0.81s
+2026-11-12 19:52:24,820 p=467 u=yassine n=ansible INFO| linux_baseline : Restart chrony ----------------------------------------- 0.79s
+2026-11-12 19:52:24,820 p=467 u=yassine n=ansible INFO| linux_baseline : Set the system timezone -------------------------------- 0.78s
+2026-11-12 19:52:24,821 p=467 u=yassine n=ansible INFO| web_service : Fetch the page locally on the server ---------------------- 0.72s
+2026-11-12 19:52:24,821 p=467 u=yassine n=ansible INFO| linux_baseline : Reload ssh --------------------------------------------- 0.72s
+2026-11-12 19:52:24,822 p=467 u=yassine n=ansible INFO| web_service : Reload nginx ---------------------------------------------- 0.67s
+2026-11-12 19:52:24,822 p=467 u=yassine n=ansible INFO| web_service : Ensure nginx is enabled at boot and running --------------- 0.67s
+2026-11-12 19:52:24,822 p=467 u=yassine n=ansible INFO| web_service : Create the web root (owned by root, readable only by the nginx group) --- 0.52s
+2026-11-12 19:52:24,823 p=467 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
+2026-11-12 19:52:24,824 p=467 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 1 minutes, 1 seconds
+
+2026-11-12 19:56:24,054 p=414 u=yassine n=ansible INFO| PLAY [Apply the NEL Linux baseline and web service] ****************************
+2026-11-12 19:56:24,137 p=414 u=yassine n=ansible INFO| TASK [Gathering Facts] *********************************************************
+2026-11-12 19:56:24,138 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:24 +0000 (0:00:00.088)       0:00:00.088 ***** 
+2026-11-12 19:56:26,416 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:26,598 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:26,611 p=414 u=yassine n=ansible INFO| TASK [linux_baseline : Install baseline packages] ******************************
+2026-11-12 19:56:26,612 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:26 +0000 (0:00:02.473)       0:00:02.562 ***** 
+2026-11-12 19:56:29,854 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:30,187 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:30,204 p=414 u=yassine n=ansible INFO| TASK [linux_baseline : Set the system timezone] ********************************
+2026-11-12 19:56:30,204 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:30 +0000 (0:00:03.592)       0:00:06.155 ***** 
+2026-11-12 19:56:30,784 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:30,808 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:30,824 p=414 u=yassine n=ansible INFO| TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+2026-11-12 19:56:30,824 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:30 +0000 (0:00:00.620)       0:00:06.775 ***** 
+2026-11-12 19:56:31,651 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:31,664 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:31,681 p=414 u=yassine n=ansible INFO| TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+2026-11-12 19:56:31,682 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:31 +0000 (0:00:00.857)       0:00:07.632 ***** 
+2026-11-12 19:56:32,423 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:32,446 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:32,462 p=414 u=yassine n=ansible INFO| TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+2026-11-12 19:56:32,463 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:32 +0000 (0:00:00.781)       0:00:08.413 ***** 
+2026-11-12 19:56:33,082 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:33,137 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:33,152 p=414 u=yassine n=ansible INFO| TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+2026-11-12 19:56:33,152 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:33 +0000 (0:00:00.689)       0:00:09.103 ***** 
+2026-11-12 19:56:33,886 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:33,933 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:33,950 p=414 u=yassine n=ansible INFO| TASK [linux_baseline : Allow SSH through the host firewall] ********************
+2026-11-12 19:56:33,950 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:33 +0000 (0:00:00.798)       0:00:09.901 ***** 
+2026-11-12 19:56:34,804 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:34,871 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:34,888 p=414 u=yassine n=ansible INFO| TASK [linux_baseline : Enable the host firewall with default deny inbound] *****
+2026-11-12 19:56:34,888 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:34 +0000 (0:00:00.937)       0:00:10.839 ***** 
+2026-11-12 19:56:35,830 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:35,990 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:36,032 p=414 u=yassine n=ansible INFO| TASK [web_service : Install nginx] *********************************************
+2026-11-12 19:56:36,032 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:36 +0000 (0:00:01.143)       0:00:11.983 ***** 
+2026-11-12 19:56:39,133 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:39,389 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:39,404 p=414 u=yassine n=ansible INFO| TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+2026-11-12 19:56:39,406 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:39 +0000 (0:00:03.373)       0:00:15.356 ***** 
+2026-11-12 19:56:39,691 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:39,700 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:39,716 p=414 u=yassine n=ansible INFO| TASK [web_service : Deploy the identification page] ****************************
+2026-11-12 19:56:39,717 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:39 +0000 (0:00:00.311)       0:00:15.667 ***** 
+2026-11-12 19:56:40,480 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:40,538 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:40,554 p=414 u=yassine n=ansible INFO| TASK [web_service : Deploy the NEL site configuration] *************************
+2026-11-12 19:56:40,555 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:40 +0000 (0:00:00.838)       0:00:16.505 ***** 
+2026-11-12 19:56:41,282 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:41,360 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:41,376 p=414 u=yassine n=ansible INFO| TASK [web_service : Enable the NEL site] ***************************************
+2026-11-12 19:56:41,377 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:41 +0000 (0:00:00.822)       0:00:17.327 ***** 
+2026-11-12 19:56:41,687 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:41,712 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:41,729 p=414 u=yassine n=ansible INFO| TASK [web_service : Disable the distribution default site] *********************
+2026-11-12 19:56:41,729 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:41 +0000 (0:00:00.352)       0:00:17.680 ***** 
+2026-11-12 19:56:42,091 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:42,116 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:42,132 p=414 u=yassine n=ansible INFO| TASK [web_service : Allow HTTP through the host firewall] **********************
+2026-11-12 19:56:42,133 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:42 +0000 (0:00:00.403)       0:00:18.083 ***** 
+2026-11-12 19:56:42,923 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:42,987 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:43,003 p=414 u=yassine n=ansible INFO| TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+2026-11-12 19:56:43,004 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:43 +0000 (0:00:00.871)       0:00:18.954 ***** 
+2026-11-12 19:56:43,569 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:43,611 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:43,628 p=414 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 19:56:43,629 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:43 +0000 (0:00:00.625)       0:00:19.579 ***** 
+2026-11-12 19:56:43,635 p=414 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 19:56:43,636 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:43 +0000 (0:00:00.006)       0:00:19.586 ***** 
+2026-11-12 19:56:43,653 p=414 u=yassine n=ansible INFO| TASK [web_service : Collect service state] *************************************
+2026-11-12 19:56:43,654 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:43 +0000 (0:00:00.017)       0:00:19.604 ***** 
+2026-11-12 19:56:48,080 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:48,591 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:48,622 p=414 u=yassine n=ansible INFO| TASK [web_service : Assert nginx is running and enabled] ***********************
+2026-11-12 19:56:48,623 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:48 +0000 (0:00:04.968)       0:00:24.573 ***** 
+2026-11-12 19:56:48,658 p=414 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-main-01
+
+2026-11-12 19:56:48,668 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-acq-01
+
+2026-11-12 19:56:48,692 p=414 u=yassine n=ansible INFO| TASK [web_service : Fetch the page locally on the server] **********************
+2026-11-12 19:56:48,693 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:48 +0000 (0:00:00.069)       0:00:24.643 ***** 
+2026-11-12 19:56:49,355 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:49,363 p=414 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:49,387 p=414 u=yassine n=ansible INFO| TASK [web_service : Fetch the page from the control node over the lab network] ***
+2026-11-12 19:56:49,387 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:49 +0000 (0:00:00.694)       0:00:25.338 ***** 
+2026-11-12 19:56:49,719 p=414 u=yassine n=ansible INFO| ok: [srv-main-01 -> localhost]
+2026-11-12 19:56:49,729 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01 -> localhost]
+2026-11-12 19:56:49,752 p=414 u=yassine n=ansible INFO| TASK [web_service : Assert both fetches return this host's identification page] ***
+2026-11-12 19:56:49,753 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:49 +0000 (0:00:00.365)       0:00:25.703 ***** 
+2026-11-12 19:56:49,790 p=414 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: srv-main-01 serves its own page (Main site)
+
+2026-11-12 19:56:49,800 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: srv-acq-01 serves its own page (Acquired site)
+
+2026-11-12 19:56:49,822 p=414 u=yassine n=ansible INFO| TASK [web_service : Assert the server does not advertise its nginx version] ****
+2026-11-12 19:56:49,823 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:49 +0000 (0:00:00.070)       0:00:25.773 ***** 
+2026-11-12 19:56:49,872 p=414 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 19:56:49,884 p=414 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 19:56:49,914 p=414 u=yassine n=ansible INFO| PLAY RECAP *********************************************************************
+2026-11-12 19:56:49,915 p=414 u=yassine n=ansible INFO| srv-acq-01                 : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 19:56:49,915 p=414 u=yassine n=ansible INFO| srv-main-01                : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 19:56:49,915 p=414 u=yassine n=ansible INFO| TASKS RECAP ********************************************************************
+2026-11-12 19:56:49,916 p=414 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:49 +0000 (0:00:00.093)       0:00:25.866 ***** 
+2026-11-12 19:56:49,916 p=414 u=yassine n=ansible INFO| =============================================================================== 
+2026-11-12 19:56:49,917 p=414 u=yassine n=ansible INFO| web_service : Collect service state ------------------------------------- 4.97s
+2026-11-12 19:56:49,917 p=414 u=yassine n=ansible INFO| linux_baseline : Install baseline packages ------------------------------ 3.59s
+2026-11-12 19:56:49,918 p=414 u=yassine n=ansible INFO| web_service : Install nginx --------------------------------------------- 3.37s
+2026-11-12 19:56:49,918 p=414 u=yassine n=ansible INFO| Gathering Facts --------------------------------------------------------- 2.47s
+2026-11-12 19:56:49,919 p=414 u=yassine n=ansible INFO| linux_baseline : Enable the host firewall with default deny inbound ----- 1.14s
+2026-11-12 19:56:49,919 p=414 u=yassine n=ansible INFO| linux_baseline : Allow SSH through the host firewall -------------------- 0.94s
+2026-11-12 19:56:49,920 p=414 u=yassine n=ansible INFO| web_service : Allow HTTP through the host firewall ---------------------- 0.87s
+2026-11-12 19:56:49,920 p=414 u=yassine n=ansible INFO| linux_baseline : Configure chrony with the NEL NTP servers -------------- 0.86s
+2026-11-12 19:56:49,921 p=414 u=yassine n=ansible INFO| web_service : Deploy the identification page ---------------------------- 0.84s
+2026-11-12 19:56:49,921 p=414 u=yassine n=ansible INFO| web_service : Deploy the NEL site configuration ------------------------- 0.82s
+2026-11-12 19:56:49,922 p=414 u=yassine n=ansible INFO| linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 0.80s
+2026-11-12 19:56:49,922 p=414 u=yassine n=ansible INFO| linux_baseline : Ensure chrony is enabled and running ------------------- 0.78s
+2026-11-12 19:56:49,922 p=414 u=yassine n=ansible INFO| web_service : Fetch the page locally on the server ---------------------- 0.69s
+2026-11-12 19:56:49,923 p=414 u=yassine n=ansible INFO| linux_baseline : Set the pre-login banner shown by SSH ------------------ 0.69s
+2026-11-12 19:56:49,923 p=414 u=yassine n=ansible INFO| web_service : Ensure nginx is enabled at boot and running --------------- 0.63s
+2026-11-12 19:56:49,924 p=414 u=yassine n=ansible INFO| linux_baseline : Set the system timezone -------------------------------- 0.62s
+2026-11-12 19:56:49,924 p=414 u=yassine n=ansible INFO| web_service : Disable the distribution default site --------------------- 0.40s
+2026-11-12 19:56:49,925 p=414 u=yassine n=ansible INFO| web_service : Fetch the page from the control node over the lab network --- 0.37s
+2026-11-12 19:56:49,925 p=414 u=yassine n=ansible INFO| web_service : Enable the NEL site --------------------------------------- 0.35s
+2026-11-12 19:56:49,925 p=414 u=yassine n=ansible INFO| web_service : Create the web root (owned by root, readable only by the nginx group) --- 0.31s
+2026-11-12 19:56:49,926 p=414 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
+2026-11-12 19:56:49,926 p=414 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 0 minutes, 25 seconds
+
+2026-11-12 19:56:51,221 p=630 u=yassine n=ansible INFO| PLAY [Apply the NEL Linux baseline and web service] ****************************
+2026-11-12 19:56:51,297 p=630 u=yassine n=ansible INFO| TASK [Gathering Facts] *********************************************************
+2026-11-12 19:56:51,298 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:51 +0000 (0:00:00.080)       0:00:00.080 ***** 
+2026-11-12 19:56:52,591 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:52,641 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:52,654 p=630 u=yassine n=ansible INFO| TASK [linux_baseline : Install baseline packages] ******************************
+2026-11-12 19:56:52,655 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:52 +0000 (0:00:01.356)       0:00:01.437 ***** 
+2026-11-12 19:56:55,923 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:56,218 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:56,234 p=630 u=yassine n=ansible INFO| TASK [linux_baseline : Set the system timezone] ********************************
+2026-11-12 19:56:56,235 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:56 +0000 (0:00:03.580)       0:00:05.017 ***** 
+2026-11-12 19:56:56,726 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:56,737 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:56,754 p=630 u=yassine n=ansible INFO| TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+2026-11-12 19:56:56,754 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:56 +0000 (0:00:00.519)       0:00:05.536 ***** 
+2026-11-12 19:56:57,706 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:57,725 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:57,742 p=630 u=yassine n=ansible INFO| TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+2026-11-12 19:56:57,742 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:57 +0000 (0:00:00.988)       0:00:06.524 ***** 
+2026-11-12 19:56:58,522 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:58,546 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:58,565 p=630 u=yassine n=ansible INFO| TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+2026-11-12 19:56:58,566 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:58 +0000 (0:00:00.823)       0:00:07.348 ***** 
+2026-11-12 19:56:59,265 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:56:59,376 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:56:59,394 p=630 u=yassine n=ansible INFO| TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+2026-11-12 19:56:59,395 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:56:59 +0000 (0:00:00.829)       0:00:08.177 ***** 
+2026-11-12 19:57:00,135 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:00,239 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:00,255 p=630 u=yassine n=ansible INFO| TASK [linux_baseline : Allow SSH through the host firewall] ********************
+2026-11-12 19:57:00,256 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:00 +0000 (0:00:00.860)       0:00:09.038 ***** 
+2026-11-12 19:57:01,094 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:01,205 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:01,221 p=630 u=yassine n=ansible INFO| TASK [linux_baseline : Enable the host firewall with default deny inbound] *****
+2026-11-12 19:57:01,222 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:01 +0000 (0:00:00.965)       0:00:10.004 ***** 
+2026-11-12 19:57:02,126 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:02,267 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:02,307 p=630 u=yassine n=ansible INFO| TASK [web_service : Install nginx] *********************************************
+2026-11-12 19:57:02,308 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:02 +0000 (0:00:01.086)       0:00:11.090 ***** 
+2026-11-12 19:57:05,493 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:05,793 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:05,809 p=630 u=yassine n=ansible INFO| TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+2026-11-12 19:57:05,810 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:05 +0000 (0:00:03.501)       0:00:14.592 ***** 
+2026-11-12 19:57:06,183 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:06,205 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:06,221 p=630 u=yassine n=ansible INFO| TASK [web_service : Deploy the identification page] ****************************
+2026-11-12 19:57:06,221 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:06 +0000 (0:00:00.411)       0:00:15.003 ***** 
+2026-11-12 19:57:06,969 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:07,031 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:07,047 p=630 u=yassine n=ansible INFO| TASK [web_service : Deploy the NEL site configuration] *************************
+2026-11-12 19:57:07,047 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:07 +0000 (0:00:00.825)       0:00:15.829 ***** 
+2026-11-12 19:57:07,849 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:07,898 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:07,914 p=630 u=yassine n=ansible INFO| TASK [web_service : Enable the NEL site] ***************************************
+2026-11-12 19:57:07,914 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:07 +0000 (0:00:00.867)       0:00:16.697 ***** 
+2026-11-12 19:57:08,279 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:08,309 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:08,326 p=630 u=yassine n=ansible INFO| TASK [web_service : Disable the distribution default site] *********************
+2026-11-12 19:57:08,327 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:08 +0000 (0:00:00.412)       0:00:17.109 ***** 
+2026-11-12 19:57:08,695 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:08,718 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:08,733 p=630 u=yassine n=ansible INFO| TASK [web_service : Allow HTTP through the host firewall] **********************
+2026-11-12 19:57:08,734 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:08 +0000 (0:00:00.407)       0:00:17.516 ***** 
+2026-11-12 19:57:09,524 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:09,604 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:09,620 p=630 u=yassine n=ansible INFO| TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+2026-11-12 19:57:09,621 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:09 +0000 (0:00:00.887)       0:00:18.403 ***** 
+2026-11-12 19:57:10,212 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:10,217 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:10,234 p=630 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 19:57:10,235 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:10 +0000 (0:00:00.613)       0:00:19.017 ***** 
+2026-11-12 19:57:10,243 p=630 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 19:57:10,244 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:10 +0000 (0:00:00.009)       0:00:19.026 ***** 
+2026-11-12 19:57:10,264 p=630 u=yassine n=ansible INFO| TASK [web_service : Collect service state] *************************************
+2026-11-12 19:57:10,264 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:10 +0000 (0:00:00.020)       0:00:19.046 ***** 
+2026-11-12 19:57:14,605 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:15,130 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:15,152 p=630 u=yassine n=ansible INFO| TASK [web_service : Assert nginx is running and enabled] ***********************
+2026-11-12 19:57:15,153 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:15 +0000 (0:00:04.888)       0:00:23.935 ***** 
+2026-11-12 19:57:15,202 p=630 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-main-01
+
+2026-11-12 19:57:15,216 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-acq-01
+
+2026-11-12 19:57:15,240 p=630 u=yassine n=ansible INFO| TASK [web_service : Fetch the page locally on the server] **********************
+2026-11-12 19:57:15,241 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:15 +0000 (0:00:00.087)       0:00:24.023 ***** 
+2026-11-12 19:57:15,876 p=630 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:57:15,905 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:57:15,930 p=630 u=yassine n=ansible INFO| TASK [web_service : Fetch the page from the control node over the lab network] ***
+2026-11-12 19:57:15,931 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:15 +0000 (0:00:00.690)       0:00:24.713 ***** 
+2026-11-12 19:57:16,246 p=630 u=yassine n=ansible INFO| ok: [srv-main-01 -> localhost]
+2026-11-12 19:57:16,264 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01 -> localhost]
+2026-11-12 19:57:16,287 p=630 u=yassine n=ansible INFO| TASK [web_service : Assert both fetches return this host's identification page] ***
+2026-11-12 19:57:16,288 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:16 +0000 (0:00:00.356)       0:00:25.070 ***** 
+2026-11-12 19:57:16,326 p=630 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: srv-main-01 serves its own page (Main site)
+
+2026-11-12 19:57:16,336 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: srv-acq-01 serves its own page (Acquired site)
+
+2026-11-12 19:57:16,359 p=630 u=yassine n=ansible INFO| TASK [web_service : Assert the server does not advertise its nginx version] ****
+2026-11-12 19:57:16,360 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:16 +0000 (0:00:00.071)       0:00:25.142 ***** 
+2026-11-12 19:57:16,405 p=630 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 19:57:16,415 p=630 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 19:57:16,444 p=630 u=yassine n=ansible INFO| PLAY RECAP *********************************************************************
+2026-11-12 19:57:16,445 p=630 u=yassine n=ansible INFO| srv-acq-01                 : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 19:57:16,446 p=630 u=yassine n=ansible INFO| srv-main-01                : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 19:57:16,446 p=630 u=yassine n=ansible INFO| TASKS RECAP ********************************************************************
+2026-11-12 19:57:16,447 p=630 u=yassine n=ansible INFO| Thursday 12 November 2026  19:57:16 +0000 (0:00:00.087)       0:00:25.229 ***** 
+2026-11-12 19:57:16,447 p=630 u=yassine n=ansible INFO| =============================================================================== 
+2026-11-12 19:57:16,447 p=630 u=yassine n=ansible INFO| web_service : Collect service state ------------------------------------- 4.89s
+2026-11-12 19:57:16,448 p=630 u=yassine n=ansible INFO| linux_baseline : Install baseline packages ------------------------------ 3.58s
+2026-11-12 19:57:16,448 p=630 u=yassine n=ansible INFO| web_service : Install nginx --------------------------------------------- 3.50s
+2026-11-12 19:57:16,449 p=630 u=yassine n=ansible INFO| Gathering Facts --------------------------------------------------------- 1.36s
+2026-11-12 19:57:16,449 p=630 u=yassine n=ansible INFO| linux_baseline : Enable the host firewall with default deny inbound ----- 1.09s
+2026-11-12 19:57:16,449 p=630 u=yassine n=ansible INFO| linux_baseline : Configure chrony with the NEL NTP servers -------------- 0.99s
+2026-11-12 19:57:16,450 p=630 u=yassine n=ansible INFO| linux_baseline : Allow SSH through the host firewall -------------------- 0.97s
+2026-11-12 19:57:16,450 p=630 u=yassine n=ansible INFO| web_service : Allow HTTP through the host firewall ---------------------- 0.89s
+2026-11-12 19:57:16,451 p=630 u=yassine n=ansible INFO| web_service : Deploy the NEL site configuration ------------------------- 0.87s
+2026-11-12 19:57:16,451 p=630 u=yassine n=ansible INFO| linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 0.86s
+2026-11-12 19:57:16,451 p=630 u=yassine n=ansible INFO| linux_baseline : Set the pre-login banner shown by SSH ------------------ 0.83s
+2026-11-12 19:57:16,452 p=630 u=yassine n=ansible INFO| web_service : Deploy the identification page ---------------------------- 0.83s
+2026-11-12 19:57:16,452 p=630 u=yassine n=ansible INFO| linux_baseline : Ensure chrony is enabled and running ------------------- 0.82s
+2026-11-12 19:57:16,453 p=630 u=yassine n=ansible INFO| web_service : Fetch the page locally on the server ---------------------- 0.69s
+2026-11-12 19:57:16,453 p=630 u=yassine n=ansible INFO| web_service : Ensure nginx is enabled at boot and running --------------- 0.61s
+2026-11-12 19:57:16,454 p=630 u=yassine n=ansible INFO| linux_baseline : Set the system timezone -------------------------------- 0.52s
+2026-11-12 19:57:16,454 p=630 u=yassine n=ansible INFO| web_service : Enable the NEL site --------------------------------------- 0.41s
+2026-11-12 19:57:16,454 p=630 u=yassine n=ansible INFO| web_service : Create the web root (owned by root, readable only by the nginx group) --- 0.41s
+2026-11-12 19:57:16,455 p=630 u=yassine n=ansible INFO| web_service : Disable the distribution default site --------------------- 0.41s
+2026-11-12 19:57:16,455 p=630 u=yassine n=ansible INFO| web_service : Fetch the page from the control node over the lab network --- 0.36s
+2026-11-12 19:57:16,456 p=630 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
+2026-11-12 19:57:16,456 p=630 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 0 minutes, 25 seconds
+
+2026-11-12 19:58:09,708 p=880 u=yassine n=ansible INFO| PLAY [Apply the NEL Linux baseline and web service] ****************************
+2026-11-12 19:58:09,789 p=880 u=yassine n=ansible INFO| TASK [Gathering Facts] *********************************************************
+2026-11-12 19:58:09,790 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:09 +0000 (0:00:00.086)       0:00:00.086 ***** 
+2026-11-12 19:58:11,166 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:11,295 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:11,313 p=880 u=yassine n=ansible INFO| TASK [linux_baseline : Install baseline packages] ******************************
+2026-11-12 19:58:11,313 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:11 +0000 (0:00:01.522)       0:00:01.609 ***** 
+2026-11-12 19:58:12,586 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:12,730 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:12,748 p=880 u=yassine n=ansible INFO| TASK [linux_baseline : Set the system timezone] ********************************
+2026-11-12 19:58:12,749 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:12 +0000 (0:00:01.435)       0:00:03.044 ***** 
+2026-11-12 19:58:11,381 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:11,416 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:11,433 p=880 u=yassine n=ansible INFO| TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+2026-11-12 19:58:11,434 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:11 +0000 (-1:59:58.684)       0:00:01.729 **** 
+2026-11-12 19:58:12,403 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:12,433 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:12,453 p=880 u=yassine n=ansible INFO| TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+2026-11-12 19:58:12,454 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:12 +0000 (0:00:01.020)       0:00:02.750 ***** 
+2026-11-12 19:58:13,224 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:13,255 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:13,273 p=880 u=yassine n=ansible INFO| TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+2026-11-12 19:58:13,274 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:13 +0000 (0:00:00.819)       0:00:03.569 ***** 
+2026-11-12 19:58:14,005 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:14,076 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:14,095 p=880 u=yassine n=ansible INFO| TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+2026-11-12 19:58:14,095 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:14 +0000 (0:00:00.821)       0:00:04.391 ***** 
+2026-11-12 19:58:14,908 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:15,300 p=880 u=yassine n=ansible INFO| --- before: /etc/ssh/sshd_config.d/10-nel-hardening.conf
++++ after: /home/yassine/.ansible/tmp/ansible-local-880aawvjued/tmpd4rj7_hw/sshd_hardening.conf.j2
+@@ -1,7 +1,7 @@
+ # Ansible managed
+ # NEL SSH hardening (requirement S1). Values: roles/linux_baseline/defaults/main.yml
+ PermitRootLogin no
+-PasswordAuthentication yes
++PasswordAuthentication no
+ KbdInteractiveAuthentication no
+ X11Forwarding no
+ MaxAuthTries 3
+
+
+2026-11-12 19:58:15,301 p=880 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:58:15,317 p=880 u=yassine n=ansible INFO| TASK [linux_baseline : Allow SSH through the host firewall] ********************
+2026-11-12 19:58:15,317 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:15 +0000 (0:00:01.221)       0:00:05.613 ***** 
+2026-11-12 19:58:16,032 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:16,065 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:16,082 p=880 u=yassine n=ansible INFO| TASK [linux_baseline : Enable the host firewall with default deny inbound] *****
+2026-11-12 19:58:16,082 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:16 +0000 (0:00:00.765)       0:00:06.378 ***** 
+2026-11-12 19:58:16,573 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:16,621 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:16,662 p=880 u=yassine n=ansible INFO| TASK [web_service : Install nginx] *********************************************
+2026-11-12 19:58:16,662 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:16 +0000 (0:00:00.579)       0:00:06.958 ***** 
+2026-11-12 19:58:17,964 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:18,008 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:18,026 p=880 u=yassine n=ansible INFO| TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+2026-11-12 19:58:18,026 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:18 +0000 (0:00:01.363)       0:00:08.322 ***** 
+2026-11-12 19:58:18,403 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:18,465 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:18,484 p=880 u=yassine n=ansible INFO| TASK [web_service : Deploy the identification page] ****************************
+2026-11-12 19:58:18,485 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:18 +0000 (0:00:00.458)       0:00:08.780 ***** 
+2026-11-12 19:58:19,274 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:19,596 p=880 u=yassine n=ansible INFO| --- before: /var/www/nel/index.html
++++ after: /home/yassine/.ansible/tmp/ansible-local-880aawvjued/tmpnr7wqo3y/index.html.j2
+@@ -6,7 +6,7 @@
+   <title>srv-acq-01 - Northstar Engineering Ltd</title>
+ </head>
+ <body>
+-  <h1>Northstar Engineering Ltd - EDITED MANUALLY</h1>
++  <h1>Northstar Engineering Ltd</h1>
+   <table>
+     <tr><th>Host</th><td>srv-acq-01</td></tr>
+     <tr><th>Site</th><td>Acquired site (ACQ)</td></tr>
+
+
+2026-11-12 19:58:19,597 p=880 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:58:19,613 p=880 u=yassine n=ansible INFO| TASK [web_service : Deploy the NEL site configuration] *************************
+2026-11-12 19:58:19,614 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:19 +0000 (0:00:01.129)       0:00:09.910 ***** 
+2026-11-12 19:58:20,368 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:20,428 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:20,448 p=880 u=yassine n=ansible INFO| TASK [web_service : Enable the NEL site] ***************************************
+2026-11-12 19:58:20,449 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:20 +0000 (0:00:00.834)       0:00:10.744 ***** 
+2026-11-12 19:58:20,833 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:20,858 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:20,875 p=880 u=yassine n=ansible INFO| TASK [web_service : Disable the distribution default site] *********************
+2026-11-12 19:58:20,876 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:20 +0000 (0:00:00.427)       0:00:11.172 ***** 
+2026-11-12 19:58:21,243 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:21,275 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:21,292 p=880 u=yassine n=ansible INFO| TASK [web_service : Allow HTTP through the host firewall] **********************
+2026-11-12 19:58:21,293 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:21 +0000 (0:00:00.416)       0:00:11.588 ***** 
+2026-11-12 19:58:21,906 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:21,956 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:21,974 p=880 u=yassine n=ansible INFO| TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+2026-11-12 19:58:21,974 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:21 +0000 (0:00:00.681)       0:00:12.270 ***** 
+2026-11-12 19:58:22,516 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:22,548 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:22,565 p=880 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 19:58:22,566 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:22 +0000 (0:00:00.591)       0:00:12.861 ***** 
+2026-11-12 19:58:22,578 p=880 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 19:58:22,578 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:22 +0000 (0:00:00.012)       0:00:12.874 ***** 
+2026-11-12 19:58:22,593 p=880 u=yassine n=ansible INFO| RUNNING HANDLER [linux_baseline : Reload ssh] **********************************
+2026-11-12 19:58:22,594 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:22 +0000 (0:00:00.015)       0:00:12.889 ***** 
+2026-11-12 19:58:23,009 p=880 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:58:23,033 p=880 u=yassine n=ansible INFO| TASK [web_service : Collect service state] *************************************
+2026-11-12 19:58:23,034 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:23 +0000 (0:00:00.440)       0:00:13.330 ***** 
+2026-11-12 19:58:27,684 p=880 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:58:28,502 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:58:28,527 p=880 u=yassine n=ansible INFO| TASK [web_service : Assert nginx is running and enabled] ***********************
+2026-11-12 19:58:28,527 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:28 +0000 (0:00:05.493)       0:00:18.823 ***** 
+2026-11-12 19:58:28,568 p=880 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-main-01
+
+2026-11-12 19:58:28,578 p=880 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-acq-01
+
+2026-11-12 19:58:28,603 p=880 u=yassine n=ansible INFO| TASK [web_service : Fetch the page locally on the server] **********************
+2026-11-12 19:58:28,604 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:28 +0000 (0:00:00.076)       0:00:18.900 ***** 
+2026-11-12 19:58:28,644 p=880 u=yassine n=ansible INFO| skipping: [srv-main-01]
+2026-11-12 19:58:28,657 p=880 u=yassine n=ansible INFO| skipping: [srv-acq-01]
+2026-11-12 19:58:28,679 p=880 u=yassine n=ansible INFO| TASK [web_service : Fetch the page from the control node over the lab network] ***
+2026-11-12 19:58:28,680 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:28 +0000 (0:00:00.075)       0:00:18.975 ***** 
+2026-11-12 19:58:28,713 p=880 u=yassine n=ansible INFO| skipping: [srv-main-01]
+2026-11-12 19:58:28,726 p=880 u=yassine n=ansible INFO| skipping: [srv-acq-01]
+2026-11-12 19:58:28,749 p=880 u=yassine n=ansible INFO| TASK [web_service : Assert both fetches return this host's identification page] ***
+2026-11-12 19:58:28,750 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:28 +0000 (0:00:00.069)       0:00:19.045 ***** 
+2026-11-12 19:58:28,797 p=880 u=yassine n=ansible ERROR| [ERROR]: Task failed: Error while evaluating conditional: object of type 'dict' has no attribute 'content'
+
+Task failed.
+Origin: /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/roles/web_service/tasks/verify.yml:31:3
+
+29   register: web_service_remote
+30
+31 - name: Assert both fetches return this host's identification page
+     ^ column 3
+
+<<< caused by >>>
+
+Error while evaluating conditional: object of type 'dict' has no attribute 'content'
+Origin: /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/roles/web_service/tasks/verify.yml:34:9
+
+32   ansible.builtin.assert:
+33     that:
+34       - inventory_hostname in web_service_local.content
+           ^ column 9
+
+
+2026-11-12 19:58:28,799 p=880 u=yassine n=ansible INFO| fatal: [srv-main-01]: FAILED! => 
+    changed: false
+    msg: 'Task failed: Error while evaluating conditional: object of type ''dict'' has
+        no attribute ''content'''
+
+2026-11-12 19:58:28,811 p=880 u=yassine n=ansible INFO| fatal: [srv-acq-01]: FAILED! => 
+    changed: false
+    msg: 'Task failed: Error while evaluating conditional: object of type ''dict'' has
+        no attribute ''content'''
+
+2026-11-12 19:58:28,815 p=880 u=yassine n=ansible INFO| PLAY RECAP *********************************************************************
+2026-11-12 19:58:28,816 p=880 u=yassine n=ansible INFO| srv-acq-01                 : ok=20   changed=3    unreachable=0    failed=1    skipped=2    rescued=0    ignored=0   
+2026-11-12 19:58:28,816 p=880 u=yassine n=ansible INFO| srv-main-01                : ok=19   changed=0    unreachable=0    failed=1    skipped=2    rescued=0    ignored=0   
+2026-11-12 19:58:28,817 p=880 u=yassine n=ansible INFO| TASKS RECAP ********************************************************************
+2026-11-12 19:58:28,817 p=880 u=yassine n=ansible INFO| Thursday 12 November 2026  19:58:28 +0000 (0:00:00.067)       0:00:19.113 ***** 
+2026-11-12 19:58:28,818 p=880 u=yassine n=ansible INFO| =============================================================================== 
+2026-11-12 19:58:28,818 p=880 u=yassine n=ansible INFO| web_service : Collect service state ------------------------------------- 5.49s
+2026-11-12 19:58:28,819 p=880 u=yassine n=ansible INFO| Gathering Facts --------------------------------------------------------- 1.52s
+2026-11-12 19:58:28,819 p=880 u=yassine n=ansible INFO| linux_baseline : Install baseline packages ------------------------------ 1.44s
+2026-11-12 19:58:28,820 p=880 u=yassine n=ansible INFO| web_service : Install nginx --------------------------------------------- 1.36s
+2026-11-12 19:58:28,820 p=880 u=yassine n=ansible INFO| linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 1.22s
+2026-11-12 19:58:28,821 p=880 u=yassine n=ansible INFO| web_service : Deploy the identification page ---------------------------- 1.13s
+2026-11-12 19:58:28,821 p=880 u=yassine n=ansible INFO| linux_baseline : Configure chrony with the NEL NTP servers -------------- 1.02s
+2026-11-12 19:58:28,822 p=880 u=yassine n=ansible INFO| web_service : Deploy the NEL site configuration ------------------------- 0.83s
+2026-11-12 19:58:28,822 p=880 u=yassine n=ansible INFO| linux_baseline : Set the pre-login banner shown by SSH ------------------ 0.82s
+2026-11-12 19:58:28,823 p=880 u=yassine n=ansible INFO| linux_baseline : Ensure chrony is enabled and running ------------------- 0.82s
+2026-11-12 19:58:28,823 p=880 u=yassine n=ansible INFO| linux_baseline : Allow SSH through the host firewall -------------------- 0.76s
+2026-11-12 19:58:28,824 p=880 u=yassine n=ansible INFO| web_service : Allow HTTP through the host firewall ---------------------- 0.68s
+2026-11-12 19:58:28,824 p=880 u=yassine n=ansible INFO| web_service : Ensure nginx is enabled at boot and running --------------- 0.59s
+2026-11-12 19:58:28,825 p=880 u=yassine n=ansible INFO| linux_baseline : Enable the host firewall with default deny inbound ----- 0.58s
+2026-11-12 19:58:28,825 p=880 u=yassine n=ansible INFO| web_service : Create the web root (owned by root, readable only by the nginx group) --- 0.46s
+2026-11-12 19:58:28,826 p=880 u=yassine n=ansible INFO| linux_baseline : Reload ssh --------------------------------------------- 0.44s
+2026-11-12 19:58:28,826 p=880 u=yassine n=ansible INFO| web_service : Enable the NEL site --------------------------------------- 0.43s
+2026-11-12 19:58:28,826 p=880 u=yassine n=ansible INFO| web_service : Disable the distribution default site --------------------- 0.42s
+2026-11-12 19:58:28,827 p=880 u=yassine n=ansible INFO| web_service : Assert nginx is running and enabled ----------------------- 0.08s
+2026-11-12 19:58:28,827 p=880 u=yassine n=ansible INFO| web_service : Fetch the page locally on the server ---------------------- 0.08s
+2026-11-12 19:58:28,828 p=880 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
+2026-11-12 19:58:28,828 p=880 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds
+
+2026-11-12 19:59:13,133 p=1110 u=yassine n=ansible INFO| PLAY [Apply the NEL Linux baseline and web service] ****************************
+2026-11-12 19:59:13,211 p=1110 u=yassine n=ansible INFO| TASK [Gathering Facts] *********************************************************
+2026-11-12 19:59:13,211 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:13 +0000 (0:00:00.082)       0:00:00.082 ***** 
+2026-11-12 19:59:14,516 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:14,585 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:14,598 p=1110 u=yassine n=ansible INFO| TASK [linux_baseline : Install baseline packages] ******************************
+2026-11-12 19:59:14,598 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:14 +0000 (0:00:01.387)       0:00:01.469 ***** 
+2026-11-12 19:59:15,958 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:15,980 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:15,997 p=1110 u=yassine n=ansible INFO| TASK [linux_baseline : Set the system timezone] ********************************
+2026-11-12 19:59:15,998 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:15 +0000 (0:00:01.399)       0:00:02.868 ***** 
+2026-11-12 19:59:16,538 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:16,567 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:16,585 p=1110 u=yassine n=ansible INFO| TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+2026-11-12 19:59:16,585 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:16 +0000 (0:00:00.587)       0:00:03.456 ***** 
+2026-11-12 19:59:17,454 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:17,472 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:17,490 p=1110 u=yassine n=ansible INFO| TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+2026-11-12 19:59:17,491 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:17 +0000 (0:00:00.905)       0:00:04.361 ***** 
+2026-11-12 19:59:18,254 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:18,294 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:18,311 p=1110 u=yassine n=ansible INFO| TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+2026-11-12 19:59:18,312 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:18 +0000 (0:00:00.821)       0:00:05.182 ***** 
+2026-11-12 19:59:19,041 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:19,097 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:19,114 p=1110 u=yassine n=ansible INFO| TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+2026-11-12 19:59:19,115 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:19 +0000 (0:00:00.803)       0:00:05.985 ***** 
+2026-11-12 19:59:19,915 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:20,267 p=1110 u=yassine n=ansible INFO| --- before: /etc/ssh/sshd_config.d/10-nel-hardening.conf
++++ after: /home/yassine/.ansible/tmp/ansible-local-1110n0lulcnt/tmpemyf87j4/sshd_hardening.conf.j2
+@@ -1,7 +1,7 @@
+ # Ansible managed
+ # NEL SSH hardening (requirement S1). Values: roles/linux_baseline/defaults/main.yml
+ PermitRootLogin no
+-PasswordAuthentication yes
++PasswordAuthentication no
+ KbdInteractiveAuthentication no
+ X11Forwarding no
+ MaxAuthTries 3
+
+
+2026-11-12 19:59:20,268 p=1110 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:59:20,284 p=1110 u=yassine n=ansible INFO| TASK [linux_baseline : Allow SSH through the host firewall] ********************
+2026-11-12 19:59:20,284 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:20 +0000 (0:00:01.169)       0:00:07.155 ***** 
+2026-11-12 19:59:20,995 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:21,038 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:21,055 p=1110 u=yassine n=ansible INFO| TASK [linux_baseline : Enable the host firewall with default deny inbound] *****
+2026-11-12 19:59:21,056 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:21 +0000 (0:00:00.771)       0:00:07.926 ***** 
+2026-11-12 19:59:21,545 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:21,569 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:21,612 p=1110 u=yassine n=ansible INFO| TASK [web_service : Install nginx] *********************************************
+2026-11-12 19:59:21,613 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:21 +0000 (0:00:00.557)       0:00:08.483 ***** 
+2026-11-12 19:59:22,931 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:22,979 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:22,997 p=1110 u=yassine n=ansible INFO| TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+2026-11-12 19:59:22,998 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:22 +0000 (0:00:01.385)       0:00:09.868 ***** 
+2026-11-12 19:59:23,394 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:23,425 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:23,444 p=1110 u=yassine n=ansible INFO| TASK [web_service : Deploy the identification page] ****************************
+2026-11-12 19:59:23,445 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:23 +0000 (0:00:00.446)       0:00:10.315 ***** 
+2026-11-12 19:59:24,246 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:24,552 p=1110 u=yassine n=ansible INFO| --- before: /var/www/nel/index.html
++++ after: /home/yassine/.ansible/tmp/ansible-local-1110n0lulcnt/tmp4ni5hqbp/index.html.j2
+@@ -6,7 +6,7 @@
+   <title>srv-acq-01 - Northstar Engineering Ltd</title>
+ </head>
+ <body>
+-  <h1>Northstar Engineering Ltd - EDITED MANUALLY</h1>
++  <h1>Northstar Engineering Ltd</h1>
+   <table>
+     <tr><th>Host</th><td>srv-acq-01</td></tr>
+     <tr><th>Site</th><td>Acquired site (ACQ)</td></tr>
+
+
+2026-11-12 19:59:24,552 p=1110 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:59:24,569 p=1110 u=yassine n=ansible INFO| TASK [web_service : Deploy the NEL site configuration] *************************
+2026-11-12 19:59:24,569 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:24 +0000 (0:00:01.124)       0:00:11.440 ***** 
+2026-11-12 19:59:25,366 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:25,434 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:25,452 p=1110 u=yassine n=ansible INFO| TASK [web_service : Enable the NEL site] ***************************************
+2026-11-12 19:59:25,453 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:25 +0000 (0:00:00.883)       0:00:12.323 ***** 
+2026-11-12 19:59:25,833 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:25,862 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:25,880 p=1110 u=yassine n=ansible INFO| TASK [web_service : Disable the distribution default site] *********************
+2026-11-12 19:59:25,881 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:25 +0000 (0:00:00.427)       0:00:12.751 ***** 
+2026-11-12 19:59:26,191 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:26,214 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:26,230 p=1110 u=yassine n=ansible INFO| TASK [web_service : Allow HTTP through the host firewall] **********************
+2026-11-12 19:59:26,231 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:26 +0000 (0:00:00.350)       0:00:13.101 ***** 
+2026-11-12 19:59:26,910 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:26,973 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:26,990 p=1110 u=yassine n=ansible INFO| TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+2026-11-12 19:59:26,991 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:26 +0000 (0:00:00.760)       0:00:13.861 ***** 
+2026-11-12 19:59:27,623 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:27,651 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:27,668 p=1110 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 19:59:27,668 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:27 +0000 (0:00:00.677)       0:00:14.539 ***** 
+2026-11-12 19:59:27,675 p=1110 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 19:59:27,676 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:27 +0000 (0:00:00.007)       0:00:14.546 ***** 
+2026-11-12 19:59:27,693 p=1110 u=yassine n=ansible INFO| RUNNING HANDLER [linux_baseline : Reload ssh] **********************************
+2026-11-12 19:59:27,693 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:27 +0000 (0:00:00.017)       0:00:14.564 ***** 
+2026-11-12 19:59:28,123 p=1110 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 19:59:28,145 p=1110 u=yassine n=ansible INFO| TASK [web_service : Collect service state] *************************************
+2026-11-12 19:59:28,146 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:28 +0000 (0:00:00.452)       0:00:15.016 ***** 
+2026-11-12 19:59:33,003 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:33,691 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:33,716 p=1110 u=yassine n=ansible INFO| TASK [web_service : Assert nginx is running and enabled] ***********************
+2026-11-12 19:59:33,717 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:33 +0000 (0:00:05.570)       0:00:20.587 ***** 
+2026-11-12 19:59:33,755 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-main-01
+
+2026-11-12 19:59:33,769 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-acq-01
+
+2026-11-12 19:59:33,792 p=1110 u=yassine n=ansible INFO| TASK [web_service : Fetch the page locally on the server] **********************
+2026-11-12 19:59:33,793 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:33 +0000 (0:00:00.076)       0:00:20.663 ***** 
+2026-11-12 19:59:34,495 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:34,529 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:34,551 p=1110 u=yassine n=ansible INFO| TASK [web_service : Fetch the page from the control node over the lab network] ***
+2026-11-12 19:59:34,552 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:34 +0000 (0:00:00.759)       0:00:21.423 ***** 
+2026-11-12 19:59:34,892 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01 -> localhost]
+2026-11-12 19:59:34,909 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01 -> localhost]
+2026-11-12 19:59:34,936 p=1110 u=yassine n=ansible INFO| TASK [web_service : Assert both fetches return this host's identification page] ***
+2026-11-12 19:59:34,936 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:34 +0000 (0:00:00.384)       0:00:21.807 ***** 
+2026-11-12 19:59:34,976 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: srv-main-01 serves its own page (Main site)
+
+2026-11-12 19:59:34,988 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: srv-acq-01 serves its own page (Acquired site)
+
+2026-11-12 19:59:35,012 p=1110 u=yassine n=ansible INFO| TASK [web_service : Assert the server does not advertise its nginx version] ****
+2026-11-12 19:59:35,013 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:35 +0000 (0:00:00.076)       0:00:21.883 ***** 
+2026-11-12 19:59:35,059 p=1110 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 19:59:35,071 p=1110 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 19:59:35,104 p=1110 u=yassine n=ansible INFO| PLAY RECAP *********************************************************************
+2026-11-12 19:59:35,105 p=1110 u=yassine n=ansible INFO| srv-acq-01                 : ok=24   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 19:59:35,106 p=1110 u=yassine n=ansible INFO| srv-main-01                : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 19:59:35,107 p=1110 u=yassine n=ansible INFO| TASKS RECAP ********************************************************************
+2026-11-12 19:59:35,107 p=1110 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:35 +0000 (0:00:00.094)       0:00:21.977 ***** 
+2026-11-12 19:59:35,108 p=1110 u=yassine n=ansible INFO| =============================================================================== 
+2026-11-12 19:59:35,108 p=1110 u=yassine n=ansible INFO| web_service : Collect service state ------------------------------------- 5.57s
+2026-11-12 19:59:35,109 p=1110 u=yassine n=ansible INFO| linux_baseline : Install baseline packages ------------------------------ 1.40s
+2026-11-12 19:59:35,109 p=1110 u=yassine n=ansible INFO| Gathering Facts --------------------------------------------------------- 1.39s
+2026-11-12 19:59:35,110 p=1110 u=yassine n=ansible INFO| web_service : Install nginx --------------------------------------------- 1.39s
+2026-11-12 19:59:35,110 p=1110 u=yassine n=ansible INFO| linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 1.17s
+2026-11-12 19:59:35,110 p=1110 u=yassine n=ansible INFO| web_service : Deploy the identification page ---------------------------- 1.12s
+2026-11-12 19:59:35,111 p=1110 u=yassine n=ansible INFO| linux_baseline : Configure chrony with the NEL NTP servers -------------- 0.91s
+2026-11-12 19:59:35,111 p=1110 u=yassine n=ansible INFO| web_service : Deploy the NEL site configuration ------------------------- 0.88s
+2026-11-12 19:59:35,112 p=1110 u=yassine n=ansible INFO| linux_baseline : Ensure chrony is enabled and running ------------------- 0.82s
+2026-11-12 19:59:35,112 p=1110 u=yassine n=ansible INFO| linux_baseline : Set the pre-login banner shown by SSH ------------------ 0.80s
+2026-11-12 19:59:35,113 p=1110 u=yassine n=ansible INFO| linux_baseline : Allow SSH through the host firewall -------------------- 0.77s
+2026-11-12 19:59:35,113 p=1110 u=yassine n=ansible INFO| web_service : Allow HTTP through the host firewall ---------------------- 0.76s
+2026-11-12 19:59:35,114 p=1110 u=yassine n=ansible INFO| web_service : Fetch the page locally on the server ---------------------- 0.76s
+2026-11-12 19:59:35,114 p=1110 u=yassine n=ansible INFO| web_service : Ensure nginx is enabled at boot and running --------------- 0.68s
+2026-11-12 19:59:35,115 p=1110 u=yassine n=ansible INFO| linux_baseline : Set the system timezone -------------------------------- 0.59s
+2026-11-12 19:59:35,115 p=1110 u=yassine n=ansible INFO| linux_baseline : Enable the host firewall with default deny inbound ----- 0.56s
+2026-11-12 19:59:35,115 p=1110 u=yassine n=ansible INFO| linux_baseline : Reload ssh --------------------------------------------- 0.45s
+2026-11-12 19:59:35,116 p=1110 u=yassine n=ansible INFO| web_service : Create the web root (owned by root, readable only by the nginx group) --- 0.45s
+2026-11-12 19:59:35,116 p=1110 u=yassine n=ansible INFO| web_service : Enable the NEL site --------------------------------------- 0.43s
+2026-11-12 19:59:35,117 p=1110 u=yassine n=ansible INFO| web_service : Fetch the page from the control node over the lab network --- 0.38s
+2026-11-12 19:59:35,117 p=1110 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
+2026-11-12 19:59:35,118 p=1110 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 0 minutes, 21 seconds
+
+2026-11-12 19:59:53,740 p=1329 u=yassine n=ansible INFO| PLAY [Apply the NEL Linux baseline and web service] ****************************
+2026-11-12 19:59:53,824 p=1329 u=yassine n=ansible INFO| TASK [Gathering Facts] *********************************************************
+2026-11-12 19:59:53,824 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:53 +0000 (0:00:00.087)       0:00:00.087 ***** 
+2026-11-12 19:59:55,240 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:55,307 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:55,320 p=1329 u=yassine n=ansible INFO| TASK [linux_baseline : Install baseline packages] ******************************
+2026-11-12 19:59:55,321 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:55 +0000 (0:00:01.496)       0:00:01.584 ***** 
+2026-11-12 19:59:58,902 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:59,132 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:59,150 p=1329 u=yassine n=ansible INFO| TASK [linux_baseline : Set the system timezone] ********************************
+2026-11-12 19:59:59,151 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:59 +0000 (0:00:03.830)       0:00:05.414 ***** 
+2026-11-12 19:59:59,627 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 19:59:59,671 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 19:59:59,689 p=1329 u=yassine n=ansible INFO| TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+2026-11-12 19:59:59,690 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  19:59:59 +0000 (0:00:00.538)       0:00:05.953 ***** 
+2026-11-12 20:00:00,709 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:00,728 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:00,746 p=1329 u=yassine n=ansible INFO| TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+2026-11-12 20:00:00,746 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:00 +0000 (0:00:01.056)       0:00:07.009 ***** 
+2026-11-12 20:00:01,593 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:01,619 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:01,637 p=1329 u=yassine n=ansible INFO| TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+2026-11-12 20:00:01,637 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:01 +0000 (0:00:00.891)       0:00:07.900 ***** 
+2026-11-12 20:00:02,470 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:02,530 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:02,550 p=1329 u=yassine n=ansible INFO| TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+2026-11-12 20:00:02,551 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:02 +0000 (0:00:00.913)       0:00:08.814 ***** 
+2026-11-12 20:00:03,342 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:04,101 p=1329 u=yassine n=ansible INFO| --- before: /etc/ssh/sshd_config.d/10-nel-hardening.conf
++++ after: /home/yassine/.ansible/tmp/ansible-local-13294g089frh/tmph4yy1i49/sshd_hardening.conf.j2
+@@ -1,7 +1,7 @@
+ # Ansible managed
+ # NEL SSH hardening (requirement S1). Values: roles/linux_baseline/defaults/main.yml
+ PermitRootLogin no
+-PasswordAuthentication yes
++PasswordAuthentication no
+ KbdInteractiveAuthentication no
+ X11Forwarding no
+ MaxAuthTries 3
+
+
+2026-11-12 20:00:04,102 p=1329 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 20:00:04,117 p=1329 u=yassine n=ansible INFO| TASK [linux_baseline : Allow SSH through the host firewall] ********************
+2026-11-12 20:00:04,118 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:04 +0000 (0:00:01.567)       0:00:10.381 ***** 
+2026-11-12 20:00:05,011 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:05,068 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:05,085 p=1329 u=yassine n=ansible INFO| TASK [linux_baseline : Enable the host firewall with default deny inbound] *****
+2026-11-12 20:00:05,086 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:05 +0000 (0:00:00.968)       0:00:11.349 ***** 
+2026-11-12 20:00:06,007 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:06,140 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:06,187 p=1329 u=yassine n=ansible INFO| TASK [web_service : Install nginx] *********************************************
+2026-11-12 20:00:06,188 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:06 +0000 (0:00:01.101)       0:00:12.451 ***** 
+2026-11-12 20:00:09,381 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:10,239 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:10,261 p=1329 u=yassine n=ansible INFO| TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+2026-11-12 20:00:10,262 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:10 +0000 (0:00:04.073)       0:00:16.525 ***** 
+2026-11-12 20:00:10,622 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:10,864 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:10,883 p=1329 u=yassine n=ansible INFO| TASK [web_service : Deploy the identification page] ****************************
+2026-11-12 20:00:10,884 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:10 +0000 (0:00:00.622)       0:00:17.147 ***** 
+2026-11-12 20:00:11,689 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:12,371 p=1329 u=yassine n=ansible INFO| --- before: /var/www/nel/index.html
++++ after: /home/yassine/.ansible/tmp/ansible-local-13294g089frh/tmpc9vm79fk/index.html.j2
+@@ -6,7 +6,7 @@
+   <title>srv-acq-01 - Northstar Engineering Ltd</title>
+ </head>
+ <body>
+-  <h1>Northstar Engineering Ltd - EDITED MANUALLY</h1>
++  <h1>Northstar Engineering Ltd</h1>
+   <table>
+     <tr><th>Host</th><td>srv-acq-01</td></tr>
+     <tr><th>Site</th><td>Acquired site (ACQ)</td></tr>
+
+
+2026-11-12 20:00:12,372 p=1329 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 20:00:12,389 p=1329 u=yassine n=ansible INFO| TASK [web_service : Deploy the NEL site configuration] *************************
+2026-11-12 20:00:12,390 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:12 +0000 (0:00:01.505)       0:00:18.653 ***** 
+2026-11-12 20:00:13,146 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:13,165 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:13,182 p=1329 u=yassine n=ansible INFO| TASK [web_service : Enable the NEL site] ***************************************
+2026-11-12 20:00:13,183 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:13 +0000 (0:00:00.792)       0:00:19.446 ***** 
+2026-11-12 20:00:13,611 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:13,628 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:13,646 p=1329 u=yassine n=ansible INFO| TASK [web_service : Disable the distribution default site] *********************
+2026-11-12 20:00:13,647 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:13 +0000 (0:00:00.464)       0:00:19.910 ***** 
+2026-11-12 20:00:14,043 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:14,166 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:14,184 p=1329 u=yassine n=ansible INFO| TASK [web_service : Allow HTTP through the host firewall] **********************
+2026-11-12 20:00:14,185 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:14 +0000 (0:00:00.537)       0:00:20.448 ***** 
+2026-11-12 20:00:15,003 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:15,075 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:15,093 p=1329 u=yassine n=ansible INFO| TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+2026-11-12 20:00:15,093 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:15 +0000 (0:00:00.908)       0:00:21.356 ***** 
+2026-11-12 20:00:13,960 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:14,001 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:14,018 p=1329 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 20:00:14,019 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:14 +0000 (-1:59:58.925)       0:00:20.282 **** 
+2026-11-12 20:00:14,026 p=1329 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 20:00:14,027 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:14 +0000 (0:00:00.008)       0:00:20.290 ***** 
+2026-11-12 20:00:14,040 p=1329 u=yassine n=ansible INFO| RUNNING HANDLER [linux_baseline : Reload ssh] **********************************
+2026-11-12 20:00:14,041 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:14 +0000 (0:00:00.013)       0:00:20.304 ***** 
+2026-11-12 20:00:14,527 p=1329 u=yassine n=ansible INFO| changed: [srv-acq-01]
+2026-11-12 20:00:14,551 p=1329 u=yassine n=ansible INFO| TASK [web_service : Collect service state] *************************************
+2026-11-12 20:00:14,552 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:14 +0000 (0:00:00.510)       0:00:20.815 ***** 
+2026-11-12 20:00:18,974 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:19,557 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:19,579 p=1329 u=yassine n=ansible INFO| TASK [web_service : Assert nginx is running and enabled] ***********************
+2026-11-12 20:00:19,580 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:19 +0000 (0:00:05.028)       0:00:25.843 ***** 
+2026-11-12 20:00:19,616 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-main-01
+
+2026-11-12 20:00:19,625 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-acq-01
+
+2026-11-12 20:00:19,648 p=1329 u=yassine n=ansible INFO| TASK [web_service : Fetch the page locally on the server] **********************
+2026-11-12 20:00:19,649 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:19 +0000 (0:00:00.068)       0:00:25.912 ***** 
+2026-11-12 20:00:20,281 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:20,312 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:20,335 p=1329 u=yassine n=ansible INFO| TASK [web_service : Fetch the page from the control node over the lab network] ***
+2026-11-12 20:00:20,336 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:20 +0000 (0:00:00.687)       0:00:26.599 ***** 
+2026-11-12 20:00:20,655 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01 -> localhost]
+2026-11-12 20:00:20,666 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01 -> localhost]
+2026-11-12 20:00:20,689 p=1329 u=yassine n=ansible INFO| TASK [web_service : Assert both fetches return this host's identification page] ***
+2026-11-12 20:00:20,689 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:20 +0000 (0:00:00.353)       0:00:26.952 ***** 
+2026-11-12 20:00:20,725 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: srv-main-01 serves its own page (Main site)
+
+2026-11-12 20:00:20,735 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: srv-acq-01 serves its own page (Acquired site)
+
+2026-11-12 20:00:20,759 p=1329 u=yassine n=ansible INFO| TASK [web_service : Assert the server does not advertise its nginx version] ****
+2026-11-12 20:00:20,760 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:20 +0000 (0:00:00.070)       0:00:27.023 ***** 
+2026-11-12 20:00:20,804 p=1329 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 20:00:20,816 p=1329 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 20:00:20,846 p=1329 u=yassine n=ansible INFO| PLAY RECAP *********************************************************************
+2026-11-12 20:00:20,847 p=1329 u=yassine n=ansible INFO| srv-acq-01                 : ok=24   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 20:00:20,847 p=1329 u=yassine n=ansible INFO| srv-main-01                : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 20:00:20,848 p=1329 u=yassine n=ansible INFO| TASKS RECAP ********************************************************************
+2026-11-12 20:00:20,848 p=1329 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:20 +0000 (0:00:00.088)       0:00:27.111 ***** 
+2026-11-12 20:00:20,849 p=1329 u=yassine n=ansible INFO| =============================================================================== 
+2026-11-12 20:00:20,849 p=1329 u=yassine n=ansible INFO| web_service : Collect service state ------------------------------------- 5.03s
+2026-11-12 20:00:20,850 p=1329 u=yassine n=ansible INFO| web_service : Install nginx --------------------------------------------- 4.07s
+2026-11-12 20:00:20,850 p=1329 u=yassine n=ansible INFO| linux_baseline : Install baseline packages ------------------------------ 3.83s
+2026-11-12 20:00:20,851 p=1329 u=yassine n=ansible INFO| linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 1.57s
+2026-11-12 20:00:20,851 p=1329 u=yassine n=ansible INFO| web_service : Deploy the identification page ---------------------------- 1.51s
+2026-11-12 20:00:20,852 p=1329 u=yassine n=ansible INFO| Gathering Facts --------------------------------------------------------- 1.50s
+2026-11-12 20:00:20,852 p=1329 u=yassine n=ansible INFO| linux_baseline : Enable the host firewall with default deny inbound ----- 1.10s
+2026-11-12 20:00:20,853 p=1329 u=yassine n=ansible INFO| linux_baseline : Configure chrony with the NEL NTP servers -------------- 1.06s
+2026-11-12 20:00:20,853 p=1329 u=yassine n=ansible INFO| linux_baseline : Allow SSH through the host firewall -------------------- 0.97s
+2026-11-12 20:00:20,853 p=1329 u=yassine n=ansible INFO| linux_baseline : Set the pre-login banner shown by SSH ------------------ 0.91s
+2026-11-12 20:00:20,854 p=1329 u=yassine n=ansible INFO| web_service : Allow HTTP through the host firewall ---------------------- 0.91s
+2026-11-12 20:00:20,854 p=1329 u=yassine n=ansible INFO| linux_baseline : Ensure chrony is enabled and running ------------------- 0.89s
+2026-11-12 20:00:20,855 p=1329 u=yassine n=ansible INFO| web_service : Deploy the NEL site configuration ------------------------- 0.79s
+2026-11-12 20:00:20,855 p=1329 u=yassine n=ansible INFO| web_service : Fetch the page locally on the server ---------------------- 0.69s
+2026-11-12 20:00:20,856 p=1329 u=yassine n=ansible INFO| web_service : Create the web root (owned by root, readable only by the nginx group) --- 0.62s
+2026-11-12 20:00:20,856 p=1329 u=yassine n=ansible INFO| linux_baseline : Set the system timezone -------------------------------- 0.54s
+2026-11-12 20:00:20,857 p=1329 u=yassine n=ansible INFO| web_service : Disable the distribution default site --------------------- 0.54s
+2026-11-12 20:00:20,857 p=1329 u=yassine n=ansible INFO| linux_baseline : Reload ssh --------------------------------------------- 0.51s
+2026-11-12 20:00:20,858 p=1329 u=yassine n=ansible INFO| web_service : Enable the NEL site --------------------------------------- 0.46s
+2026-11-12 20:00:20,858 p=1329 u=yassine n=ansible INFO| web_service : Fetch the page from the control node over the lab network --- 0.35s
+2026-11-12 20:00:20,858 p=1329 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
+2026-11-12 20:00:20,859 p=1329 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 0 minutes, 27 seconds
+
+2026-11-12 20:00:22,283 p=1545 u=yassine n=ansible INFO| PLAY [Apply the NEL Linux baseline and web service] ****************************
+2026-11-12 20:00:22,372 p=1545 u=yassine n=ansible INFO| TASK [Gathering Facts] *********************************************************
+2026-11-12 20:00:22,373 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:22 +0000 (0:00:00.094)       0:00:00.094 ***** 
+2026-11-12 20:00:23,849 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:23,931 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:23,946 p=1545 u=yassine n=ansible INFO| TASK [linux_baseline : Install baseline packages] ******************************
+2026-11-12 20:00:23,947 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:23 +0000 (0:00:01.574)       0:00:01.668 ***** 
+2026-11-12 20:00:27,373 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:27,458 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:27,476 p=1545 u=yassine n=ansible INFO| TASK [linux_baseline : Set the system timezone] ********************************
+2026-11-12 20:00:27,477 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:27 +0000 (0:00:03.529)       0:00:05.198 ***** 
+2026-11-12 20:00:27,969 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:27,987 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:28,004 p=1545 u=yassine n=ansible INFO| TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+2026-11-12 20:00:28,005 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:28 +0000 (0:00:00.528)       0:00:05.726 ***** 
+2026-11-12 20:00:28,845 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:28,858 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:28,874 p=1545 u=yassine n=ansible INFO| TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+2026-11-12 20:00:28,874 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:28 +0000 (0:00:00.869)       0:00:06.595 ***** 
+2026-11-12 20:00:29,559 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:29,589 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:29,607 p=1545 u=yassine n=ansible INFO| TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+2026-11-12 20:00:29,608 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:29 +0000 (0:00:00.733)       0:00:07.329 ***** 
+2026-11-12 20:00:30,320 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:30,365 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:30,383 p=1545 u=yassine n=ansible INFO| TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+2026-11-12 20:00:30,383 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:30 +0000 (0:00:00.775)       0:00:08.104 ***** 
+2026-11-12 20:00:31,187 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:31,244 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:31,261 p=1545 u=yassine n=ansible INFO| TASK [linux_baseline : Allow SSH through the host firewall] ********************
+2026-11-12 20:00:31,262 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:31 +0000 (0:00:00.878)       0:00:08.983 ***** 
+2026-11-12 20:00:32,187 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:32,567 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:32,584 p=1545 u=yassine n=ansible INFO| TASK [linux_baseline : Enable the host firewall with default deny inbound] *****
+2026-11-12 20:00:32,585 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:32 +0000 (0:00:01.322)       0:00:10.306 ***** 
+2026-11-12 20:00:33,481 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:33,677 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:33,722 p=1545 u=yassine n=ansible INFO| TASK [web_service : Install nginx] *********************************************
+2026-11-12 20:00:33,723 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:33 +0000 (0:00:01.138)       0:00:11.444 ***** 
+2026-11-12 20:00:36,936 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:37,249 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:37,266 p=1545 u=yassine n=ansible INFO| TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+2026-11-12 20:00:37,267 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:37 +0000 (0:00:03.543)       0:00:14.988 ***** 
+2026-11-12 20:00:37,641 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:37,666 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:37,684 p=1545 u=yassine n=ansible INFO| TASK [web_service : Deploy the identification page] ****************************
+2026-11-12 20:00:37,684 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:37 +0000 (0:00:00.417)       0:00:15.405 ***** 
+2026-11-12 20:00:38,465 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:38,520 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:38,537 p=1545 u=yassine n=ansible INFO| TASK [web_service : Deploy the NEL site configuration] *************************
+2026-11-12 20:00:38,538 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:38 +0000 (0:00:00.853)       0:00:16.259 ***** 
+2026-11-12 20:00:39,360 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:39,395 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:39,413 p=1545 u=yassine n=ansible INFO| TASK [web_service : Enable the NEL site] ***************************************
+2026-11-12 20:00:39,414 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:39 +0000 (0:00:00.876)       0:00:17.135 ***** 
+2026-11-12 20:00:39,794 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:39,826 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:39,843 p=1545 u=yassine n=ansible INFO| TASK [web_service : Disable the distribution default site] *********************
+2026-11-12 20:00:39,844 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:39 +0000 (0:00:00.429)       0:00:17.565 ***** 
+2026-11-12 20:00:40,197 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:40,221 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:40,238 p=1545 u=yassine n=ansible INFO| TASK [web_service : Allow HTTP through the host firewall] **********************
+2026-11-12 20:00:40,239 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:40 +0000 (0:00:00.395)       0:00:17.960 ***** 
+2026-11-12 20:00:41,058 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:41,122 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:41,139 p=1545 u=yassine n=ansible INFO| TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+2026-11-12 20:00:41,140 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:41 +0000 (0:00:00.900)       0:00:18.861 ***** 
+2026-11-12 20:00:41,746 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:41,764 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:41,781 p=1545 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 20:00:41,782 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:41 +0000 (0:00:00.641)       0:00:19.503 ***** 
+2026-11-12 20:00:41,789 p=1545 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 20:00:41,789 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:41 +0000 (0:00:00.007)       0:00:19.510 ***** 
+2026-11-12 20:00:41,809 p=1545 u=yassine n=ansible INFO| TASK [web_service : Collect service state] *************************************
+2026-11-12 20:00:41,810 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:41 +0000 (0:00:00.020)       0:00:19.531 ***** 
+2026-11-12 20:00:44,450 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:45,078 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:45,104 p=1545 u=yassine n=ansible INFO| TASK [web_service : Assert nginx is running and enabled] ***********************
+2026-11-12 20:00:45,105 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:45 +0000 (0:00:03.294)       0:00:22.826 ***** 
+2026-11-12 20:00:45,145 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-main-01
+
+2026-11-12 20:00:45,155 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-acq-01
+
+2026-11-12 20:00:45,179 p=1545 u=yassine n=ansible INFO| TASK [web_service : Fetch the page locally on the server] **********************
+2026-11-12 20:00:45,180 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:45 +0000 (0:00:00.075)       0:00:22.901 ***** 
+2026-11-12 20:00:45,754 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:00:45,777 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:00:45,806 p=1545 u=yassine n=ansible INFO| TASK [web_service : Fetch the page from the control node over the lab network] ***
+2026-11-12 20:00:45,807 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:45 +0000 (0:00:00.626)       0:00:23.528 ***** 
+2026-11-12 20:00:46,143 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01 -> localhost]
+2026-11-12 20:00:46,157 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01 -> localhost]
+2026-11-12 20:00:46,182 p=1545 u=yassine n=ansible INFO| TASK [web_service : Assert both fetches return this host's identification page] ***
+2026-11-12 20:00:46,183 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:46 +0000 (0:00:00.376)       0:00:23.904 ***** 
+2026-11-12 20:00:46,220 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: srv-main-01 serves its own page (Main site)
+
+2026-11-12 20:00:46,232 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: srv-acq-01 serves its own page (Acquired site)
+
+2026-11-12 20:00:46,256 p=1545 u=yassine n=ansible INFO| TASK [web_service : Assert the server does not advertise its nginx version] ****
+2026-11-12 20:00:46,257 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:46 +0000 (0:00:00.073)       0:00:23.978 ***** 
+2026-11-12 20:00:46,304 p=1545 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 20:00:46,316 p=1545 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 20:00:46,352 p=1545 u=yassine n=ansible INFO| PLAY RECAP *********************************************************************
+2026-11-12 20:00:46,353 p=1545 u=yassine n=ansible INFO| srv-acq-01                 : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 20:00:46,354 p=1545 u=yassine n=ansible INFO| srv-main-01                : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 20:00:46,354 p=1545 u=yassine n=ansible INFO| TASKS RECAP ********************************************************************
+2026-11-12 20:00:46,355 p=1545 u=yassine n=ansible INFO| Thursday 12 November 2026  20:00:46 +0000 (0:00:00.097)       0:00:24.076 ***** 
+2026-11-12 20:00:46,355 p=1545 u=yassine n=ansible INFO| =============================================================================== 
+2026-11-12 20:00:46,356 p=1545 u=yassine n=ansible INFO| web_service : Install nginx --------------------------------------------- 3.54s
+2026-11-12 20:00:46,356 p=1545 u=yassine n=ansible INFO| linux_baseline : Install baseline packages ------------------------------ 3.53s
+2026-11-12 20:00:46,357 p=1545 u=yassine n=ansible INFO| web_service : Collect service state ------------------------------------- 3.29s
+2026-11-12 20:00:46,357 p=1545 u=yassine n=ansible INFO| Gathering Facts --------------------------------------------------------- 1.57s
+2026-11-12 20:00:46,358 p=1545 u=yassine n=ansible INFO| linux_baseline : Allow SSH through the host firewall -------------------- 1.32s
+2026-11-12 20:00:46,358 p=1545 u=yassine n=ansible INFO| linux_baseline : Enable the host firewall with default deny inbound ----- 1.14s
+2026-11-12 20:00:46,359 p=1545 u=yassine n=ansible INFO| web_service : Allow HTTP through the host firewall ---------------------- 0.90s
+2026-11-12 20:00:46,359 p=1545 u=yassine n=ansible INFO| linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 0.88s
+2026-11-12 20:00:46,359 p=1545 u=yassine n=ansible INFO| web_service : Deploy the NEL site configuration ------------------------- 0.88s
+2026-11-12 20:00:46,360 p=1545 u=yassine n=ansible INFO| linux_baseline : Configure chrony with the NEL NTP servers -------------- 0.87s
+2026-11-12 20:00:46,360 p=1545 u=yassine n=ansible INFO| web_service : Deploy the identification page ---------------------------- 0.85s
+2026-11-12 20:00:46,361 p=1545 u=yassine n=ansible INFO| linux_baseline : Set the pre-login banner shown by SSH ------------------ 0.78s
+2026-11-12 20:00:46,361 p=1545 u=yassine n=ansible INFO| linux_baseline : Ensure chrony is enabled and running ------------------- 0.73s
+2026-11-12 20:00:46,362 p=1545 u=yassine n=ansible INFO| web_service : Ensure nginx is enabled at boot and running --------------- 0.64s
+2026-11-12 20:00:46,362 p=1545 u=yassine n=ansible INFO| web_service : Fetch the page locally on the server ---------------------- 0.63s
+2026-11-12 20:00:46,363 p=1545 u=yassine n=ansible INFO| linux_baseline : Set the system timezone -------------------------------- 0.53s
+2026-11-12 20:00:46,363 p=1545 u=yassine n=ansible INFO| web_service : Enable the NEL site --------------------------------------- 0.43s
+2026-11-12 20:00:46,364 p=1545 u=yassine n=ansible INFO| web_service : Create the web root (owned by root, readable only by the nginx group) --- 0.42s
+2026-11-12 20:00:46,364 p=1545 u=yassine n=ansible INFO| web_service : Disable the distribution default site --------------------- 0.40s
+2026-11-12 20:00:46,364 p=1545 u=yassine n=ansible INFO| web_service : Fetch the page from the control node over the lab network --- 0.38s
+2026-11-12 20:00:46,365 p=1545 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
+2026-11-12 20:00:46,365 p=1545 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 0 minutes, 24 seconds
+
+2026-11-12 20:01:34,930 p=1761 u=yassine n=ansible INFO| PLAY [Apply the NEL Linux baseline and web service] ****************************
+2026-11-12 20:01:35,010 p=1761 u=yassine n=ansible INFO| TASK [Gathering Facts] *********************************************************
+2026-11-12 20:01:35,010 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:35 +0000 (0:00:00.084)       0:00:00.084 ***** 
+2026-11-12 20:01:36,150 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:38,104 p=1761 u=yassine n=ansible ERROR| [ERROR]: Task failed: Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22 port 22: No route to host
+
+Task failed.
+
+<<< caused by >>>
+
+Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22 port 22: No route to host
+
+
+2026-11-12 20:01:38,105 p=1761 u=yassine n=ansible INFO| fatal: [srv-acq-01]: UNREACHABLE! => 
+    changed: false
+    msg: 'Task failed: Failed to connect to the host via ssh: ssh: connect to host 192.168.56.22
+        port 22: No route to host'
+    unreachable: true
+
+2026-11-12 20:01:38,117 p=1761 u=yassine n=ansible INFO| TASK [linux_baseline : Install baseline packages] ******************************
+2026-11-12 20:01:38,118 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:38 +0000 (0:00:03.107)       0:00:03.191 ***** 
+2026-11-12 20:01:40,727 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:40,742 p=1761 u=yassine n=ansible INFO| TASK [linux_baseline : Set the system timezone] ********************************
+2026-11-12 20:01:40,743 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:40 +0000 (0:00:02.624)       0:00:05.816 ***** 
+2026-11-12 20:01:41,185 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:41,200 p=1761 u=yassine n=ansible INFO| TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+2026-11-12 20:01:41,200 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:41 +0000 (0:00:00.457)       0:00:06.274 ***** 
+2026-11-12 20:01:41,936 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:41,950 p=1761 u=yassine n=ansible INFO| TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+2026-11-12 20:01:41,951 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:41 +0000 (0:00:00.750)       0:00:07.025 ***** 
+2026-11-12 20:01:42,531 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:42,546 p=1761 u=yassine n=ansible INFO| TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+2026-11-12 20:01:42,547 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:42 +0000 (0:00:00.596)       0:00:07.621 ***** 
+2026-11-12 20:01:43,089 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:43,103 p=1761 u=yassine n=ansible INFO| TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+2026-11-12 20:01:43,103 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:43 +0000 (0:00:00.556)       0:00:08.177 ***** 
+2026-11-12 20:01:43,687 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:43,702 p=1761 u=yassine n=ansible INFO| TASK [linux_baseline : Allow SSH through the host firewall] ********************
+2026-11-12 20:01:43,703 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:43 +0000 (0:00:00.599)       0:00:08.776 ***** 
+2026-11-12 20:01:44,381 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:44,395 p=1761 u=yassine n=ansible INFO| TASK [linux_baseline : Enable the host firewall with default deny inbound] *****
+2026-11-12 20:01:44,396 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:44 +0000 (0:00:00.693)       0:00:09.470 ***** 
+2026-11-12 20:01:45,107 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:45,136 p=1761 u=yassine n=ansible INFO| TASK [web_service : Install nginx] *********************************************
+2026-11-12 20:01:45,136 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:45 +0000 (0:00:00.740)       0:00:10.210 ***** 
+2026-11-12 20:01:45,853 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:45,869 p=1761 u=yassine n=ansible INFO| TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+2026-11-12 20:01:45,869 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:45 +0000 (0:00:00.732)       0:00:10.943 ***** 
+2026-11-12 20:01:46,141 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:46,157 p=1761 u=yassine n=ansible INFO| TASK [web_service : Deploy the identification page] ****************************
+2026-11-12 20:01:46,159 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:46 +0000 (0:00:00.290)       0:00:11.233 ***** 
+2026-11-12 20:01:46,732 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:46,748 p=1761 u=yassine n=ansible INFO| TASK [web_service : Deploy the NEL site configuration] *************************
+2026-11-12 20:01:46,749 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:46 +0000 (0:00:00.589)       0:00:11.822 ***** 
+2026-11-12 20:01:47,405 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:47,420 p=1761 u=yassine n=ansible INFO| TASK [web_service : Enable the NEL site] ***************************************
+2026-11-12 20:01:47,421 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:47 +0000 (0:00:00.672)       0:00:12.494 ***** 
+2026-11-12 20:01:47,699 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:47,714 p=1761 u=yassine n=ansible INFO| TASK [web_service : Disable the distribution default site] *********************
+2026-11-12 20:01:47,714 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:47 +0000 (0:00:00.293)       0:00:12.788 ***** 
+2026-11-12 20:01:47,985 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:47,999 p=1761 u=yassine n=ansible INFO| TASK [web_service : Allow HTTP through the host firewall] **********************
+2026-11-12 20:01:48,000 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:47 +0000 (0:00:00.285)       0:00:13.073 ***** 
+2026-11-12 20:01:48,594 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:48,610 p=1761 u=yassine n=ansible INFO| TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+2026-11-12 20:01:48,611 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:48 +0000 (0:00:00.611)       0:00:13.684 ***** 
+2026-11-12 20:01:49,041 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:49,055 p=1761 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 20:01:49,056 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:49 +0000 (0:00:00.445)       0:00:14.129 ***** 
+2026-11-12 20:01:49,069 p=1761 u=yassine n=ansible INFO| TASK [web_service : Collect service state] *************************************
+2026-11-12 20:01:49,069 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:49 +0000 (0:00:00.013)       0:00:14.143 ***** 
+2026-11-12 20:01:52,443 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:52,464 p=1761 u=yassine n=ansible INFO| TASK [web_service : Assert nginx is running and enabled] ***********************
+2026-11-12 20:01:52,464 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:52 +0000 (0:00:03.394)       0:00:17.538 ***** 
+2026-11-12 20:01:52,503 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-main-01
+
+2026-11-12 20:01:52,524 p=1761 u=yassine n=ansible INFO| TASK [web_service : Fetch the page locally on the server] **********************
+2026-11-12 20:01:52,525 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:52 +0000 (0:00:00.060)       0:00:17.598 ***** 
+2026-11-12 20:01:53,058 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01]
+2026-11-12 20:01:53,078 p=1761 u=yassine n=ansible INFO| TASK [web_service : Fetch the page from the control node over the lab network] ***
+2026-11-12 20:01:53,079 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:53 +0000 (0:00:00.554)       0:00:18.152 ***** 
+2026-11-12 20:01:53,404 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01 -> localhost]
+2026-11-12 20:01:53,424 p=1761 u=yassine n=ansible INFO| TASK [web_service : Assert both fetches return this host's identification page] ***
+2026-11-12 20:01:53,424 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:53 +0000 (0:00:00.345)       0:00:18.498 ***** 
+2026-11-12 20:01:53,463 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: srv-main-01 serves its own page (Main site)
+
+2026-11-12 20:01:53,484 p=1761 u=yassine n=ansible INFO| TASK [web_service : Assert the server does not advertise its nginx version] ****
+2026-11-12 20:01:53,484 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:53 +0000 (0:00:00.060)       0:00:18.558 ***** 
+2026-11-12 20:01:53,531 p=1761 u=yassine n=ansible INFO| ok: [srv-main-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 20:01:53,552 p=1761 u=yassine n=ansible INFO| PLAY RECAP *********************************************************************
+2026-11-12 20:01:53,552 p=1761 u=yassine n=ansible INFO| srv-acq-01                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 20:01:53,553 p=1761 u=yassine n=ansible INFO| srv-main-01                : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 20:01:53,554 p=1761 u=yassine n=ansible INFO| TASKS RECAP ********************************************************************
+2026-11-12 20:01:53,554 p=1761 u=yassine n=ansible INFO| Thursday 12 November 2026  20:01:53 +0000 (0:00:00.069)       0:00:18.628 ***** 
+2026-11-12 20:01:53,555 p=1761 u=yassine n=ansible INFO| =============================================================================== 
+2026-11-12 20:01:53,555 p=1761 u=yassine n=ansible INFO| web_service : Collect service state ------------------------------------- 3.40s
+2026-11-12 20:01:53,556 p=1761 u=yassine n=ansible INFO| Gathering Facts --------------------------------------------------------- 3.11s
+2026-11-12 20:01:53,556 p=1761 u=yassine n=ansible INFO| linux_baseline : Install baseline packages ------------------------------ 2.62s
+2026-11-12 20:01:53,557 p=1761 u=yassine n=ansible INFO| linux_baseline : Configure chrony with the NEL NTP servers -------------- 0.75s
+2026-11-12 20:01:53,557 p=1761 u=yassine n=ansible INFO| linux_baseline : Enable the host firewall with default deny inbound ----- 0.74s
+2026-11-12 20:01:53,557 p=1761 u=yassine n=ansible INFO| web_service : Install nginx --------------------------------------------- 0.73s
+2026-11-12 20:01:53,558 p=1761 u=yassine n=ansible INFO| linux_baseline : Allow SSH through the host firewall -------------------- 0.69s
+2026-11-12 20:01:53,558 p=1761 u=yassine n=ansible INFO| web_service : Deploy the NEL site configuration ------------------------- 0.67s
+2026-11-12 20:01:53,559 p=1761 u=yassine n=ansible INFO| web_service : Allow HTTP through the host firewall ---------------------- 0.61s
+2026-11-12 20:01:53,559 p=1761 u=yassine n=ansible INFO| linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 0.60s
+2026-11-12 20:01:53,560 p=1761 u=yassine n=ansible INFO| linux_baseline : Ensure chrony is enabled and running ------------------- 0.60s
+2026-11-12 20:01:53,560 p=1761 u=yassine n=ansible INFO| web_service : Deploy the identification page ---------------------------- 0.59s
+2026-11-12 20:01:53,561 p=1761 u=yassine n=ansible INFO| linux_baseline : Set the pre-login banner shown by SSH ------------------ 0.56s
+2026-11-12 20:01:53,561 p=1761 u=yassine n=ansible INFO| web_service : Fetch the page locally on the server ---------------------- 0.55s
+2026-11-12 20:01:53,562 p=1761 u=yassine n=ansible INFO| linux_baseline : Set the system timezone -------------------------------- 0.46s
+2026-11-12 20:01:53,562 p=1761 u=yassine n=ansible INFO| web_service : Ensure nginx is enabled at boot and running --------------- 0.45s
+2026-11-12 20:01:53,563 p=1761 u=yassine n=ansible INFO| web_service : Fetch the page from the control node over the lab network --- 0.35s
+2026-11-12 20:01:53,563 p=1761 u=yassine n=ansible INFO| web_service : Enable the NEL site --------------------------------------- 0.29s
+2026-11-12 20:01:53,564 p=1761 u=yassine n=ansible INFO| web_service : Create the web root (owned by root, readable only by the nginx group) --- 0.29s
+2026-11-12 20:01:53,564 p=1761 u=yassine n=ansible INFO| web_service : Disable the distribution default site --------------------- 0.28s
+2026-11-12 20:01:53,565 p=1761 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
+2026-11-12 20:01:53,565 p=1761 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 0 minutes, 18 seconds
+
+2026-11-12 20:02:56,009 p=1894 u=yassine n=ansible INFO| PLAY [Apply the NEL Linux baseline and web service] ****************************
+2026-11-12 20:02:56,095 p=1894 u=yassine n=ansible INFO| TASK [Gathering Facts] *********************************************************
+2026-11-12 20:02:56,096 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:02:56 +0000 (0:00:00.091)       0:00:00.091 ***** 
+2026-11-12 20:03:00,123 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:00,135 p=1894 u=yassine n=ansible INFO| TASK [linux_baseline : Install baseline packages] ******************************
+2026-11-12 20:03:00,136 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:00 +0000 (0:00:04.040)       0:00:04.131 ***** 
+2026-11-12 20:03:03,750 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:03,764 p=1894 u=yassine n=ansible INFO| TASK [linux_baseline : Set the system timezone] ********************************
+2026-11-12 20:03:03,764 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:03 +0000 (0:00:03.628)       0:00:07.759 ***** 
+2026-11-12 20:03:04,183 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:04,198 p=1894 u=yassine n=ansible INFO| TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+2026-11-12 20:03:04,198 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:04 +0000 (0:00:00.434)       0:00:08.193 ***** 
+2026-11-12 20:03:04,974 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:04,988 p=1894 u=yassine n=ansible INFO| TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+2026-11-12 20:03:04,988 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:04 +0000 (0:00:00.789)       0:00:08.983 ***** 
+2026-11-12 20:03:05,670 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:05,686 p=1894 u=yassine n=ansible INFO| TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+2026-11-12 20:03:05,687 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:05 +0000 (0:00:00.698)       0:00:09.681 ***** 
+2026-11-12 20:03:06,306 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:06,320 p=1894 u=yassine n=ansible INFO| TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+2026-11-12 20:03:06,321 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:06 +0000 (0:00:00.634)       0:00:10.316 ***** 
+2026-11-12 20:03:06,988 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:07,004 p=1894 u=yassine n=ansible INFO| TASK [linux_baseline : Allow SSH through the host firewall] ********************
+2026-11-12 20:03:07,005 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:07 +0000 (0:00:00.683)       0:00:11.000 ***** 
+2026-11-12 20:03:07,771 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:07,786 p=1894 u=yassine n=ansible INFO| TASK [linux_baseline : Enable the host firewall with default deny inbound] *****
+2026-11-12 20:03:07,786 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:07 +0000 (0:00:00.781)       0:00:11.781 ***** 
+2026-11-12 20:03:08,655 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:08,684 p=1894 u=yassine n=ansible INFO| TASK [web_service : Install nginx] *********************************************
+2026-11-12 20:03:08,685 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:08 +0000 (0:00:00.898)       0:00:12.680 ***** 
+2026-11-12 20:03:11,436 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:11,452 p=1894 u=yassine n=ansible INFO| TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+2026-11-12 20:03:11,453 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:11 +0000 (0:00:02.767)       0:00:15.448 ***** 
+2026-11-12 20:03:11,739 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:11,753 p=1894 u=yassine n=ansible INFO| TASK [web_service : Deploy the identification page] ****************************
+2026-11-12 20:03:11,754 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:11 +0000 (0:00:00.300)       0:00:15.749 ***** 
+2026-11-12 20:03:12,346 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:12,360 p=1894 u=yassine n=ansible INFO| TASK [web_service : Deploy the NEL site configuration] *************************
+2026-11-12 20:03:12,361 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:12 +0000 (0:00:00.607)       0:00:16.356 ***** 
+2026-11-12 20:03:12,949 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:12,963 p=1894 u=yassine n=ansible INFO| TASK [web_service : Enable the NEL site] ***************************************
+2026-11-12 20:03:12,964 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:12 +0000 (0:00:00.603)       0:00:16.959 ***** 
+2026-11-12 20:03:13,237 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:13,250 p=1894 u=yassine n=ansible INFO| TASK [web_service : Disable the distribution default site] *********************
+2026-11-12 20:03:13,251 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:13 +0000 (0:00:00.287)       0:00:17.246 ***** 
+2026-11-12 20:03:13,514 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:13,528 p=1894 u=yassine n=ansible INFO| TASK [web_service : Allow HTTP through the host firewall] **********************
+2026-11-12 20:03:13,529 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:13 +0000 (0:00:00.277)       0:00:17.524 ***** 
+2026-11-12 20:03:14,460 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:14,477 p=1894 u=yassine n=ansible INFO| TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+2026-11-12 20:03:14,477 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:14 +0000 (0:00:00.948)       0:00:18.472 ***** 
+2026-11-12 20:03:15,088 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:15,103 p=1894 u=yassine n=ansible INFO| TASK [web_service : Apply pending nginx changes before verification] ***********
+2026-11-12 20:03:15,104 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:15 +0000 (0:00:00.626)       0:00:19.099 ***** 
+2026-11-12 20:03:15,119 p=1894 u=yassine n=ansible INFO| TASK [web_service : Collect service state] *************************************
+2026-11-12 20:03:15,119 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:15 +0000 (0:00:00.015)       0:00:19.114 ***** 
+2026-11-12 20:03:19,696 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:19,718 p=1894 u=yassine n=ansible INFO| TASK [web_service : Assert nginx is running and enabled] ***********************
+2026-11-12 20:03:19,719 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:19 +0000 (0:00:04.599)       0:00:23.714 ***** 
+2026-11-12 20:03:19,755 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-acq-01
+
+2026-11-12 20:03:19,777 p=1894 u=yassine n=ansible INFO| TASK [web_service : Fetch the page locally on the server] **********************
+2026-11-12 20:03:19,778 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:19 +0000 (0:00:00.059)       0:00:23.773 ***** 
+2026-11-12 20:03:20,313 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01]
+2026-11-12 20:03:20,333 p=1894 u=yassine n=ansible INFO| TASK [web_service : Fetch the page from the control node over the lab network] ***
+2026-11-12 20:03:20,334 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:20 +0000 (0:00:00.555)       0:00:24.329 ***** 
+2026-11-12 20:03:20,677 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01 -> localhost]
+2026-11-12 20:03:20,696 p=1894 u=yassine n=ansible INFO| TASK [web_service : Assert both fetches return this host's identification page] ***
+2026-11-12 20:03:20,697 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:20 +0000 (0:00:00.362)       0:00:24.692 ***** 
+2026-11-12 20:03:20,733 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: srv-acq-01 serves its own page (Acquired site)
+
+2026-11-12 20:03:20,751 p=1894 u=yassine n=ansible INFO| TASK [web_service : Assert the server does not advertise its nginx version] ****
+2026-11-12 20:03:20,752 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:20 +0000 (0:00:00.055)       0:00:24.747 ***** 
+2026-11-12 20:03:20,797 p=1894 u=yassine n=ansible INFO| ok: [srv-acq-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+2026-11-12 20:03:20,816 p=1894 u=yassine n=ansible INFO| PLAY RECAP *********************************************************************
+2026-11-12 20:03:20,817 p=1894 u=yassine n=ansible INFO| srv-acq-01                 : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2026-11-12 20:03:20,818 p=1894 u=yassine n=ansible INFO| TASKS RECAP ********************************************************************
+2026-11-12 20:03:20,818 p=1894 u=yassine n=ansible INFO| Thursday 12 November 2026  20:03:20 +0000 (0:00:00.066)       0:00:24.813 ***** 
+2026-11-12 20:03:20,819 p=1894 u=yassine n=ansible INFO| =============================================================================== 
+2026-11-12 20:03:20,819 p=1894 u=yassine n=ansible INFO| web_service : Collect service state ------------------------------------- 4.60s
+2026-11-12 20:03:20,820 p=1894 u=yassine n=ansible INFO| Gathering Facts --------------------------------------------------------- 4.04s
+2026-11-12 20:03:20,820 p=1894 u=yassine n=ansible INFO| linux_baseline : Install baseline packages ------------------------------ 3.63s
+2026-11-12 20:03:20,820 p=1894 u=yassine n=ansible INFO| web_service : Install nginx --------------------------------------------- 2.77s
+2026-11-12 20:03:20,821 p=1894 u=yassine n=ansible INFO| web_service : Allow HTTP through the host firewall ---------------------- 0.95s
+2026-11-12 20:03:20,822 p=1894 u=yassine n=ansible INFO| linux_baseline : Enable the host firewall with default deny inbound ----- 0.90s
+2026-11-12 20:03:20,822 p=1894 u=yassine n=ansible INFO| linux_baseline : Configure chrony with the NEL NTP servers -------------- 0.79s
+2026-11-12 20:03:20,822 p=1894 u=yassine n=ansible INFO| linux_baseline : Allow SSH through the host firewall -------------------- 0.78s
+2026-11-12 20:03:20,823 p=1894 u=yassine n=ansible INFO| linux_baseline : Ensure chrony is enabled and running ------------------- 0.70s
+2026-11-12 20:03:20,823 p=1894 u=yassine n=ansible INFO| linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 0.68s
+2026-11-12 20:03:20,824 p=1894 u=yassine n=ansible INFO| linux_baseline : Set the pre-login banner shown by SSH ------------------ 0.63s
+2026-11-12 20:03:20,824 p=1894 u=yassine n=ansible INFO| web_service : Ensure nginx is enabled at boot and running --------------- 0.63s
+2026-11-12 20:03:20,825 p=1894 u=yassine n=ansible INFO| web_service : Deploy the identification page ---------------------------- 0.61s
+2026-11-12 20:03:20,825 p=1894 u=yassine n=ansible INFO| web_service : Deploy the NEL site configuration ------------------------- 0.60s
+2026-11-12 20:03:20,826 p=1894 u=yassine n=ansible INFO| web_service : Fetch the page locally on the server ---------------------- 0.56s
+2026-11-12 20:03:20,826 p=1894 u=yassine n=ansible INFO| linux_baseline : Set the system timezone -------------------------------- 0.43s
+2026-11-12 20:03:20,827 p=1894 u=yassine n=ansible INFO| web_service : Fetch the page from the control node over the lab network --- 0.36s
+2026-11-12 20:03:20,827 p=1894 u=yassine n=ansible INFO| web_service : Create the web root (owned by root, readable only by the nginx group) --- 0.30s
+2026-11-12 20:03:20,828 p=1894 u=yassine n=ansible INFO| web_service : Enable the NEL site --------------------------------------- 0.29s
+2026-11-12 20:03:20,828 p=1894 u=yassine n=ansible INFO| web_service : Disable the distribution default site --------------------- 0.28s
+2026-11-12 20:03:20,829 p=1894 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
+2026-11-12 20:03:20,829 p=1894 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 0 minutes, 24 seconds
+

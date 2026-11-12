@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+# NEL SSH hardening (requirement S1). Values: roles/linux_baseline/defaults/main.yml
+{% for key, value in linux_baseline_ssh_settings.items() %}
+{{ key }} {{ value }}
+{% endfor %}

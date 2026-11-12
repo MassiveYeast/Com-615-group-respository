@@ -1,0 +1,29 @@
+﻿# AN-04 drift: state BEFORE manual change on srv-acq-01 - 2026-11-12T19:57:43.6199031+00:00
+b4e2348c9f1ee7cb7a8d7df01115f734044f1524223829c64dce6063e422881a  /var/www/nel/index.html
+9b0ce30a17fc9c76e40dc37f6dc2196078386cf4ea000cbf59e69b4a6c867b05  /etc/ssh/sshd_config.d/10-nel-hardening.conf
+passwordauthentication no
+[ 1] 22/tcp                     ALLOW IN    Anywhere                   # NEL management SSH
+[ 2] 80/tcp                     ALLOW IN    Anywhere                   # NEL internal web service
+[ 3] 22/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL management SSH
+[ 4] 80/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL internal web service
+
+# Introducing 3 manual changes (simulating an administrator working outside Ansible) - 2026-11-12T19:57:49.4044861+00:00
+# 1) edit managed web page  2) weaken managed SSH setting  3) add an UNMANAGED firewall rule
+Rule added
+Rule added (v6)
+
+# State AFTER manual change - 2026-11-12T19:57:54.6629021+00:00
+1e1c592b50a7fc2f4bd76ae176a7f720b58bb3baa363436804be66202fbe528e  /var/www/nel/index.html
+82164ada7c28dde6906a02e394a3a987d55965a37fedd520a9ea87f45a9a334c  /etc/ssh/sshd_config.d/10-nel-hardening.conf
+passwordauthentication yes
+[ 1] 22/tcp                     ALLOW IN    Anywhere                   # NEL management SSH
+[ 2] 80/tcp                     ALLOW IN    Anywhere                   # NEL internal web service
+[ 3] 8080/tcp                   ALLOW IN    Anywhere                   # manual test rule
+[ 4] 22/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL management SSH
+[ 5] 80/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL internal web service
+[ 6] 8080/tcp (v6)              ALLOW IN    Anywhere (v6)              # manual test rule
+## page heading served over the network:
+
+  <h1>Northstar Engineering Ltd - EDITED MANUALLY</h1>
+
+

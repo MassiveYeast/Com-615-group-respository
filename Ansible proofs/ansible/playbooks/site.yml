@@ -7,3 +7,6 @@
 
 - name: Check connectivity to all managed systems
   ansible.builtin.import_playbook: verify_connectivity.yml
+
+- name: Configure Linux servers
+  ansible.builtin.import_playbook: linux_servers.yml

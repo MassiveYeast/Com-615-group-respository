@@ -1,0 +1,118 @@
+﻿# Diagnosis of srv-acq-01 unreachable after resume - 2026-11-12T19:45:35.9673800+00:00
+## VM state (VBoxManage showvminfo, selected fields)
+
+VMState="running"
+VMStateChangeTime="2026-11-12T19:39:42.506000000"
+nic1="nat"
+hostonlyadapter2="VirtualBox Host-Only Ethernet Adapter"
+nic2="hostonly"
+GuestAdditionsRunLevel=2
+## Guest-reported IP on adapter 2 (guestproperty)
+Value: 192.168.56.22
+## TCP 22 from Windows host
+
+
+RemoteAddress    : 192.168.56.22
+TcpTestSucceeded : False
+
+
+
+
+## For comparison: srv-main-01
+
+
+RemoteAddress    : 192.168.56.21
+TcpTestSucceeded : True
+
+
+
+
+
+
+
+## Fix attempt: vagrant reload srv-acq-01 - 2026-11-12T19:46:41.3571882+00:00
+==> srv-acq-01: Attempting graceful shutdown of VM...
+    srv-acq-01: Guest communication could not be established! This is usually because
+    srv-acq-01: SSH is not running, the authentication information was changed,
+    srv-acq-01: or some other networking issue. Vagrant will force halt, if
+    srv-acq-01: capable.
+==> srv-acq-01: Forcing shutdown of VM...
+==> srv-acq-01: Checking if box 'bento/ubuntu-24.04' version '202510.26.0' is up to date...
+==> srv-acq-01: Clearing any previously set forwarded ports...
+==> srv-acq-01: Fixed port collision for 22 => 2222. Now on port 2200.
+==> srv-acq-01: Clearing any previously set network interfaces...
+==> srv-acq-01: Preparing network interfaces based on configuration...
+    srv-acq-01: Adapter 1: nat
+    srv-acq-01: Adapter 2: hostonly
+==> srv-acq-01: Forwarding ports...
+    srv-acq-01: 22 (guest) => 2200 (host) (adapter 1)
+==> srv-acq-01: Running 'pre-boot' VM customizations...
+==> srv-acq-01: Booting VM...
+==> srv-acq-01: Waiting for machine to boot. This may take a few minutes...
+    srv-acq-01: SSH address: 127.0.0.1:2200
+    srv-acq-01: SSH username: vagrant
+    srv-acq-01: SSH auth method: private key
+==> srv-acq-01: Machine booted and ready!
+==> srv-acq-01: Checking for guest additions in VM...
+==> srv-acq-01: Setting hostname...
+==> srv-acq-01: Configuring and enabling network interfaces...
+==> srv-acq-01: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> srv-acq-01: flag to force provisioning. Provisioners marked to run always will still run.
+# exit=0 elapsed_s=64
+
+
+RemoteAddress    : 192.168.56.22
+TcpTestSucceeded : False
+
+
+
+
+
+## Inside guest (vagrant ssh srv-acq-01) - 2026-11-12T19:48:32.8337334+00:00
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eth0             UP             10.0.2.15/24 metric 100 fd17:625c:f037:2:a00:27ff:fef8:c2eb/64 fe80::a00:27ff:fef8:c2eb/64 
+eth1             UP             192.168.56.22/24 fe80::a00:27ff:fe00:607f/64 
+---
+default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100 
+10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100 
+10.0.2.2 dev eth0 proto dhcp scope link src 10.0.2.15 metric 100 
+130.43.187.40 via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100 
+130.43.187.41 via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100 
+192.168.56.0/24 dev eth1 proto kernel scope link src 192.168.56.22 
+---
+active
+LISTEN 0      4096         0.0.0.0:22        0.0.0.0:*    users:(("sshd",pid=965,fd=3),("systemd",pid=1,fd=147))
+LISTEN 0      4096            [::]:22           [::]:*    users:(("sshd",pid=965,fd=4),("systemd",pid=1,fd=148))
+---
+Status: inactive
+--- ping host-only gateway
+PING 192.168.56.1 (192.168.56.1) 56(84) bytes of data.
+
+--- 192.168.56.1 ping statistics ---
+2 packets transmitted, 0 received, 100% packet loss, time 1036ms
+
+--- ping srv-main-01
+PING 192.168.56.21 (192.168.56.21) 56(84) bytes of data.
+64 bytes from 192.168.56.21: icmp_seq=1 ttl=64 time=1.52 ms
+64 bytes from 192.168.56.21: icmp_seq=2 ttl=64 time=0.719 ms
+
+--- 192.168.56.21 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1003ms
+rtt min/avg/max/mdev = 0.719/1.119/1.519/0.400 ms
+
+Interface: 192.168.56.1 --- 0x5
+  192.168.56.21         08-00-27-c5-17-c5     dynamic   
+  192.168.56.22         08-00-27-00-60-7f     dynamic   
+  192.168.56.255        ff-ff-ff-ff-ff-ff     static    
+
+
+
+## Re-test TCP 22 from Windows - 2026-11-12T19:48:52.4756725+00:00
+
+
+RemoteAddress    : 192.168.56.22
+TcpTestSucceeded : True
+
+
+
+

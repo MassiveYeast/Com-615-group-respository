@@ -1,0 +1,143 @@
+# command : ansible-playbook playbooks/linux_servers.yml --limit srv-acq-01
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-12T20:02:55+00:00
+
+
+PLAY [Apply the NEL Linux baseline and web service] ****************************
+
+TASK [Gathering Facts] *********************************************************
+Thursday 12 November 2026  20:02:56 +0000 (0:00:00.091)       0:00:00.091 ***** 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Install baseline packages] ******************************
+Thursday 12 November 2026  20:03:00 +0000 (0:00:04.040)       0:00:04.131 ***** 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Set the system timezone] ********************************
+Thursday 12 November 2026  20:03:03 +0000 (0:00:03.628)       0:00:07.759 ***** 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+Thursday 12 November 2026  20:03:04 +0000 (0:00:00.434)       0:00:08.193 ***** 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+Thursday 12 November 2026  20:03:04 +0000 (0:00:00.789)       0:00:08.983 ***** 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+Thursday 12 November 2026  20:03:05 +0000 (0:00:00.698)       0:00:09.681 ***** 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+Thursday 12 November 2026  20:03:06 +0000 (0:00:00.634)       0:00:10.316 ***** 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Allow SSH through the host firewall] ********************
+Thursday 12 November 2026  20:03:07 +0000 (0:00:00.683)       0:00:11.000 ***** 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Enable the host firewall with default deny inbound] *****
+Thursday 12 November 2026  20:03:07 +0000 (0:00:00.781)       0:00:11.781 ***** 
+ok: [srv-acq-01]
+
+TASK [web_service : Install nginx] *********************************************
+Thursday 12 November 2026  20:03:08 +0000 (0:00:00.898)       0:00:12.680 ***** 
+ok: [srv-acq-01]
+
+TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+Thursday 12 November 2026  20:03:11 +0000 (0:00:02.767)       0:00:15.448 ***** 
+ok: [srv-acq-01]
+
+TASK [web_service : Deploy the identification page] ****************************
+Thursday 12 November 2026  20:03:11 +0000 (0:00:00.300)       0:00:15.749 ***** 
+ok: [srv-acq-01]
+
+TASK [web_service : Deploy the NEL site configuration] *************************
+Thursday 12 November 2026  20:03:12 +0000 (0:00:00.607)       0:00:16.356 ***** 
+ok: [srv-acq-01]
+
+TASK [web_service : Enable the NEL site] ***************************************
+Thursday 12 November 2026  20:03:12 +0000 (0:00:00.603)       0:00:16.959 ***** 
+ok: [srv-acq-01]
+
+TASK [web_service : Disable the distribution default site] *********************
+Thursday 12 November 2026  20:03:13 +0000 (0:00:00.287)       0:00:17.246 ***** 
+ok: [srv-acq-01]
+
+TASK [web_service : Allow HTTP through the host firewall] **********************
+Thursday 12 November 2026  20:03:13 +0000 (0:00:00.277)       0:00:17.524 ***** 
+ok: [srv-acq-01]
+
+TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+Thursday 12 November 2026  20:03:14 +0000 (0:00:00.948)       0:00:18.472 ***** 
+ok: [srv-acq-01]
+
+TASK [web_service : Apply pending nginx changes before verification] ***********
+Thursday 12 November 2026  20:03:15 +0000 (0:00:00.626)       0:00:19.099 ***** 
+
+TASK [web_service : Collect service state] *************************************
+Thursday 12 November 2026  20:03:15 +0000 (0:00:00.015)       0:00:19.114 ***** 
+ok: [srv-acq-01]
+
+TASK [web_service : Assert nginx is running and enabled] ***********************
+Thursday 12 November 2026  20:03:19 +0000 (0:00:04.599)       0:00:23.714 ***** 
+ok: [srv-acq-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-acq-01
+
+TASK [web_service : Fetch the page locally on the server] **********************
+Thursday 12 November 2026  20:03:19 +0000 (0:00:00.059)       0:00:23.773 ***** 
+ok: [srv-acq-01]
+
+TASK [web_service : Fetch the page from the control node over the lab network] ***
+Thursday 12 November 2026  20:03:20 +0000 (0:00:00.555)       0:00:24.329 ***** 
+ok: [srv-acq-01 -> localhost]
+
+TASK [web_service : Assert both fetches return this host's identification page] ***
+Thursday 12 November 2026  20:03:20 +0000 (0:00:00.362)       0:00:24.692 ***** 
+ok: [srv-acq-01] => 
+    changed: false
+    msg: srv-acq-01 serves its own page (Acquired site)
+
+TASK [web_service : Assert the server does not advertise its nginx version] ****
+Thursday 12 November 2026  20:03:20 +0000 (0:00:00.055)       0:00:24.747 ***** 
+ok: [srv-acq-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+PLAY RECAP *********************************************************************
+srv-acq-01                 : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+TASKS RECAP ********************************************************************
+Thursday 12 November 2026  20:03:20 +0000 (0:00:00.066)       0:00:24.813 ***** 
+=============================================================================== 
+web_service : Collect service state ------------------------------------- 4.60s
+Gathering Facts --------------------------------------------------------- 4.04s
+linux_baseline : Install baseline packages ------------------------------ 3.63s
+web_service : Install nginx --------------------------------------------- 2.77s
+web_service : Allow HTTP through the host firewall ---------------------- 0.95s
+linux_baseline : Enable the host firewall with default deny inbound ----- 0.90s
+linux_baseline : Configure chrony with the NEL NTP servers -------------- 0.79s
+linux_baseline : Allow SSH through the host firewall -------------------- 0.78s
+linux_baseline : Ensure chrony is enabled and running ------------------- 0.70s
+linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 0.68s
+linux_baseline : Set the pre-login banner shown by SSH ------------------ 0.63s
+web_service : Ensure nginx is enabled at boot and running --------------- 0.63s
+web_service : Deploy the identification page ---------------------------- 0.61s
+web_service : Deploy the NEL site configuration ------------------------- 0.60s
+web_service : Fetch the page locally on the server ---------------------- 0.56s
+linux_baseline : Set the system timezone -------------------------------- 0.43s
+web_service : Fetch the page from the control node over the lab network --- 0.36s
+web_service : Create the web root (owned by root, readable only by the nginx group) --- 0.30s
+web_service : Enable the NEL site --------------------------------------- 0.29s
+web_service : Disable the distribution default site --------------------- 0.28s
+
+PLAYBOOK RECAP *****************************************************************
+Playbook run took 0 days, 0 hours, 0 minutes, 24 seconds
+
+
+# end     : 2026-11-12T20:03:20+00:00
+# exit    : 0
+# wall_s  : 25.640

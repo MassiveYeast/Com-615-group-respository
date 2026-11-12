@@ -1,0 +1,13 @@
+---
+# nginx -t checks the WHOLE configuration; a broken file stops the run here
+# instead of taking the running service down on reload.
+- name: Check nginx configuration
+  ansible.builtin.command: nginx -t
+  changed_when: false
+  listen: Validate and reload nginx
+
+- name: Reload nginx
+  ansible.builtin.systemd_service:
+    name: nginx
+    state: reloaded
+  listen: Validate and reload nginx

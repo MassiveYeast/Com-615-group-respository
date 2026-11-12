@@ -1,0 +1,69 @@
+---
+# NEL web service: nginx serving a per-host identification page.
+
+- name: Install nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Create the web root (owned by root, readable only by the nginx group)
+  ansible.builtin.file:
+    path: "{{ web_service_root }}"
+    state: directory
+    owner: root
+    group: "{{ web_service_group }}"
+    mode: "0750"
+
+# No timestamps or run-specific values in the page: they would change every run
+# and break idempotency (T2).
+- name: Deploy the identification page
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ web_service_root }}/index.html"
+    owner: root
+    group: "{{ web_service_group }}"
+    mode: "0640"
+
+- name: Deploy the NEL site configuration
+  ansible.builtin.template:
+    src: nel-site.conf.j2
+    dest: /etc/nginx/sites-available/nel.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Validate and reload nginx
+
+- name: Enable the NEL site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/nel.conf
+    dest: /etc/nginx/sites-enabled/nel.conf
+    state: link
+  notify: Validate and reload nginx
+
+- name: Disable the distribution default site
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Validate and reload nginx
+
+- name: Allow HTTP through the host firewall
+  community.general.ufw:
+    rule: allow
+    port: "{{ web_service_port | string }}"
+    proto: tcp
+    comment: NEL internal web service
+
+- name: Ensure nginx is enabled at boot and running
+  ansible.builtin.systemd_service:
+    name: nginx
+    enabled: true
+    state: started
+
+# Apply any pending reload now so the verification below tests the new config.
+- name: Apply pending nginx changes before verification
+  ansible.builtin.meta: flush_handlers
+
+- name: Verify the deployed state
+  ansible.builtin.import_tasks: verify.yml

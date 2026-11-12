@@ -1,0 +1,11 @@
+---
+- name: Restart chrony
+  ansible.builtin.systemd_service:
+    name: chrony
+    state: restarted
+
+# Reload (not restart) keeps the current SSH session - including Ansible's own - alive.
+- name: Reload ssh
+  ansible.builtin.systemd_service:
+    name: ssh
+    state: reloaded

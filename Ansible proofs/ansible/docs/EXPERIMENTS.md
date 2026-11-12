@@ -17,7 +17,7 @@ Every entry is from a command that was actually run. Raw outputs are in `evidenc
 ## EXP-01 - Cisco DevNet always-on IOS XE sandbox as network target
 
 - **Goal:** use a public IOS XE device while the CSR1000v image is unavailable.
-- **Method:** TCP tests from Windows to `devnetsandboxiosxe.cisco.com` and `devnetsandboxiosxec8k.cisco.com` on ports 22/443/830; SSH login from WSL with the previously published credentials (`admin` and `developer`, password `C1sco12345`).
+- **Method:** TCP tests from Windows to `devnetsandboxiosxe.cisco.com` and `devnetsandboxiosxec8k.cisco.com` on ports 22/443/830; SSH login from WSL with the previously published credentials (`admin` and `developer`, with the formerly published shared password [redacted 2026-11-12 – retired public sandbox credential; removed so the repo holds no plaintext credentials, S3]).
 - **Result:** all ports open; SSH reached the password prompt (server banner `Cisco-1.25`) but **every login was rejected: "Permission denied"**.
 - **Cause:** Cisco now generates credentials per reservation (shown in the sandbox "Quick Access" tab after logging in with a Cisco account). The old static credentials are no longer valid.
 - **Outcome:** stopped trying (no repeated guessing against a third-party system). Network target stays the CSR1000v (D-07). The DevNet sandbox remains an option if a reservation is made.
@@ -58,3 +58,106 @@ Raw output: `evidence/logs/20261029-150718_0*.txt`.
 
 - **Router failure cause:** the CSR1000v VM does not exist on this laptop yet (D-07). Expected; the 30 s value equals `connect_timeout` in `ansible.cfg`.
 - **Open item:** import the CSR1000v, enable SSH on it, re-run EXP-05 for `ios_devices`.
+
+---
+
+Experiment IDs from 2026-11-12 follow the plan's AN-xx / SD-xx scheme (AN-xx = experiment ID; requirement IDs stay B/T/S/O). Every run is captured with `evidence/scripts/run_logged.sh`, which records the command, start/end time, exit code and wall-clock time.
+
+## EXP-06 (AN-01 re-check) - Lab restart after 14 days suspended
+
+Raw output: `evidence/logs/20261112-193858_08_vagrant_up.txt`, `..._09_adhoc_ping_linux.txt`, `..._10_srv-acq-01_unreachable_diagnosis.txt`, `..._11_adhoc_ping_linux_after_fix.txt`.
+
+- **Method:** `vagrant up` (both VMs were in the VirtualBox *saved/suspended* state), then `ansible linux_servers -m ansible.builtin.ping`.
+- **Result 1 - failure:** `vagrant up` exited 1 after 344 s ("Timed out while waiting for the machine to boot") on `srv-acq-01`, although VirtualBox showed it `running`. Ansible: `srv-main-01` SUCCESS, `srv-acq-01` **UNREACHABLE** (`connect to host 192.168.56.22 port 22: No route to host`).
+- **Investigation:** VirtualBox reported the VM running and Guest Additions reported IP 192.168.56.22, yet TCP 22 from Windows failed, while the same test to .21 passed. So the VM was "up" by the hypervisor's measure but not providing service.
+- **Fix:** `vagrant reload srv-acq-01` (clean reboot of the disposable lab VM; provisioning not re-run), exit 0 in 64 s. Inside the guest, `sshd` was listening on 0.0.0.0:22, eth1 had 192.168.56.22, ufw was inactive and the guest could reach srv-main-01. The Windows ARP entry for .22 matched eth1's MAC. A TCP test immediately after the reload still failed; a re-test about a minute later passed. The early failure is attributed to the network not yet being ready, not to a second fault.
+- **Result 2:** Ansible ping SUCCESS on both hosts (exit 0, 1.9 s).
+- **Lesson for the design:** "VM running" ≠ "service available". Resuming saved VMs is less reliable than a cold boot, and fault monitoring must check the service (SSH/HTTP), not hypervisor state. This supports the OpenNMS service-monitoring proposal (team) and the HTTP verification tasks added in AN-02.
+
+## EXP-07 (AN-02) - Automated configuration of both sites: Linux baseline + nginx
+
+Raw output: `evidence/logs/20261112-195121_12_AN-02_run1_linux_servers.txt` (Ansible), `..._13_AN-02_independent_verification.txt` (checks done outside Ansible).
+
+- **Requirement:** T1, S1, B1, B2. **Code:** `playbooks/linux_servers.yml`, `roles/linux_baseline`, `roles/web_service`, `inventory/group_vars/site_*.yml`.
+- **Pre-checks:** `yamllint -s .` 0 problems; `ansible-lint` production profile passed (0 failures, 0 warnings, 31 files); `--syntax-check` on `site.yml` passed.
+- **Command:** `ansible-playbook playbooks/linux_servers.yml` (from the control node, both hosts in parallel).
+
+| Host | ok | changed | unreachable | failed | Wall time (whole run) |
+|------|---:|--------:|------------:|-------:|----------------------:|
+| srv-main-01 | 27 | 17 | 0 | 0 | 62.8 s |
+| srv-acq-01 | 27 | 17 | 0 | 0 | (same run) |
+
+- Slowest tasks (`profile_tasks`): baseline package install 27.3 s, nginx install 10.2 s. Everything else was under 5 s.
+- **Built-in verification (part of the playbook):** `service_facts` assert nginx running + enabled; HTTP fetch on the server (127.0.0.1) **and** from the control node over the lab network (proves the ufw rule); page must contain the host's own name and site; `Server` header must not reveal the nginx version. All passed on both hosts.
+- **Independent verification (outside Ansible):**
+  - HTTP from the Windows host returned 200 for both servers, with headers `Server: nginx` (version hidden), `X-Content-Type-Options: nosniff` and `X-Frame-Options: DENY`. Each page names its own host and site: srv-main-01 = Main site (MAIN), srv-acq-01 = Acquired site (ACQ).
+  - `sshd -T` effective settings on both hosts: `permitrootlogin no`, `passwordauthentication no`, `kbdinteractiveauthentication no`, `x11forwarding no`, `maxauthtries 3`, `banner /etc/issue.net`.
+  - ufw is active with default deny inbound; only 22/tcp and 80/tcp are allowed (IPv4 and IPv6).
+  - Timezone is Europe/London, the clock is synchronised, and chrony selected a UK pool source.
+  - Web root is `drwxr-x--- root:www-data` and the page is `-rw-r----- root:www-data`. The unprivileged `vagrant` user got "Permission denied", which shows the permissions are enforced.
+  - nginx is enabled and active; the only enabled site is `nel.conf`.
+- **Result:** passed. The same playbook produced identical configuration at both sites. The only per-site differences are the intended inventory variables.
+- **Limitations:** two Ubuntu VMs stand in for about 20 mixed servers. A single run says nothing yet about repeatability (AN-03) or drift (AN-04). The run time is dominated by apt downloads, so it depends on the network. No admin user accounts are managed yet (S1 is only partly covered).
+
+## EXP-08 (AN-03) - Idempotency
+
+Raw output: `evidence/logs/20261112-195121_12_...run1...`, `..._195622_14_AN-03_run2...`, `..._195650_15_AN-03_run3...`.
+
+- **Requirement:** T2. **Hypothesis:** if every task declares a desired state (rather than running commands), re-running the same playbook against a host already in that state changes nothing.
+- **Method:** the same command `ansible-playbook playbooks/linux_servers.yml`, run three times in a row with no other changes. Run 1 is EXP-07.
+
+| Run | Wall time | ok (per host) | changed | failed | unreachable | Interpretation |
+|----:|----------:|--------------:|--------:|-------:|------------:|----------------|
+| 1 | 62.8 s | 27 | 17 | 0 | 0 | Fresh hosts: 14 tasks + 3 handlers (restart chrony, reload ssh, reload nginx) made changes |
+| 2 | 26.7 s | 23 | **0** | 0 | 0 | Idempotent. 4 fewer "ok" because the handlers were not triggered (nothing changed) |
+| 3 | 26.0 s | 23 | **0** | 0 | 0 | Repeatable. Same result as run 2 |
+
+(Identical figures on both hosts in every run.)
+
+- **Result:** passed first time. No task needed fixing. The design choices that made this work were deliberate: `cache_valid_time` on apt (no index refresh every run); templates with no timestamps or run-specific values (`index.html.j2`); `changed_when: false` on the read-only `nginx -t` check; and handlers, so services restart only when their config actually changed.
+- **Analysis:** run 2 took 43 % of run 1's time, so most of the first-run cost was package installation. A no-change run still costs about 26 s for 2 hosts. That is the price of re-checking every item, and it is acceptable for scheduled compliance runs.
+- **Limitation:** `changed=0` shows that Ansible *believes* the state matches. It is backed here by the verification asserts in every run, and in AN-04 by file hashes before and after.
+
+## EXP-09 (AN-04) - Configuration drift: detection and correction
+
+Raw output: `evidence/logs/20261112-195743_16_AN-04_drift_introduce.txt` to `..._200047_22_AN-04_final_state.txt`.
+
+- **Requirement:** T3, S1, B3. **Method:** on `srv-acq-01` (the acquired site, where unmanaged local changes are most likely), three manual changes simulating an administrator working outside Ansible:
+  1. Edited the managed web page heading ("EDITED MANUALLY").
+  2. Weakened a managed security setting: `PasswordAuthentication yes` in the NEL SSH drop-in, then reloaded sshd. Confirmed live with `sshd -T`.
+  3. Added an **unmanaged** firewall rule: `ufw allow 8080/tcp`.
+
+| Step | Command / action | Result |
+|---|---|---|
+| Baseline | `sha256sum`, `sshd -T`, `ufw status` | page `b4e2348c…`, ssh drop-in `9b0ce30a…`, password auth **no**, rules 22 + 80 only |
+| Drift | manual changes (above) | page `1e1c592b…`, drop-in `82164ada…`, password auth **yes**, extra 8080 rule |
+| Detect, attempt 1 | `--check --diff` | Diffs correct for changes 1 and 2, **but the run failed on both hosts**: `object of type 'dict' has no attribute 'content'` (see below) |
+| Detect, attempt 2 | `--check --diff` after fix | srv-acq-01 changed=3 (both diffs + ssh reload handler), srv-main-01 changed=0, failed=0. Change 3 **not reported** |
+| Check mode is safe | state re-read | still drifted, hashes unchanged: `--check` modified nothing |
+| Correct | normal run (`--diff`) | srv-acq-01 changed=3, srv-main-01 changed=0 |
+| Confirm | normal run | changed=0 on both hosts |
+| Final state | `sha256sum`, `sshd -T`, `ufw`, HTTP | **hashes identical to baseline**, password auth **no**, page heading restored. **8080 rule still present** |
+
+- **Problem found and fixed (attempt 1):** `ansible.builtin.uri` is skipped in check mode, so the registered result had no `content` and the verification asserts crashed. The fix was `check_mode: false` on the two `uri` tasks: they are HTTP GETs and cannot change anything. ansible-lint production still passed. The failed run is kept as evidence (`..._17_...`).
+- **Result:** drift in **managed** items was detected, shown as a line-level diff, and corrected back to byte-identical files. Drift in **unmanaged** items (an extra firewall rule) was neither detected nor removed. The playbook says "port 22 and 80 must be allowed", not "only 22 and 80 may be allowed". The test rule was removed by hand afterwards and logged.
+- **Analysis / design decisions:**
+  - Ansible enforces what is written in the playbook, not the complete state of the host. For security-relevant resources (firewall rules, sudoers, SSH keys) the playbook must declare the *complete* set, for example by templating the whole ufw ruleset or using exclusive modes such as `authorized_key exclusive`. Otherwise unauthorised additions persist.
+  - Ansible detects drift only when it is run. Continuous drift detection would need `--check --diff` scheduled (cron or AWX/AAP job templates) with alerting on `changed>0`, or event-driven automation. This is a recommendation, not something tested here.
+  - The weakened SSH setting was live, which shows the security value: a manual change re-enabling password login was reverted in one run, about 28 s.
+
+## EXP-10 (AN-05) - Controlled failure: one site unavailable
+
+Raw output: `evidence/logs/20261112-200116_23_AN-05_halt...` to `..._200254_26_AN-05_recovery_run_limit.txt`.
+
+- **Requirement:** fault management (B2/T1 operational behaviour). **Method:** graceful power-off of the disposable lab VM `srv-acq-01` (`vagrant halt`), then the normal playbook against both sites. Then a cold boot (`vagrant up srv-acq-01`) and a run limited to the recovered host.
+- **During the outage:**
+  - srv-acq-01: `UNREACHABLE` at fact gathering after about 3 s (`connect to host 192.168.56.22 port 22: No route to host`), ok=0, unreachable=1. It was removed from the rest of the play.
+  - srv-main-01: ok=23, changed=0, all verification asserts passed.
+  - Playbook exit code **4** (Ansible's code for unreachable hosts). Total time 19.5 s.
+- **Recovery:** cold boot completed in 47 s (exit 0). `ansible-playbook ... --limit srv-acq-01` gave ok=23, **changed=0**, failed=0. nginx was already running and the page correct after the reboot without Ansible changing anything, which shows the `enabled: true` boot persistence works.
+- **Analysis:**
+  - A failure at one site does not block configuration of the others. This matters for a multi-site estate where branch links fail independently.
+  - Ansible reports the failure clearly (host, reason, distinctive exit code), but only at run time. It is not a monitoring system: nobody would know the site was down until the next run. This supports the team's OpenNMS proposal for fault detection, with Ansible kept for configuration.
+  - Recovery is a targeted re-run (`--limit`), with no manual reconfiguration. Retry files are disabled in `ansible.cfg`, so the host must be named.
+  - Compared with EXP-06, a cold boot recovered cleanly where a resume from saved state did not.
+- **Limitation:** a clean power-off is the simplest failure. Partial failures (SSH up but apt mirror unreachable, disk full, a task failing mid-run) behave differently and were not tested.

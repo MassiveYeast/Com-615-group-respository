@@ -1,0 +1,23 @@
+﻿# srv-acq-01 final state after correction - 2026-11-12T20:00:47.4628936+00:00
+b4e2348c9f1ee7cb7a8d7df01115f734044f1524223829c64dce6063e422881a  /var/www/nel/index.html
+9b0ce30a17fc9c76e40dc37f6dc2196078386cf4ea000cbf59e69b4a6c867b05  /etc/ssh/sshd_config.d/10-nel-hardening.conf
+passwordauthentication no
+[ 1] 22/tcp                     ALLOW IN    Anywhere                   # NEL management SSH
+[ 2] 80/tcp                     ALLOW IN    Anywhere                   # NEL internal web service
+[ 3] 8080/tcp                   ALLOW IN    Anywhere                   # manual test rule
+[ 4] 22/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL management SSH
+[ 5] 80/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL internal web service
+[ 6] 8080/tcp (v6)              ALLOW IN    Anywhere (v6)              # manual test rule
+## page heading over network:
+
+  <h1>Northstar Engineering Ltd</h1>
+
+
+
+# Lab clean-up: manual removal of the unmanaged test rule (Ansible did not remove it) - 2026-11-12T20:01:00.4581577+00:00
+Rule deleted
+Rule deleted (v6)
+[ 1] 22/tcp                     ALLOW IN    Anywhere                   # NEL management SSH
+[ 2] 80/tcp                     ALLOW IN    Anywhere                   # NEL internal web service
+[ 3] 22/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL management SSH
+[ 4] 80/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL internal web service

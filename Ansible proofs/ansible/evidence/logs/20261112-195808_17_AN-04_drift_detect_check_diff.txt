@@ -1,0 +1,217 @@
+# command : ansible-playbook playbooks/linux_servers.yml --check --diff
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-12T19:58:08+00:00
+
+
+PLAY [Apply the NEL Linux baseline and web service] ****************************
+
+TASK [Gathering Facts] *********************************************************
+Thursday 12 November 2026  19:58:09 +0000 (0:00:00.086)       0:00:00.086 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Install baseline packages] ******************************
+Thursday 12 November 2026  19:58:11 +0000 (0:00:01.522)       0:00:01.609 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Set the system timezone] ********************************
+Thursday 12 November 2026  19:58:12 +0000 (0:00:01.435)       0:00:03.044 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+Thursday 12 November 2026  19:58:11 +0000 (-1:59:58.684)       0:00:01.729 **** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+Thursday 12 November 2026  19:58:12 +0000 (0:00:01.020)       0:00:02.750 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+Thursday 12 November 2026  19:58:13 +0000 (0:00:00.819)       0:00:03.569 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+Thursday 12 November 2026  19:58:14 +0000 (0:00:00.821)       0:00:04.391 ***** 
+ok: [srv-main-01]
+--- before: /etc/ssh/sshd_config.d/10-nel-hardening.conf
++++ after: /home/yassine/.ansible/tmp/ansible-local-880aawvjued/tmpd4rj7_hw/sshd_hardening.conf.j2
+@@ -1,7 +1,7 @@
+ # Ansible managed
+ # NEL SSH hardening (requirement S1). Values: roles/linux_baseline/defaults/main.yml
+ PermitRootLogin no
+-PasswordAuthentication yes
++PasswordAuthentication no
+ KbdInteractiveAuthentication no
+ X11Forwarding no
+ MaxAuthTries 3
+
+changed: [srv-acq-01]
+
+TASK [linux_baseline : Allow SSH through the host firewall] ********************
+Thursday 12 November 2026  19:58:15 +0000 (0:00:01.221)       0:00:05.613 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Enable the host firewall with default deny inbound] *****
+Thursday 12 November 2026  19:58:16 +0000 (0:00:00.765)       0:00:06.378 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [web_service : Install nginx] *********************************************
+Thursday 12 November 2026  19:58:16 +0000 (0:00:00.579)       0:00:06.958 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+Thursday 12 November 2026  19:58:18 +0000 (0:00:01.363)       0:00:08.322 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [web_service : Deploy the identification page] ****************************
+Thursday 12 November 2026  19:58:18 +0000 (0:00:00.458)       0:00:08.780 ***** 
+ok: [srv-main-01]
+--- before: /var/www/nel/index.html
++++ after: /home/yassine/.ansible/tmp/ansible-local-880aawvjued/tmpnr7wqo3y/index.html.j2
+@@ -6,7 +6,7 @@
+   <title>srv-acq-01 - Northstar Engineering Ltd</title>
+ </head>
+ <body>
+-  <h1>Northstar Engineering Ltd - EDITED MANUALLY</h1>
++  <h1>Northstar Engineering Ltd</h1>
+   <table>
+     <tr><th>Host</th><td>srv-acq-01</td></tr>
+     <tr><th>Site</th><td>Acquired site (ACQ)</td></tr>
+
+changed: [srv-acq-01]
+
+TASK [web_service : Deploy the NEL site configuration] *************************
+Thursday 12 November 2026  19:58:19 +0000 (0:00:01.129)       0:00:09.910 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [web_service : Enable the NEL site] ***************************************
+Thursday 12 November 2026  19:58:20 +0000 (0:00:00.834)       0:00:10.744 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [web_service : Disable the distribution default site] *********************
+Thursday 12 November 2026  19:58:20 +0000 (0:00:00.427)       0:00:11.172 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [web_service : Allow HTTP through the host firewall] **********************
+Thursday 12 November 2026  19:58:21 +0000 (0:00:00.416)       0:00:11.588 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+Thursday 12 November 2026  19:58:21 +0000 (0:00:00.681)       0:00:12.270 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [web_service : Apply pending nginx changes before verification] ***********
+Thursday 12 November 2026  19:58:22 +0000 (0:00:00.591)       0:00:12.861 ***** 
+
+TASK [web_service : Apply pending nginx changes before verification] ***********
+Thursday 12 November 2026  19:58:22 +0000 (0:00:00.012)       0:00:12.874 ***** 
+
+RUNNING HANDLER [linux_baseline : Reload ssh] **********************************
+Thursday 12 November 2026  19:58:22 +0000 (0:00:00.015)       0:00:12.889 ***** 
+changed: [srv-acq-01]
+
+TASK [web_service : Collect service state] *************************************
+Thursday 12 November 2026  19:58:23 +0000 (0:00:00.440)       0:00:13.330 ***** 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [web_service : Assert nginx is running and enabled] ***********************
+Thursday 12 November 2026  19:58:28 +0000 (0:00:05.493)       0:00:18.823 ***** 
+ok: [srv-main-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-main-01
+ok: [srv-acq-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-acq-01
+
+TASK [web_service : Fetch the page locally on the server] **********************
+Thursday 12 November 2026  19:58:28 +0000 (0:00:00.076)       0:00:18.900 ***** 
+skipping: [srv-main-01]
+skipping: [srv-acq-01]
+
+TASK [web_service : Fetch the page from the control node over the lab network] ***
+Thursday 12 November 2026  19:58:28 +0000 (0:00:00.075)       0:00:18.975 ***** 
+skipping: [srv-main-01]
+skipping: [srv-acq-01]
+
+TASK [web_service : Assert both fetches return this host's identification page] ***
+Thursday 12 November 2026  19:58:28 +0000 (0:00:00.069)       0:00:19.045 ***** 
+[ERROR]: Task failed: Error while evaluating conditional: object of type 'dict' has no attribute 'content'
+
+Task failed.
+Origin: /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/roles/web_service/tasks/verify.yml:31:3
+
+29   register: web_service_remote
+30
+31 - name: Assert both fetches return this host's identification page
+     ^ column 3
+
+<<< caused by >>>
+
+Error while evaluating conditional: object of type 'dict' has no attribute 'content'
+Origin: /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/roles/web_service/tasks/verify.yml:34:9
+
+32   ansible.builtin.assert:
+33     that:
+34       - inventory_hostname in web_service_local.content
+           ^ column 9
+
+fatal: [srv-main-01]: FAILED! => 
+    changed: false
+    msg: 'Task failed: Error while evaluating conditional: object of type ''dict'' has
+        no attribute ''content'''
+fatal: [srv-acq-01]: FAILED! => 
+    changed: false
+    msg: 'Task failed: Error while evaluating conditional: object of type ''dict'' has
+        no attribute ''content'''
+
+PLAY RECAP *********************************************************************
+srv-acq-01                 : ok=20   changed=3    unreachable=0    failed=1    skipped=2    rescued=0    ignored=0   
+srv-main-01                : ok=19   changed=0    unreachable=0    failed=1    skipped=2    rescued=0    ignored=0   
+
+
+TASKS RECAP ********************************************************************
+Thursday 12 November 2026  19:58:28 +0000 (0:00:00.067)       0:00:19.113 ***** 
+=============================================================================== 
+web_service : Collect service state ------------------------------------- 5.49s
+Gathering Facts --------------------------------------------------------- 1.52s
+linux_baseline : Install baseline packages ------------------------------ 1.44s
+web_service : Install nginx --------------------------------------------- 1.36s
+linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 1.22s
+web_service : Deploy the identification page ---------------------------- 1.13s
+linux_baseline : Configure chrony with the NEL NTP servers -------------- 1.02s
+web_service : Deploy the NEL site configuration ------------------------- 0.83s
+linux_baseline : Set the pre-login banner shown by SSH ------------------ 0.82s
+linux_baseline : Ensure chrony is enabled and running ------------------- 0.82s
+linux_baseline : Allow SSH through the host firewall -------------------- 0.76s
+web_service : Allow HTTP through the host firewall ---------------------- 0.68s
+web_service : Ensure nginx is enabled at boot and running --------------- 0.59s
+linux_baseline : Enable the host firewall with default deny inbound ----- 0.58s
+web_service : Create the web root (owned by root, readable only by the nginx group) --- 0.46s
+linux_baseline : Reload ssh --------------------------------------------- 0.44s
+web_service : Enable the NEL site --------------------------------------- 0.43s
+web_service : Disable the distribution default site --------------------- 0.42s
+web_service : Assert nginx is running and enabled ----------------------- 0.08s
+web_service : Fetch the page locally on the server ---------------------- 0.08s
+
+PLAYBOOK RECAP *****************************************************************
+Playbook run took 0 days, 0 hours, 0 minutes, 19 seconds
+
+
+# end     : 2026-11-12T19:58:28+00:00
+# exit    : 2
+# wall_s  : 19.965

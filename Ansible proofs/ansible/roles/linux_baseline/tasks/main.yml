@@ -1,0 +1,61 @@
+---
+# NEL Linux baseline: packages, time, login banner, SSH hardening, host firewall.
+# Every task uses a state-based module so a second run should report changed=0 (T2).
+
+- name: Install baseline packages
+  ansible.builtin.apt:
+    name: "{{ linux_baseline_packages }}"
+    state: present
+    update_cache: true
+    cache_valid_time: 3600   # only refresh the apt index if it is over an hour old
+
+- name: Set the system timezone
+  community.general.timezone:
+    name: "{{ nel_timezone }}"
+
+- name: Configure chrony with the NEL NTP servers
+  ansible.builtin.template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart chrony
+
+- name: Ensure chrony is enabled and running
+  ansible.builtin.systemd_service:
+    name: chrony
+    enabled: true
+    state: started
+
+- name: Set the pre-login banner shown by SSH
+  ansible.builtin.copy:
+    content: "{{ nel_login_banner }}\n"
+    dest: /etc/issue.net
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Apply SSH hardening drop-in (validated with sshd -t before it is installed)
+  ansible.builtin.template:
+    src: sshd_hardening.conf.j2
+    dest: /etc/ssh/sshd_config.d/10-nel-hardening.conf
+    owner: root
+    group: root
+    mode: "0644"
+    validate: /usr/sbin/sshd -t -f %s
+  notify: Reload ssh
+
+# Order matters: allow SSH BEFORE enabling the firewall, or Ansible locks itself out.
+- name: Allow SSH through the host firewall
+  community.general.ufw:
+    rule: allow
+    port: "{{ linux_baseline_ufw_allow_ssh_port }}"
+    proto: tcp
+    comment: NEL management SSH
+
+- name: Enable the host firewall with default deny inbound
+  community.general.ufw:
+    state: enabled
+    default: deny
+    direction: incoming
