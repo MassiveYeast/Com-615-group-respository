@@ -1,0 +1,86 @@
+# AN-06 manual build - operator's own terminal transcript (Yassine), copied from PowerShell after the run.
+# Long, repetitive output (apt download lines, MOTD, heredoc bodies identical to the runbook) is trimmed
+# where marked [...]; every command, error and confirmation line is kept verbatim. VM clock in UTC. Login 21:49:50 UTC; tzdata step 21:59:32 UTC;
+# nginx sites-enabled symlink (Step 13) timestamp 22:09 UTC (from log 30). Operator-reported stopwatch time: ~15 min.
+# The transcript ends after Step 14 - Step 15 (verification) was not run.
+
+PS C:\WINDOWS\system32> cd "C:\Users\yassi\Com-615-group-respository\Ansible proofs\ansible\lab"
+PS C:\Users\yassi\Com-615-group-respository\Ansible proofs\ansible\lab> vagrant ssh srv-acq-01
+Welcome to Ubuntu 24.04.3 LTS (GNU/Linux 6.8.0-86-generic x86_64)
+ System information as of Thu Nov 12 09:49:50 PM UTC 2026
+[... MOTD trimmed ...]
+vagrant@srv-acq-01:~$ sudo apt-get update
+[... 38 Hit/Get lines trimmed ...]
+Fetched 12.6 MB in 8s (1,619 kB/s)
+Reading package lists... Done
+vagrant@srv-acq-01:~$ sudo apt-get install -y chrony ufw curl nginx
+ufw is already the newest version (0.36.2-6).
+The following packages will be REMOVED:
+  systemd-timesyncd
+The following NEW packages will be installed:
+  chrony nginx nginx-common tzdata-legacy
+The following packages will be upgraded:
+  curl libcurl3t64-gnutls libcurl4t64 tzdata
+4 upgraded, 4 newly installed, 1 to remove and 247 not upgraded.
+[... unpack/setup lines trimmed ...]
+Current default time zone: 'Etc/UTC'
+Local time is now:      Thu Nov 12 21:59:32 UTC 2026.
+dpkg-statoverride: warning: --update given but /var/log/chrony does not exist
+[... trigger / needrestart lines trimmed ...]
+vagrant@srv-acq-01:~$ sudo timedatectl set-timezone Europe/London
+vagrant@srv-acq-01:~$ sudo tee /etc/chrony/chrony.conf > /dev/null <<'EOF'
+[... Step 4 heredoc as in runbook ...]
+EOF
+sudo chown root:root /etc/chrony/chrony.conf && sudo chmod 0644 /etc/chrony/chrony.conf
+vagrant@srv-acq-01:~$ sudo systemctl restart chrony && sudo systemctl enable chrony
+Synchronizing state of chrony.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install enable chrony
+vagrant@srv-acq-01:~$ echo 'Authorised access to Northstar Engineering Ltd systems only. All activity is logged and monitored.' | sudo tee /etc/issue.net > /dev/null
+sudo chmod 0644 /etc/issue.net
+vagrant@srv-acq-01:~$ sudo tee /etc/ssh/sshd_config.d/10-nel-hardening.conf > /dev/null <<'EOF'
+[... Step 7 heredoc as in runbook ...]
+EOF
+sudo chmod 0644 /etc/ssh/sshd_config.d/10-nel-hardening.conf
+vagrant@srv-acq-01:~$ sudo sshd -t && sudo systemctl reload ssh && echo SSH-OK
+You must see SSH-OK.
+SSH-OK
+-bash: You: command not found
+vagrant@srv-acq-01:~$ sudo tee /etc/ssh/sshd_config.d/10-nel-hardening.conf > /dev/null <<'EOF'
+[... Step 7 heredoc REPEATED ...]
+EOF
+sudo chmod 0644 /etc/ssh/sshd_config.d/10-nel-hardening.conf
+vagrant@srv-acq-01:~$ sudo sshd -t && sudo systemctl reload ssh && echo SSH-OK
+SSH-OK
+vagrant@srv-acq-01:~$ sudo ufw allow 22/tcp comment 'NEL management SSH'
+sudo ufw default deny incoming
+sudo ufw --force enable
+Rules updated
+Rules updated (v6)
+Default incoming policy changed to 'deny'
+(be sure to update your rules accordingly)
+Firewall is active and enabled on system startup
+vagrant@srv-acq-01:~$ sudo mkdir -p /var/www/nel
+sudo chown root:www-data /var/www/nel && sudo chmod 0750 /var/www/nel
+vagrant@srv-acq-01:~$ sudo tee /var/www/nel/index.html > /dev/null <<'EOF'
+[... Step 11 heredoc as in runbook ...]
+EOF
+sudo chown root:www-data /var/www/nel/index.html && sudo chmod 0640 /var/www/nel/index.html
+vagrant@srv-acq-01:~$ sudo tee /etc/nginx/sites-available/nel.conf > /dev/null <<'EOF'
+[... Step 12 heredoc as in runbook ...]
+EOF
+sudo chmod 0644 /etc/nginx/sites-available/nel.conf
+vagrant@srv-acq-01:~$ sudo ln -sf /etc/nginx/sites-available/nel.conf /etc/nginx/sites-enabled/nel.conf
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo nginx -t && sudo systemctl reload nginx && echo NGINX-OK
+You must see syntax is ok, test is successful and NGINX-OK.
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+NGINX-OK
+-bash: You: command not found
+vagrant@srv-acq-01:~$ sudo ufw allow 80/tcp comment 'NEL internal web service'
+sudo systemctl enable --now nginx
+Rule added
+Rule added (v6)
+Synchronizing state of nginx.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install enable nginx
+vagrant@srv-acq-01:~$

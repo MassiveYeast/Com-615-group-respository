@@ -183,3 +183,42 @@ Raw output: `evidence/logs/…_27_AN-06_rebuild_srv-acq-01.txt`, `…_28_AN-06_r
   - Host keys must be regenerated on first boot, as part of the PXE/autoinstall stage, *before* the Ansible handoff (e.g. remove `/etc/ssh/ssh_host_*` in the image and run `ssh-keygen -A` / cloud-init on first boot).
   - Raise this with Jack (PXE owner) as a change to the D-06 handoff contract.
   - Not fixed in this lab, to keep the AN-06 starting point identical to AN-02. Recorded as a security limitation of the PoC.
+
+## EXP-12 (AN-06) - Manual configuration vs Ansible
+
+Raw output: `evidence/logs/20261112-215000_32_AN-06_manual_session_transcript.txt` (operator transcript), `…_30_AN-06_manual_build_state.txt` (state after manual build), `…_31_AN-06_manual_build_check_diff.txt` (Ansible consistency check), reference hashes `…_28_…`. Runbook: `docs/AN-06_manual_procedure.md`.
+
+- **Requirement:** T5, B1 (reduce manual effort and error). **Question:** what does it cost a person to reach the *same* end state by hand, and how sure can they be that they got it right?
+- **Method:**
+  - The author (Yassine) configured the freshly rebuilt `srv-acq-01` by hand, following the 15-step runbook.
+  - Copy-pasting from the runbook was allowed (best case for manual work).
+  - Afterwards, the result was compared with the Ansible-built reference using SHA-256 of the five managed files plus `ansible-playbook … --check --diff --limit srv-acq-01`. That check changes nothing.
+
+| Measure | Manual (1 server) | Ansible (AN-02 first run) |
+|---|---|---|
+| Elapsed time | **~15 min** (operator stopwatch). VM timestamps: login 21:49:50, Step 13 file at 22:09 UTC | **62.8 s for both servers in parallel** |
+| Operator actions | 15 runbook blocks, 29 command lines, plus 1 repeated block (Steps 7–8 re-done) | 1 command |
+| Errors seen by the operator | 2 × `-bash: You: command not found`, from accidentally pasting instruction text with the commands (Steps 8 and 13) | 0 |
+| Unnecessary rework | Steps 7–8 repeated, because the error made a successful step look failed | 0 |
+| Verification | **Not performed.** Step 15 was skipped and the operator finished unsure whether problems remained | Automatic every run: service state, HTTP on-host and over the network, page identity, header check |
+| End-state consistency | **Identical:** all 5 file hashes match the reference; owners/modes, packages, services, timezone, sshd and ufw match; Ansible `--check` reported ok=23 changed=0 | Identical by construction (AN-03: changed=0) |
+| Scaling (estimate, not measured) | About 15 min × N servers, sequential, with the error chance repeated N times | Parallel (`forks = 10`); per-run time grows slowly with N |
+
+- **Result:**
+  - The manual build was **correct**, byte-identical to Ansible's.
+  - It took about **14× longer** for one server than Ansible took for two.
+  - It produced **two misleading error messages** and **one unnecessary repeat**, and ended **without verification**: the operator reported "problems I couldn't fix" although none remained. Only the automated check afterwards showed the server was right.
+- **Analysis:**
+  - The main difference is not correctness. A careful person with a precise runbook can be exactly right. The differences are **effort, confidence and evidence**.
+  - Manual work gives no reliable signal of success. A copy-paste slip produced error text next to a success message, and the operator could not tell them apart. Ansible reports per task (ok/changed/failed) and asserts the outcome.
+  - At Northstar's scale (about 20 servers, more after acquisitions), manual time and error exposure grow with every server. Ansible's run cost grows slowly because hosts run in parallel.
+  - The manual run was *easier* than real life: the runbook was derived from the Ansible templates, and the values were pre-filled for this host.
+- **Fairness and limitations (must be stated in the report):**
+  - n = 1 manual run by one operator, who is also the author and already knew the configuration.
+  - Copy-paste from a runbook is a best case. Typing from documentation would be slower and more error-prone.
+  - **Development effort is not included:** writing and testing the two roles took far longer than one manual build. The roles were developed with AI assistance in this project, so their development time does not represent an engineer writing them unaided and is not used as a figure. Automation only pays back once the same configuration is applied repeatedly: more servers, rebuilds (AN-06 itself), drift correction (AN-04). It does not pay back for a one-off change on one server.
+  - The scaling row is reasoning, not measurement.
+  - Instruction text was pasted because expected-output notes sat directly next to the commands in the operator's instructions. That is a runbook-design weakness in itself: runbooks are error-prone documents too.
+- **Design decision:**
+  - Use Ansible for repeatable server configuration and verification at both sites (B1, T1, T2).
+  - Keep manual changes for one-off investigation only, followed by a `--check --diff` run to detect the resulting drift (AN-04).
