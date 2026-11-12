@@ -1,0 +1,20 @@
+# SD-01: reachability + TLS check of the DevNet always-on SD-WAN sandbox (unauthenticated) - 2026-11-12T22:27:08Z
+## DNS / TCP (PowerShell Test-NetConnection, same session): sandbox-sdwan-2.cisco.com -> 131.226.217.159, TCP 443 open; sandbox-sdwan-1.cisco.com -> 131.226.217.141, TCP 443 closed
+## HTTPS with normal certificate verification (curl):
+curl: (35) schannel: next InitializeSecurityContext failed: SEC_E_CERT_EXPIRED (0x80090328) - The received certificate has expired.
+curl exit 35
+## Server certificate (openssl s_client):
+subject=C=US, ST=California, L=San Jose, O=Cisco Systems Inc., CN=sandbox-sdwan-2.cisco.com
+issuer=C=US, O=IdenTrust, OU=HydrantID Trusted Certificate Service, CN=HydrantID Server CA O1
+notBefore=Mar 12 17:54:47 2026 GMT
+notAfter=Sep 27 17:53:47 2026 GMT
+sha256 Fingerprint=35:78:CE:58:85:E6:AE:D1:45:3E:42:27:3D:3E:32:13:E4:3E:2F:F1:D7:0F:1D:2D:01:DB:F3:F7:7C:84:ED:03
+## Current UTC time: Thu, Nov 12, 2026 10:27:11 PM
+
+## Certificate chain sent by the server (openssl s_client -showcerts) - 2026-11-12T22:29:00Z
+verify error:num=20:unable to get local issuer certificate
+verify error:num=21:unable to verify the first certificate
+verify error:num=10:certificate has expired
+ 0 s:C=US, ST=California, L=San Jose, O=Cisco Systems Inc., CN=sandbox-sdwan-2.cisco.com
+   i:C=US, O=IdenTrust, OU=HydrantID Trusted Certificate Service, CN=HydrantID Server CA O1
+    Verify return code: 10 (certificate has expired)

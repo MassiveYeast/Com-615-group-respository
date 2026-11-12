@@ -1,0 +1,6 @@
+# never commit credentials or local env files
+.env
+*.env
+.sdwan_env
+__pycache__/
+*.pyc
