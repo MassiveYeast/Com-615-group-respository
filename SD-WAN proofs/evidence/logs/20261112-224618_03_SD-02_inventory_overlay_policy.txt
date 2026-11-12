@@ -1,0 +1,5 @@
+# command : sdwan_client.py all
+# start   : 2026-11-12T22:46:18Z
+ERROR: TLS verification failed (pinned certificate sha256=35:78:CE:58:85:E6:AE:D1:45:3E:42:27:3D:3E:32:13:E4:3E:2F:F1:D7:0F:1D:2D:01:DB:F3:F7:7C:84:ED:03): HTTPSConnectionPool(host='sandbox-sdwan-2.cisco.com', port=443): Max retries exceeded with url: /j_security_check (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+# exit    : 2
+# end     : 2026-11-12T22:46:19Z

@@ -1,0 +1,202 @@
+# Summary of API snapshot 20261112-224846 (UTC)
+
+## Control plane (DTLS/TLS control connections)
+- Edge1 (10.0.0.1): vmanage/dtls/up x1, vsmart/dtls/up x2
+- Edge2 (10.0.0.2): vmanage/dtls/up x1, vsmart/dtls/up x2
+- Edge3 (10.0.0.3): vmanage/dtls/up x1, vsmart/dtls/up x2
+- Edge4 (10.0.0.4): vmanage/dtls/up x1, vsmart/dtls/up x2
+- Manager01 (100.0.0.1): vbond/dtls/up x1, vedge/dtls/up x4, vsmart/dtls/up x1
+- Controller01 (100.0.0.101): vbond/dtls/up x2, vedge/dtls/up x8, vmanage/dtls/up x1
+
+## OMP peers
+- Edge1 -> peer 100.0.0.101 type=vsmart state=up routes rx/inst/sent=None/None/None tlocs rx/inst/sent=None/None/None
+- Edge2 -> peer 100.0.0.101 type=vsmart state=up routes rx/inst/sent=None/None/None tlocs rx/inst/sent=None/None/None
+- Edge3 -> peer 100.0.0.101 type=vsmart state=up routes rx/inst/sent=None/None/None tlocs rx/inst/sent=None/None/None
+- Edge4 -> peer 100.0.0.101 type=vsmart state=up routes rx/inst/sent=None/None/None tlocs rx/inst/sent=None/None/None
+- Controller01 -> peer 10.0.0.1 type=vedge state=up routes rx/inst/sent=None/None/None tlocs rx/inst/sent=None/None/None
+- Controller01 -> peer 10.0.0.2 type=vedge state=up routes rx/inst/sent=None/None/None tlocs rx/inst/sent=None/None/None
+- Controller01 -> peer 10.0.0.3 type=vedge state=up routes rx/inst/sent=None/None/None tlocs rx/inst/sent=None/None/None
+- Controller01 -> peer 10.0.0.4 type=vedge state=up routes rx/inst/sent=None/None/None tlocs rx/inst/sent=None/None/None
+
+## TLOCs advertised (system-ip, colour, encapsulation)
+- Edge1: 10.0.0.1 color=mpls encap=ipsec public=172.16.2.1 private=172.16.2.1
+- Edge1: 10.0.0.1 color=biz-internet encap=ipsec public=172.16.1.1 private=172.16.1.1
+- Edge2: 10.0.0.2 color=mpls encap=ipsec public=172.16.2.2 private=172.16.2.2
+- Edge2: 10.0.0.2 color=biz-internet encap=ipsec public=172.16.1.2 private=172.16.1.2
+- Edge3: 10.0.0.3 color=mpls encap=ipsec public=172.16.2.3 private=172.16.2.3
+- Edge3: 10.0.0.3 color=biz-internet encap=ipsec public=172.16.1.3 private=172.16.1.3
+- Edge4: 10.0.0.4 color=mpls encap=ipsec public=172.16.2.4 private=172.16.2.4
+- Edge4: 10.0.0.4 color=biz-internet encap=ipsec public=172.16.1.4 private=172.16.1.4
+
+## BFD sessions (data-plane tunnels between edges)
+- Edge1: {'up': 6}; tunnels: biz-internet->10.0.0.2:biz-internet, biz-internet->10.0.0.3:biz-internet, biz-internet->10.0.0.4:biz-internet, mpls->10.0.0.2:mpls, mpls->10.0.0.3:mpls, mpls->10.0.0.4:mpls
+- Edge2: {'up': 6}; tunnels: biz-internet->10.0.0.1:biz-internet, biz-internet->10.0.0.3:biz-internet, biz-internet->10.0.0.4:biz-internet, mpls->10.0.0.1:mpls, mpls->10.0.0.3:mpls, mpls->10.0.0.4:mpls
+- Edge3: {'up': 6}; tunnels: biz-internet->10.0.0.1:biz-internet, biz-internet->10.0.0.2:biz-internet, biz-internet->10.0.0.4:biz-internet, mpls->10.0.0.1:mpls, mpls->10.0.0.2:mpls, mpls->10.0.0.4:mpls
+- Edge4: {'up': 6}; tunnels: biz-internet->10.0.0.1:biz-internet, biz-internet->10.0.0.2:biz-internet, biz-internet->10.0.0.3:biz-internet, mpls->10.0.0.1:mpls, mpls->10.0.0.2:mpls, mpls->10.0.0.3:mpls
+
+## App-route statistics (per tunnel: loss %, latency ms, jitter ms)
+- Edge1 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge1 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge1 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge2 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge2 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge3 biz-internet->10.0.0.4:biz-internet loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge3 mpls->10.0.0.4:mpls loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.1:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.2:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge4 biz-internet->10.0.0.3:biz-internet loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.1:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.2:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+- Edge4 mpls->10.0.0.3:mpls loss=0 latency=0 jitter=0
+
+## OMP routes received per VPN (service-side segmentation)
+- Edge1: VPN 1: 8 routes
+- Edge2: VPN 1: 8 routes
+- Edge3: VPN 1: 8 routes
+- Edge4: VPN 1: 8 routes
+
+## SLA classes defined
+- Best-Effort: [{'jitter': '500', 'latency': '500', 'loss': '5'}] (referenced by 0 policies)
+- Bulk-Data: [{'jitter': '500', 'latency': '500', 'loss': '5'}] (referenced by 0 policies)
+- Business-Critical: [{'jitter': '100', 'latency': '250', 'loss': '1'}] (referenced by 0 policies)
+- Business-Data: [{'jitter': '200', 'latency': '350', 'loss': '3'}] (referenced by 0 policies)
+- Default: [{'jitter': '500', 'latency': '500', 'loss': '5'}] (referenced by 0 policies)
+- Realtime: [{'jitter': '30', 'latency': '150', 'loss': '1'}] (referenced by 0 policies)
+- Transactional-Data: [{'jitter': '200', 'latency': '200', 'loss': '1'}] (referenced by 0 policies)
+- Voice-And-Video: [{'jitter': '60', 'latency': '300', 'loss': '2'}] (referenced by 0 policies)
+- centralised_policies: 0
+- app_route_definitions: 0
+- vpn_lists: 0
+- site_lists: 0
+- control_definitions: 0

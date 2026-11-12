@@ -47,8 +47,14 @@ class PinnedFingerprintAdapter(HTTPAdapter):
 
     def init_poolmanager(self, *args, **kwargs):
         kwargs["assert_fingerprint"] = self._fingerprint
-        kwargs["cert_reqs"] = "CERT_NONE"  # CA/expiry check replaced by the exact fingerprint check
         super().init_poolmanager(*args, **kwargs)
+
+    def send(self, request, **kwargs):
+        # requests would otherwise re-impose CA verification (verify=True) and fail on the expired,
+        # chain-less certificate. The CA/expiry check is replaced - not removed - by urllib3's exact
+        # fingerprint check (assert_fingerprint), which aborts the connection on any other certificate.
+        kwargs["verify"] = False
+        return super().send(request, **kwargs)
 
 
 def env(name: str, required: bool = True) -> str | None:
@@ -142,6 +148,8 @@ def overlay(m: SdwanManager, devices: list[dict]) -> dict:
         if typ == "vedge":
             calls["bfd_sessions"] = "/device/bfd/sessions"
             calls["tloc_advertised"] = "/device/omp/tlocs/advertised"
+            calls["omp_routes_received"] = "/device/omp/routes/received"
+            calls["app_route_stats"] = "/device/app-route/statistics"
         for name, path in calls.items():
             try:
                 entry[name] = m.get(path, {"deviceId": sid}).get("data", [])

@@ -1,0 +1,3 @@
+# SD-02 negative test: WRONG pinned fingerprint must be refused before login - 2026-11-12T22:46:56Z
+ERROR: TLS verification failed (pinned certificate sha256=00:11:22:33:44:55:66:77:88:99:AA:BB:CC:DD:EE:FF:00:11:22:33:44:55:66:77:88:99:AA:BB:CC:DD:EE:FF): HTTPSConnectionPool(host='sandbox-sdwan-2.cisco.com', port=443): Max retries exceeded with url: /j_security_check (Caused by SSLError('Fingerprints did not match [details trimmed]
+# exit 2

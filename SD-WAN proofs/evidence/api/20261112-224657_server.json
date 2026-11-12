@@ -1,0 +1,27 @@
+{
+  "CSRFToken": "[removed]",
+  "VSessionId": "ZGVmYXVsdA==",
+  "capabilities": [],
+  "cloudx": "on",
+  "description": "devnetuser",
+  "disableFullConfigPush": false,
+  "enableServerEvents": true,
+  "externalUser": false,
+  "generalTemplate": true,
+  "isRbacVpnUser": false,
+  "isSamlUser": false,
+  "locale": "en_US",
+  "platformVersion": "20.18.2.1",
+  "reverseproxy": "off",
+  "roles": [
+    "operator"
+  ],
+  "server": "Manager01",
+  "tenancyMode": "SingleTenant",
+  "tenantId": "default",
+  "user": "devnetuser",
+  "userMode": "tenant",
+  "viewMode": "tenant",
+  "vmanageMode": "default",
+  "vpns": []
+}
