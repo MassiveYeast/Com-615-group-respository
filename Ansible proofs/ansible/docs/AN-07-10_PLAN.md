@@ -88,7 +88,7 @@ bash evidence/scripts/drift_cycles.sh 3
 ```
 Each cycle on both servers: chrony.conf extra server, sshd `MaxAuthTries 6` (file only), web page edit, chrony disabled at boot, unapproved `ufw allow 8080/tcp` → `--check --diff` → correct → rerun → read-only verify. Output: 15 logs + `*_AN-10_drift_cycles_summary.csv` + `*_verdict.txt` (PASS = detect changed>0, correct changed>0, rerun changed=0, no non-zero exit). SSH stays allowed throughout; sshd is only reloaded after `sshd -t` validates the restored file.
 
-## 4. AN-07 - IOS XE on the DevNet sandbox (T1, T2, T3) - NOT RUN: sandbox session launched 13 Nov 01:44 UTC (ends 07:44), waiting for the user to add the device password
+## 4. AN-07 - IOS XE on the DevNet sandbox (T1, T2, T3) - ATTEMPTED, BLOCKED: sandbox login rejected (EXP-16); no change made to any device
 
 Needs **you** to reserve/open the IOS XE sandbox at developer.cisco.com and copy the host/port/username/password it shows, then in WSL:
 ```bash
