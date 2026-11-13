@@ -338,12 +338,12 @@ Raw output: `evidence/logs/20261112-215000_32_AN-06_manual_session_transcript.tx
 | Time (UTC) | Step | Result | Evidence |
 |---|---|---|---|
 | 01:05 | Reachability probe (no login) | `devnetsandboxiosxec8k.cisco.com` resolves; tcp/22, 443, 830 open | plan §0 |
-| 01:44 | Student launched the Catalyst 8000v Always-On sandbox (6 h session); page shows host, username and a generated password | Sandbox "Running", IOS XE 17.12.02 | SS16 |
+| 01:44 | Sandbox launched (6 h session) from the student's signed-in DevNet account - the **AI assistant clicked "Launch" in the student's Chrome at his request**; page shows host, username and a generated password | Sandbox "Running", IOS XE 17.12.02 | SS16 |
 | 01:56 | Precheck run 1 | **Authentication failed**. Cause found: the saved password was 117 characters (wrong clipboard content) | `20261113-015617_AN-07_precheck.txt` |
 | 01:58 | Precheck run 2 (password re-typed, 13 characters) | **Authentication failed** | `20261113-015844_AN-07_precheck.txt`; SS15 |
 | ~02:00 | Diagnosis without sending a password (`ssh -v`, auth method `none`) | Server `Cisco-1.25` offers `publickey,keyboard-interactive,password`; username matches the page | session notes |
 | ~02:01 | Student's own manual `ssh 0yassl40@…` | 3 keyboard-interactive prompts + 1 password prompt, then "Connection closed" (rejected) | student's terminal output, pasted into the session |
-| ~02:07 | Student ended the session and launched a new one (new password) | New password rejected in the student's manual SSH. Later re-test with the current password also rejected | student report |
+| ~02:07 | Student ended the session and launched a new one himself (new password) | New password rejected in the student's manual SSH. Later re-test with the current password also rejected | student report |
 
 - **Result:** **not executed.** No configuration was sent to any device. The precheck stopped at login, before any command ran.
 - **Stopped deliberately:**
