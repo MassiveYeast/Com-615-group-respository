@@ -1,0 +1,88 @@
+---
+# Fully managed host firewall (S1, experiment AN-08).
+# The approved policy is linux_baseline_ufw_rules + linux_baseline_ufw_policy. When
+# linux_baseline_ufw_prune is true, any rule found in ufw that is NOT in the approved
+# list is deleted - this closes the AN-04 limitation (an unmanaged 8080 rule survived).
+#
+# Lock-out guards:
+#   1. the play refuses to run if the approved list does not allow the SSH port;
+#   2. approved rules are applied and the firewall enabled BEFORE anything is deleted;
+#   3. only rules outside the approved list are deleted, so the SSH rule is never touched.
+# "routed" is deliberately not managed: with IP forwarding off ufw reports it as
+# "disabled", so the module would report a change on every run and break idempotency (T2).
+
+- name: Refuse a firewall policy that would lock Ansible out
+  ansible.builtin.assert:
+    that:
+      - >-
+        linux_baseline_ufw_rules
+        | selectattr('rule', 'equalto', 'allow')
+        | selectattr('proto', 'equalto', 'tcp')
+        | selectattr('port', 'equalto', linux_baseline_ssh_port | string)
+        | list | length > 0
+    fail_msg: "The approved firewall rules do not allow SSH on port {{ linux_baseline_ssh_port }} - refusing to continue."
+    quiet: true
+
+- name: Apply the approved firewall rules
+  community.general.ufw:
+    rule: "{{ item.rule }}"
+    port: "{{ item.port | string }}"
+    proto: "{{ item.proto }}"
+    comment: "{{ item.comment }}"
+  loop: "{{ linux_baseline_ufw_rules }}"
+  loop_control:
+    label: "{{ item.rule }} {{ item.port }}/{{ item.proto }}"
+
+- name: Set the approved default policies
+  community.general.ufw:
+    direction: "{{ item.key }}"
+    default: "{{ item.value }}"
+  loop: "{{ linux_baseline_ufw_policy | dict2items }}"
+  loop_control:
+    label: "{{ item.key }} -> {{ item.value }}"
+
+- name: Enable the host firewall
+  community.general.ufw:
+    state: enabled
+
+- name: Read the rules currently configured in ufw (read-only, also in check mode)
+  ansible.builtin.command: ufw show added
+  register: linux_baseline_ufw_added
+  changed_when: false
+  check_mode: false
+  when: linux_baseline_ufw_prune | bool
+
+- name: Work out which configured rules are not in the approved policy
+  ansible.builtin.set_fact:
+    linux_baseline_ufw_unapproved: >-
+      {{ linux_baseline_ufw_added.stdout_lines
+         | select('match', '^ufw ')
+         | map('regex_replace', '^ufw ', '')
+         | reject('in', linux_baseline_ufw_approved_lines)
+         | list }}
+  vars:
+    # "allow 22/tcp comment 'NEL management SSH'" - exactly how ufw prints a rule it stores
+    linux_baseline_ufw_approved_lines: >-
+      {{ linux_baseline_ufw_rules | map(attribute='rule')
+         | zip(linux_baseline_ufw_rules | map(attribute='port') | map('string')) | map('join', ' ')
+         | zip(linux_baseline_ufw_rules | map(attribute='proto')) | map('join', '/')
+         | zip(linux_baseline_ufw_rules | map(attribute='comment')
+               | map('regex_replace', '^', "comment '") | map('regex_replace', '$', "'"))
+         | map('join', ' ')
+         | list }}
+  when: linux_baseline_ufw_prune | bool
+
+- name: Report unapproved rules (shows as a change in --check so drift is visible)
+  ansible.builtin.debug:
+    msg: "Unapproved ufw rules {{ 'that would be' if ansible_check_mode else '' }} removed: {{ linux_baseline_ufw_unapproved }}"
+  changed_when: ansible_check_mode and linux_baseline_ufw_unapproved | length > 0
+  when:
+    - linux_baseline_ufw_prune | bool
+    - linux_baseline_ufw_unapproved | length > 0
+
+- name: Remove firewall rules that are not in the approved policy
+  ansible.builtin.command:
+    cmd: "ufw --force delete {{ item }}"
+  loop: "{{ linux_baseline_ufw_unapproved | default([]) }}"
+  changed_when: true
+  when: linux_baseline_ufw_prune | bool

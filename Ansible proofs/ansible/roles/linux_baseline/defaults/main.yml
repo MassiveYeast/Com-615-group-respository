@@ -21,5 +21,13 @@ linux_baseline_ssh_settings:
   ClientAliveCountMax: "2"
   Banner: /etc/issue.net
 
-# Host firewall: default deny inbound, allow SSH. Other roles open their own ports.
-linux_baseline_ufw_allow_ssh_port: "22"
+# Host firewall (tasks/firewall.yml). Role default = SSH only; the approved NEL policy
+# for Linux servers is set in inventory/group_vars/linux_servers.yml.
+linux_baseline_ssh_port: "22"
+linux_baseline_ufw_policy:
+  incoming: deny
+  outgoing: allow
+linux_baseline_ufw_rules:
+  - { rule: allow, port: "22", proto: tcp, comment: NEL management SSH }
+# true = delete any ufw rule that is not in linux_baseline_ufw_rules (fully managed firewall)
+linux_baseline_ufw_prune: false

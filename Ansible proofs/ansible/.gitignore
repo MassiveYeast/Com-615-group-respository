@@ -24,3 +24,7 @@ lab/.vagrant/
 .ansible/
 __pycache__/
 *.pyc
+
+# Full IOS XE running-configs from the shared DevNet sandbox (AN-07): may hold other
+# users' data and password hashes. Only sanitised diffs in evidence/iosxe/ are committed.
+evidence/iosxe/raw/

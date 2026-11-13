@@ -46,16 +46,7 @@
     validate: /usr/sbin/sshd -t -f %s
   notify: Reload ssh
 
-# Order matters: allow SSH BEFORE enabling the firewall, or Ansible locks itself out.
-- name: Allow SSH through the host firewall
-  community.general.ufw:
-    rule: allow
-    port: "{{ linux_baseline_ufw_allow_ssh_port }}"
-    proto: tcp
-    comment: NEL management SSH
-
-- name: Enable the host firewall with default deny inbound
-  community.general.ufw:
-    state: enabled
-    default: deny
-    direction: incoming
+# Approved rules first, then default deny, then (optionally) removal of unapproved rules.
+# See firewall.yml for the lock-out guards (AN-08).
+- name: Manage the host firewall
+  ansible.builtin.import_tasks: firewall.yml

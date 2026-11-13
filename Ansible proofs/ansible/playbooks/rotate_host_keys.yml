@@ -1,0 +1,168 @@
+---
+# AN-09: detect - and, only when asked, replace - SSH host keys shared between servers (S1, T4).
+# Finding EXP-11: every VM built from the bento box presents the same host keys, and that
+# box is public, so anyone holding it can impersonate a NEL server. New PXE builds should
+# run "ssh-keygen -A" on first boot (Jack's pipeline); this playbook fixes existing servers.
+#
+#   Detect only (read-only):   ansible-playbook playbooks/rotate_host_keys.yml
+#   Replace shared keys:       ansible-playbook playbooks/rotate_host_keys.yml -e hostkey_rotate=true
+#
+# Safety:
+#   - one server at a time (serial: 1); the run stops at the first failure;
+#   - old keys are backed up on the server, the control node's known_hosts is backed up;
+#   - sshd is RELOADED, not restarted, and the config is checked first (sshd -t);
+#   - the new key is read over the existing authenticated session and written to
+#     known_hosts directly, so it is never trusted blindly from the network;
+#   - authorized_keys is never touched, so authorised access is unchanged.
+# Rollback / recovery: docs/AN-07-10_PLAN.md section 2.
+
+- name: Detect SSH host keys shared between servers
+  hosts: linux_servers
+  gather_facts: false
+  tasks:
+    - name: Read this server's ED25519 host key fingerprint
+      ansible.builtin.command: ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub
+      register: hostkey_fp_cmd
+      changed_when: false
+      check_mode: false
+
+    - name: Record the fingerprint
+      ansible.builtin.set_fact:
+        hostkey_fp: "{{ hostkey_fp_cmd.stdout.split()[1] }}"
+
+    - name: Find other servers presenting the same key
+      ansible.builtin.set_fact:
+        hostkey_shared_with: >-
+          {{ ansible_play_hosts | reject('equalto', inventory_hostname)
+             | map('extract', hostvars) | selectattr('hostkey_fp', 'equalto', hostkey_fp)
+             | map(attribute='inventory_hostname') | list }}
+
+    - name: Report
+      ansible.builtin.debug:
+        msg: "{{ hostkey_fp }} - {{ 'SHARED with ' ~ (hostkey_shared_with | join(', ')) if hostkey_shared_with else 'unique' }}"
+
+- name: Replace shared SSH host keys, one server at a time
+  hosts: linux_servers
+  gather_facts: false
+  serial: 1
+  max_fail_percentage: 0
+  vars:
+    hostkey_backup_dir: /root/ssh-hostkey-backup
+    hostkey_known_hosts: "{{ lookup('ansible.builtin.env', 'HOME') }}/.ssh/known_hosts"
+    # tasks delegated to the control node: no sudo, local connection
+    hostkey_local_vars: &local
+      ansible_become: false
+      ansible_connection: local
+      ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  tasks:
+    - name: Leave servers alone unless rotation was requested and their key is shared
+      ansible.builtin.meta: end_host
+      when: not (hostkey_rotate | default(false) | bool) or hostkey_shared_with | length == 0
+
+    - name: Find the current host key files
+      ansible.builtin.find:
+        paths: /etc/ssh
+        patterns: ssh_host_*
+      register: hostkey_files
+
+    - name: Create a root-only backup directory
+      ansible.builtin.file:
+        path: "{{ hostkey_backup_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0700"
+
+    - name: Back up the current host keys on the server
+      ansible.builtin.copy:
+        src: "{{ item.path }}"
+        dest: "{{ hostkey_backup_dir }}/"
+        remote_src: true
+        mode: preserve
+      loop: "{{ hostkey_files.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+
+    - name: Back up the control node's known_hosts
+      ansible.builtin.copy:
+        src: "{{ hostkey_known_hosts }}"
+        dest: "{{ hostkey_known_hosts }}.pre-rotation-{{ inventory_hostname }}"
+        mode: "0600"
+        force: false
+      delegate_to: localhost
+      vars: *local
+
+    - name: Replace the host keys
+      block:
+        - name: Remove the shared host keys
+          ansible.builtin.file:
+            path: "{{ item.path }}"
+            state: absent
+          loop: "{{ hostkey_files.files }}"
+          loop_control:
+            label: "{{ item.path }}"
+
+        - name: Generate new host keys
+          ansible.builtin.command: ssh-keygen -A
+          changed_when: true
+
+        - name: Check the SSH server configuration with the new keys
+          ansible.builtin.command: sshd -t
+          changed_when: false
+
+        - name: Reload sshd so new connections use the new keys (existing sessions stay up)
+          ansible.builtin.systemd_service:
+            name: ssh
+            state: reloaded
+
+      rescue:
+        - name: Restore the original host keys
+          ansible.builtin.copy:
+            src: "{{ hostkey_backup_dir }}/{{ item.path | basename }}"
+            dest: "{{ item.path }}"
+            remote_src: true
+            mode: preserve
+          loop: "{{ hostkey_files.files }}"
+          loop_control:
+            label: "{{ item.path }}"
+
+        - name: Reload sshd with the original keys
+          ansible.builtin.systemd_service:
+            name: ssh
+            state: reloaded
+
+        - name: Stop here
+          ansible.builtin.fail:
+            msg: Host key replacement failed - original keys restored on {{ inventory_hostname }}.
+
+    - name: Read the new ED25519 public key over the existing authenticated session
+      ansible.builtin.slurp:
+        src: /etc/ssh/ssh_host_ed25519_key.pub
+      register: hostkey_new_pub
+
+    - name: Read the new fingerprints (evidence)
+      ansible.builtin.shell: set -o pipefail && for f in /etc/ssh/ssh_host_*_key.pub; do ssh-keygen -lf "$f"; done
+      args:
+        executable: /bin/bash
+      register: hostkey_new_fps
+      changed_when: false
+
+    - name: Show the new fingerprints
+      ansible.builtin.debug:
+        var: hostkey_new_fps.stdout_lines
+
+    - name: Trust the new key on the control node (replaces the old entry for this address)
+      ansible.builtin.known_hosts:
+        path: "{{ hostkey_known_hosts }}"
+        name: "{{ ansible_host }}"
+        key: "{{ ansible_host }} {{ (hostkey_new_pub.content | b64decode).split()[0:2] | join(' ') }}"
+        hash_host: true
+        state: present
+      delegate_to: localhost
+      vars: *local
+
+    - name: Close the existing SSH connection so the next task must check the new key
+      ansible.builtin.meta: reset_connection
+
+    - name: Reconnect with host-key checking (proves access survived the change)
+      ansible.builtin.ping:

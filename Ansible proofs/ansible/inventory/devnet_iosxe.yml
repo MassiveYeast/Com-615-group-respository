@@ -1,0 +1,29 @@
+---
+# AN-07 only: Cisco DevNet IOS XE sandbox (Catalyst 8000V), used because the CSR1000v lab
+# router (rtr-main-01) was never available. Kept OUT of hosts.yml so no NEL playbook can
+# reach a third-party device by accident.
+#
+# Credentials are NOT stored anywhere in this repo. They come from the user's own DevNet
+# reservation and are read from environment variables set by ~/.iosxe_env (mode 600,
+# outside the repo), which evidence/scripts/run_iosxe.sh sources.
+#
+#   ansible-playbook -i inventory/devnet_iosxe.yml playbooks/iosxe_interface_description.yml -e phase=precheck
+
+all:
+  children:
+    devnet_iosxe:
+      hosts:
+        sbx-iosxe:
+          ansible_host: "{{ lookup('ansible.builtin.env', 'IOSXE_HOST', default='devnetsandboxiosxe.cisco.com') }}"
+          ansible_port: "{{ lookup('ansible.builtin.env', 'IOSXE_PORT', default='22') | int }}"
+      vars:
+        ansible_connection: ansible.netcommon.network_cli
+        ansible_network_os: cisco.ios.ios
+        ansible_user: "{{ lookup('ansible.builtin.env', 'IOSXE_USER') }}"
+        ansible_password: "{{ lookup('ansible.builtin.env', 'IOSXE_PASS') }}"
+        ansible_become: false
+        # ansible-pylibssh is not installed on the control node; paramiko is (no new install needed)
+        ansible_network_cli_ssh_type: paramiko
+        # First contact with a third-party device: its key is accepted once and then pinned
+        # in ~/.ssh/known_hosts (same trust-on-first-use rule as the Linux lab, D-03).
+        ansible_host_key_auto_add: true

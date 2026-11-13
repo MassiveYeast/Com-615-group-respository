@@ -1,0 +1,189 @@
+---
+# AN-07: Ansible against a real Cisco IOS XE device (DevNet sandbox) - the smallest
+# reversible change: one interface description. Requirements T1 (one tool for servers AND
+# network devices), T2 (second change run reports no change), T3 (verify on the device).
+#
+# Run one phase at a time (evidence/scripts/run_iosxe.sh logs each one):
+#   precheck  read-only: version, privilege, interfaces, running-config backup
+#   change    record the original description (once), set the test description, verify
+#   rollback  restore the original description (or remove ours), verify
+#
+#   ... -e phase=precheck
+#   ... -e phase=change   -e iosxe_interface=Loopback100
+#   ... -e phase=rollback -e iosxe_interface=Loopback100
+#
+# Full running-configs go to evidence/iosxe/raw/ (gitignored: a shared sandbox config can
+# hold other users' data and password hashes). Only sanitised diffs are committed.
+
+- name: AN-07 IOS XE interface description - change, verify, roll back
+  hosts: devnet_iosxe
+  gather_facts: false
+  vars:
+    iosxe_evidence_dir: "{{ playbook_dir }}/../evidence/iosxe"
+    iosxe_test_description: NEL-COM615 AN-07 Ansible test - safe to remove
+    iosxe_stamp: "{{ now(fmt='%Y%m%d-%H%M%S') }}"
+    iosxe_if_file: "{{ iosxe_interface | default('none') | regex_replace('[^A-Za-z0-9.]', '-') }}"
+    iosxe_original_file: "{{ iosxe_evidence_dir }}/{{ inventory_hostname }}_{{ iosxe_if_file }}_original.json"
+    iosxe_local: &local
+      ansible_become: false
+      ansible_connection: local
+      ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  tasks:
+    - name: Check the requested phase and interface
+      ansible.builtin.assert:
+        that:
+          - phase | default('') in ['precheck', 'change', 'rollback']
+          - phase == 'precheck' or iosxe_interface | default('') | length > 0
+        fail_msg: "Use -e phase=precheck|change|rollback (change/rollback also need -e iosxe_interface=...)"
+        quiet: true
+
+    - name: Read software version and privilege level
+      cisco.ios.ios_command:
+        commands:
+          - show version | include Cisco IOS XE Software|uptime is
+          - show privilege
+      register: iosxe_info
+
+    - name: Show version and privilege
+      ansible.builtin.debug:
+        var: iosxe_info.stdout_lines
+
+    - name: Refuse to change anything without privilege level 15
+      ansible.builtin.assert:
+        that: "'level is 15' in iosxe_info.stdout[1]"
+        fail_msg: "Account is not privilege 15 - change not attempted."
+        quiet: true
+      when: phase != 'precheck'
+
+    - name: List interfaces and their descriptions
+      cisco.ios.ios_command:
+        commands:
+          - show ip interface brief
+          - show interfaces description
+      register: iosxe_ifaces
+      when: phase == 'precheck'
+
+    - name: Show interfaces
+      ansible.builtin.debug:
+        var: iosxe_ifaces.stdout_lines
+      when: phase == 'precheck'
+
+    - name: Back up the running configuration BEFORE this phase (read-only)
+      cisco.ios.ios_config:
+        backup: true
+        backup_options:
+          dir_path: "{{ iosxe_evidence_dir }}/raw"
+          filename: "{{ iosxe_stamp }}_{{ phase }}_1before.cfg"
+
+    - name: Read the target interface configuration
+      cisco.ios.ios_command:
+        commands:
+          - "show running-config interface {{ iosxe_interface }}"
+      register: iosxe_if_before
+      when: iosxe_interface is defined
+
+    - name: Show the target interface before
+      ansible.builtin.debug:
+        var: iosxe_if_before.stdout_lines
+      when: iosxe_interface is defined
+
+    - name: Extract the current description
+      ansible.builtin.set_fact:
+        iosxe_current_desc: "{{ ((iosxe_if_before.stdout[0] | regex_findall('(?m)^ description (.*)$')) + [''])[0] | trim }}"
+      when: iosxe_interface is defined
+
+    # ---------------- change ----------------
+    - name: Refuse to record our own test text as the "original"
+      ansible.builtin.assert:
+        that: iosxe_current_desc != iosxe_test_description or (iosxe_original_file is file)
+        fail_msg: "Interface already carries the test description but no original was recorded - roll back by hand."
+        quiet: true
+      when: phase == 'change'
+
+    - name: Record the original description (first change only - never overwritten)
+      ansible.builtin.copy:
+        content: >
+          {{ {'host': ansible_host, 'interface': iosxe_interface, 'description': iosxe_current_desc,
+              'recorded_utc': now(utc=true).isoformat()} | to_nice_json }}
+        dest: "{{ iosxe_original_file }}"
+        force: false
+        mode: "0644"
+      delegate_to: localhost
+      vars: *local
+      when: phase == 'change'
+
+    - name: Set the test description
+      cisco.ios.ios_interfaces:
+        config:
+          - name: "{{ iosxe_interface }}"
+            description: "{{ iosxe_test_description }}"
+        state: merged
+      register: iosxe_change
+      when: phase == 'change'
+
+    - name: Commands Ansible sent
+      ansible.builtin.debug:
+        var: iosxe_change.commands
+      when: phase == 'change'
+
+    # ---------------- rollback ----------------
+    - name: Load the recorded original
+      ansible.builtin.set_fact:
+        iosxe_original: "{{ lookup('ansible.builtin.file', iosxe_original_file) | from_json }}"
+      when: phase == 'rollback'
+
+    - name: Restore the original description
+      cisco.ios.ios_interfaces:
+        config:
+          - name: "{{ iosxe_interface }}"
+            description: "{{ iosxe_original.description }}"
+        state: merged
+      register: iosxe_rollback
+      when: phase == 'rollback' and iosxe_original.description | length > 0
+
+    - name: Remove the test description (the interface had none before)
+      cisco.ios.ios_config:
+        parents: "interface {{ iosxe_interface }}"
+        lines:
+          - no description
+      register: iosxe_rollback_remove
+      when: phase == 'rollback' and iosxe_original.description | length == 0 and iosxe_current_desc | length > 0
+
+    # ---------------- verify on the device ----------------
+    - name: Read the interface back from the device
+      cisco.ios.ios_command:
+        commands:
+          - "show running-config interface {{ iosxe_interface }}"
+          - "show interfaces {{ iosxe_interface }} description"
+      register: iosxe_if_after
+      when: phase != 'precheck'
+
+    - name: Show the target interface after
+      ansible.builtin.debug:
+        var: iosxe_if_after.stdout_lines
+      when: phase != 'precheck'
+
+    - name: Verify the test description is on the device
+      ansible.builtin.assert:
+        that: "(' description ' ~ iosxe_test_description) in iosxe_if_after.stdout[0]"
+        success_msg: VERIFIED on device - test description present
+        fail_msg: NOT VERIFIED - test description missing after change
+      when: phase == 'change'
+
+    - name: Verify the original state is back on the device
+      ansible.builtin.assert:
+        that: >-
+          (' description ' ~ iosxe_original.description) in iosxe_if_after.stdout[0]
+          if iosxe_original.description | length > 0
+          else ' description ' not in iosxe_if_after.stdout[0]
+        success_msg: VERIFIED on device - original description restored
+        fail_msg: NOT VERIFIED - original description not restored
+      when: phase == 'rollback'
+
+    - name: Back up the running configuration AFTER this phase (read-only)
+      cisco.ios.ios_config:
+        backup: true
+        backup_options:
+          dir_path: "{{ iosxe_evidence_dir }}/raw"
+          filename: "{{ iosxe_stamp }}_{{ phase }}_2after.cfg"
+      when: phase != 'precheck'
