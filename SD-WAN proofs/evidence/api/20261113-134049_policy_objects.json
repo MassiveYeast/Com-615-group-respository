@@ -1,0 +1,169 @@
+{
+  "app_route_definitions": [],
+  "centralised_policies": [],
+  "control_definitions": [],
+  "site_lists": [],
+  "sla_class_lists": [
+    {
+      "description": "Best Effort SLA",
+      "entries": [
+        {
+          "jitter": "500",
+          "latency": "500",
+          "loss": "5"
+        }
+      ],
+      "infoTag": "",
+      "lastUpdated": 1778715469313,
+      "listId": "2c67a0af-b25b-4a86-93ca-ffe8c6a4477d",
+      "name": "Best-Effort",
+      "owner": "system",
+      "readOnly": true,
+      "referenceCount": 0,
+      "references": [],
+      "type": "sla",
+      "version": "3.0"
+    },
+    {
+      "description": "ACI Bulk Data SLA",
+      "entries": [
+        {
+          "jitter": "500",
+          "latency": "500",
+          "loss": "5"
+        }
+      ],
+      "infoTag": "aci",
+      "lastUpdated": 1778715468444,
+      "listId": "2808e06d-b087-400d-95f7-1d689d204bcd",
+      "name": "Bulk-Data",
+      "owner": "system",
+      "readOnly": true,
+      "referenceCount": 0,
+      "references": [],
+      "type": "sla",
+      "version": "3.0"
+    },
+    {
+      "description": "Business Critical SLA",
+      "entries": [
+        {
+          "jitter": "100",
+          "latency": "250",
+          "loss": "1"
+        }
+      ],
+      "infoTag": "",
+      "lastUpdated": 1778715468633,
+      "listId": "e780cc38-2b91-4b6e-a9fd-0389bdc6212a",
+      "name": "Business-Critical",
+      "owner": "system",
+      "readOnly": true,
+      "referenceCount": 0,
+      "references": [],
+      "type": "sla",
+      "version": "3.0"
+    },
+    {
+      "description": "Business Data SLA",
+      "entries": [
+        {
+          "jitter": "200",
+          "latency": "350",
+          "loss": "3"
+        }
+      ],
+      "infoTag": "",
+      "lastUpdated": 1778715468313,
+      "listId": "aa9befa0-d387-4346-8a87-f312afb5b034",
+      "name": "Business-Data",
+      "owner": "system",
+      "readOnly": true,
+      "referenceCount": 0,
+      "references": [],
+      "type": "sla",
+      "version": "3.0"
+    },
+    {
+      "description": "ACI Default SLA",
+      "entries": [
+        {
+          "jitter": "500",
+          "latency": "500",
+          "loss": "5"
+        }
+      ],
+      "infoTag": "aci",
+      "lastUpdated": 1778715467931,
+      "listId": "eb5ce4d1-f660-4d61-a085-ee8d674054e8",
+      "name": "Default",
+      "owner": "system",
+      "readOnly": true,
+      "referenceCount": 0,
+      "references": [],
+      "type": "sla",
+      "version": "3.0"
+    },
+    {
+      "description": "Realtime SLA",
+      "entries": [
+        {
+          "jitter": "30",
+          "latency": "150",
+          "loss": "1"
+        }
+      ],
+      "infoTag": "",
+      "lastUpdated": 1778715469135,
+      "listId": "a740d0e0-c670-423f-9a23-8d16e4ecfc98",
+      "name": "Realtime",
+      "owner": "system",
+      "readOnly": true,
+      "referenceCount": 0,
+      "references": [],
+      "type": "sla",
+      "version": "3.0"
+    },
+    {
+      "description": "ACI Transactional Data SLA",
+      "entries": [
+        {
+          "jitter": "200",
+          "latency": "200",
+          "loss": "1"
+        }
+      ],
+      "infoTag": "aci",
+      "lastUpdated": 1778715468106,
+      "listId": "9cf5b686-98a7-48da-9046-6acffcc24102",
+      "name": "Transactional-Data",
+      "owner": "system",
+      "readOnly": true,
+      "referenceCount": 0,
+      "references": [],
+      "type": "sla",
+      "version": "3.0"
+    },
+    {
+      "description": "ACI Voice And Video SLA",
+      "entries": [
+        {
+          "jitter": "60",
+          "latency": "300",
+          "loss": "2"
+        }
+      ],
+      "infoTag": "aci",
+      "lastUpdated": 1778715469005,
+      "listId": "31988922-17c2-43ef-83ec-75ca58246389",
+      "name": "Voice-And-Video",
+      "owner": "system",
+      "readOnly": true,
+      "referenceCount": 0,
+      "references": [],
+      "type": "sla",
+      "version": "3.0"
+    }
+  ],
+  "vpn_lists": []
+}

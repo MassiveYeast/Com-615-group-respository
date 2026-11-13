@@ -5311,3 +5311,27 @@ Origin: /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/play
 2026-11-13 02:36:00,195 p=1073 u=yassine n=ansible INFO| PLAYBOOK RECAP *****************************************************************
 2026-11-13 02:36:00,197 p=1073 u=yassine n=ansible INFO| Playbook run took 0 days, 0 hours, 0 minutes, 58 seconds
 
+2026-11-13 13:40:45,524 p=515 u=yassine n=ansible INFO| srv-acq-01 | CHANGED | rc=0 >>
+logingracetime 30
+maxauthtries 3
+clientaliveinterval 300
+permitrootlogin no
+passwordauthentication no
+kbdinteractiveauthentication no
+x11forwarding no
+644 root:root /etc/ssh/sshd_config.d/10-nel-hardening.conf
+750 root:www-data /var/www/nel
+640 root:www-data /var/www/nel/index.html
+
+2026-11-13 13:40:45,717 p=515 u=yassine n=ansible INFO| srv-main-01 | CHANGED | rc=0 >>
+logingracetime 30
+maxauthtries 3
+clientaliveinterval 300
+permitrootlogin no
+passwordauthentication no
+kbdinteractiveauthentication no
+x11forwarding no
+644 root:root /etc/ssh/sshd_config.d/10-nel-hardening.conf
+750 root:www-data /var/www/nel
+640 root:www-data /var/www/nel/index.html
+

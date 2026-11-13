@@ -1,0 +1,22 @@
+# SD-01 re-check (unauthenticated, read-only) - 2026-11-13T13:42:11Z
+## curl with normal certificate verification
+curl: (60) SSL certificate problem: unable to get local issuer certificate
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+curl exit 60
+## certificate
+subject=C = US, ST = California, L = San Jose, O = Cisco Systems Inc., CN = sandbox-sdwan-2.cisco.com
+issuer=C = US, O = IdenTrust, OU = HydrantID Trusted Certificate Service, CN = HydrantID Server CA O1
+notBefore=Mar 12 17:54:47 2026 GMT
+notAfter=Sep 27 17:53:47 2026 GMT
+sha256 Fingerprint=35:78:CE:58:85:E6:AE:D1:45:3E:42:27:3D:3E:32:13:E4:3E:2F:F1:D7:0F:1D:2D:01:DB:F3:F7:7C:84:ED:03
+## chain sent by server
+verify error:num=20:unable to get local issuer certificate
+verify error:num=21:unable to verify the first certificate
+verify error:num=10:certificate has expired
+ 0 s:C = US, ST = California, L = San Jose, O = Cisco Systems Inc., CN = sandbox-sdwan-2.cisco.com
+    Verify return code: 10 (certificate has expired)
+## current UTC: Fri Nov 13 13:42:13 UTC 2026

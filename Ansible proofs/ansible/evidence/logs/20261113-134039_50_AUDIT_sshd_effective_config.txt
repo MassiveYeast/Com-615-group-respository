@@ -1,0 +1,30 @@
+# command : ansible linux_servers -m ansible.builtin.shell -a sshd -T | grep -E '^(permitrootlogin|passwordauthentication|kbdinteractiveauthentication|maxauthtries|x11forwarding|logingracetime|clientaliveinterval)'; stat -c '%a %U:%G %n' /etc/ssh/sshd_config.d/10-nel-hardening.conf /var/www/nel /var/www/nel/index.html
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T13:40:40+00:00
+
+srv-acq-01 | CHANGED | rc=0 >>
+logingracetime 30
+maxauthtries 3
+clientaliveinterval 300
+permitrootlogin no
+passwordauthentication no
+kbdinteractiveauthentication no
+x11forwarding no
+644 root:root /etc/ssh/sshd_config.d/10-nel-hardening.conf
+750 root:www-data /var/www/nel
+640 root:www-data /var/www/nel/index.html
+srv-main-01 | CHANGED | rc=0 >>
+logingracetime 30
+maxauthtries 3
+clientaliveinterval 300
+permitrootlogin no
+passwordauthentication no
+kbdinteractiveauthentication no
+x11forwarding no
+644 root:root /etc/ssh/sshd_config.d/10-nel-hardening.conf
+750 root:www-data /var/www/nel
+640 root:www-data /var/www/nel/index.html
+
+# end     : 2026-11-13T13:40:45+00:00
+# exit    : 0
+# wall_s  : 5.074

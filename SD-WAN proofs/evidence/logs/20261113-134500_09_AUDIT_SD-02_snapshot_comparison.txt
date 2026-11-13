@@ -1,0 +1,28 @@
+# SD-WAN repeat-snapshot comparison: 20261112-224846 UTC vs 20261113-134049 UTC (both read-only, operator role, same pinned certificate)
+# generated from the saved API JSON files in evidence/api/ (no new API calls)
+
+## Device inventory identical: True (7 devices)
+
+## Per-device record counts (12 Nov -> 13 Nov)
+Edge1         10.0.0.1     control_connections=3->3  omp_peers=1->1  bfd_sessions=6->6  tloc_advertised=2->2  omp_routes_received=8->8  app_route_stats=36->36
+Edge2         10.0.0.2     control_connections=3->3  omp_peers=1->1  bfd_sessions=6->6  tloc_advertised=2->2  omp_routes_received=8->8  app_route_stats=36->36
+Edge3         10.0.0.3     control_connections=3->3  omp_peers=1->1  bfd_sessions=6->6  tloc_advertised=2->2  omp_routes_received=8->8  app_route_stats=36->36
+Edge4         10.0.0.4     control_connections=3->3  omp_peers=1->1  bfd_sessions=6->6  tloc_advertised=2->2  omp_routes_received=8->8  app_route_stats=36->36
+Manager01     100.0.0.1    control_connections=6->6  omp_peers=0->0  bfd_sessions=0->0  tloc_advertised=0->0  omp_routes_received=0->0  app_route_stats=0->0
+Controller01  100.0.0.101  control_connections=11->11  omp_peers=4->4  bfd_sessions=0->0  tloc_advertised=0->0  omp_routes_received=0->0  app_route_stats=0->0
+Validator01   100.0.0.201  control_connections=0->0  omp_peers=0->0  bfd_sessions=0->0  tloc_advertised=0->0  omp_routes_received=0->0  app_route_stats=0->0
+
+## BFD sessions (edges): state, transitions, uptime
+Edge1: 6 sessions, up=6, transitions=0, uptime 168:11:29:57 -> 169:02:21:59
+Edge2: 6 sessions, up=6, transitions=0, uptime 168:11:30:06 -> 169:02:22:05
+Edge3: 6 sessions, up=6, transitions=0, uptime 168:11:30:03 -> 169:02:22:00
+Edge4: 6 sessions, up=6, transitions=0, uptime 168:11:30:06 -> 169:02:22:01
+total BFD sessions 24, up 24, transitions 0  (each tunnel counted from both ends -> 12 tunnels)
+
+## App-route statistics (edges): any non-zero loss/latency/jitter or data packets?
+144 samples, non-zero: 0
+
+## Policy objects identical: True
+{'app_route_definitions': 0, 'centralised_policies': 0, 'control_definitions': 0, 'site_lists': 0, 'sla_class_lists': 8, 'vpn_lists': 0}
+
+## Server: {'platformVersion': '20.18.2.1', 'roles': ['operator']}

@@ -1,0 +1,18 @@
+# command : bash /mnt/c/Users/yassi/AppData/Local/Temp/claude/77b76306d213b86e/5b6f14e7-8973-44af-bfda-559e61df92a0/scratchpad/iosxe_probe.sh
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T13:40:46+00:00
+
+== devnetsandboxiosxec8k.cisco.com  (131.226.217.182)
+tcp/22 open
+tcp/443 open
+tcp/830 open
+-- SSH server + auth methods offered for user 0yassl40 (auth method 'none' only)
+Remote protocol version 2.0, remote software version Cisco-1.25
+Authentications that can continue: publickey,keyboard-interactive,password
+0yassl40@devnetsandboxiosxec8k.cisco.com: Permission denied (publickey,keyboard-interactive,password).
+-- RESTCONF endpoint without credentials (expect 401)
+https://devnetsandboxiosxec8k.cisco.com/restconf/ -> HTTP 404
+
+# end     : 2026-11-13T13:40:49+00:00
+# exit    : 0
+# wall_s  : 2.666

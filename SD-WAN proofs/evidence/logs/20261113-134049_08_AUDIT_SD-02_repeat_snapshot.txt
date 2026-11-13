@@ -1,0 +1,35 @@
+# command : sdwan_client.py all
+# start   : 2026-11-13T13:40:49Z
+# connected to https://sandbox-sdwan-2.cisco.com as devnetuser (pinned certificate sha256=35:78:CE:58:85:E6:AE:D1:45:3E:42:27:3D:3E:32:13:E4:3E:2F:F1:D7:0F:1D:2D:01:DB:F3:F7:7C:84:ED:03) at 20261113-134049 UTC
+# server: platform version 20.18.2.1, user role(s) ['operator']
+# saved /mnt/c/Users/yassi/Com-615-group-respository/SD-WAN proofs/evidence/api/20261113-134049_server.json
+# saved /mnt/c/Users/yassi/Com-615-group-respository/SD-WAN proofs/evidence/api/20261113-134049_device_inventory.json
+
+## Device inventory (GET /dataservice/device): 7 devices
+host-name     system-ip    site-id  device-type  device-model  reachability  version        
+Manager01     100.0.0.1    100      vmanage      vmanage       reachable     20.18.2.1      
+Controller01  100.0.0.101  100      vsmart       vsmart        reachable     20.18.2.1      
+Validator01   100.0.0.201  100      vbond        vedge-cloud   reachable     20.18.2.1      
+Edge1         10.0.0.1     1        vedge        vedge-C8000V  reachable     17.18.01a.0.182
+Edge2         10.0.0.2     2        vedge        vedge-C8000V  reachable     17.18.01a.0.182
+Edge3         10.0.0.3     3        vedge        vedge-C8000V  reachable     17.18.01a.0.182
+Edge4         10.0.0.4     4        vedge        vedge-C8000V  reachable     17.18.01a.0.182
+
+# saved /mnt/c/Users/yassi/Com-615-group-respository/SD-WAN proofs/evidence/api/20261113-134049_overlay_state.json
+  Manager01      100.0.0.1    vmanage  control_connections=6
+  Controller01   100.0.0.101  vsmart   control_connections=11, omp_peers=4
+  Validator01    100.0.0.201  vbond    control_connections=0
+  Edge1          10.0.0.1     vedge    control_connections=3, omp_peers=1, bfd_sessions=6, tloc_advertised=2, omp_routes_received=8, app_route_stats=36
+  Edge2          10.0.0.2     vedge    control_connections=3, omp_peers=1, bfd_sessions=6, tloc_advertised=2, omp_routes_received=8, app_route_stats=36
+  Edge3          10.0.0.3     vedge    control_connections=3, omp_peers=1, bfd_sessions=6, tloc_advertised=2, omp_routes_received=8, app_route_stats=36
+  Edge4          10.0.0.4     vedge    control_connections=3, omp_peers=1, bfd_sessions=6, tloc_advertised=2, omp_routes_received=8, app_route_stats=36
+
+# saved /mnt/c/Users/yassi/Com-615-group-respository/SD-WAN proofs/evidence/api/20261113-134049_policy_objects.json
+  centralised_policies     0
+  app_route_definitions    0
+  sla_class_lists          8
+  vpn_lists                0
+  site_lists               0
+  control_definitions      0
+# exit    : 0
+# end     : 2026-11-13T13:41:21Z
