@@ -1,0 +1,24 @@
+# command : bash -c ssh -o UserKnownHostsFile=$HOME/.ssh/known_hosts.pre-rotation-srv-acq-01 -o StrictHostKeyChecking=yes -o ControlMaster=no -o BatchMode=yes -i ~/.ssh/nel_ansible_ed25519 ansible@192.168.56.22 true; echo "ssh exit (expected non-zero): $?"
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:37:41+00:00
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ED25519 key sent by the remote host is
+SHA256:7DQvT/tKUKYZJZuso6vCodBy2gJ1S8y9pvEjlyKC05o.
+Please contact your system administrator.
+Add correct host key in /home/yassine/.ssh/known_hosts.pre-rotation-srv-acq-01 to get rid of this message.
+Offending ED25519 key in /home/yassine/.ssh/known_hosts.pre-rotation-srv-acq-01:1
+  remove with:
+  ssh-keygen -f '/home/yassine/.ssh/known_hosts.pre-rotation-srv-acq-01' -R '192.168.56.22'
+Host key for 192.168.56.22 has changed and you have requested strict checking.
+Host key verification failed.
+ssh exit (expected non-zero): 255
+
+# end     : 2026-11-13T01:37:41+00:00
+# exit    : 0
+# wall_s  : 0.221

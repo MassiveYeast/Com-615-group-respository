@@ -1,0 +1,60 @@
+# command : ansible-playbook playbooks/rotate_host_keys.yml -e hostkey_rotate=true
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:37:43+00:00
+
+
+PLAY [Detect SSH host keys shared between servers] *****************************
+
+TASK [Read this server's ED25519 host key fingerprint] *************************
+Friday 13 November 2026  01:37:44 +0000 (0:00:00.258)       0:00:00.258 ******* 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [Record the fingerprint] **************************************************
+Friday 13 November 2026  01:37:46 +0000 (0:00:01.361)       0:00:01.620 ******* 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [Find other servers presenting the same key] ******************************
+Friday 13 November 2026  01:37:46 +0000 (0:00:00.139)       0:00:01.759 ******* 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [Report] ******************************************************************
+Friday 13 November 2026  01:37:46 +0000 (0:00:00.212)       0:00:01.972 ******* 
+ok: [srv-main-01] => 
+    msg: SHA256:L+6UdFrNfoTCKhDUiuoBoiyD6jPizA0tvmuawi8wj/Y - unique
+ok: [srv-acq-01] => 
+    msg: SHA256:7DQvT/tKUKYZJZuso6vCodBy2gJ1S8y9pvEjlyKC05o - unique
+
+PLAY [Replace shared SSH host keys, one server at a time] **********************
+
+TASK [Leave servers alone unless rotation was requested and their key is shared] ***
+Friday 13 November 2026  01:37:46 +0000 (0:00:00.192)       0:00:02.164 ******* 
+
+PLAY [Replace shared SSH host keys, one server at a time] **********************
+
+TASK [Leave servers alone unless rotation was requested and their key is shared] ***
+Friday 13 November 2026  01:37:46 +0000 (0:00:00.090)       0:00:02.255 ******* 
+
+PLAY RECAP *********************************************************************
+srv-acq-01                 : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+srv-main-01                : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+TASKS RECAP ********************************************************************
+Friday 13 November 2026  01:37:46 +0000 (0:00:00.040)       0:00:02.296 ******* 
+=============================================================================== 
+Read this server's ED25519 host key fingerprint ------------------------- 1.36s
+Find other servers presenting the same key ------------------------------ 0.21s
+Report ------------------------------------------------------------------ 0.19s
+Record the fingerprint -------------------------------------------------- 0.14s
+Leave servers alone unless rotation was requested and their key is shared --- 0.13s
+
+PLAYBOOK RECAP *****************************************************************
+Playbook run took 0 days, 0 hours, 0 minutes, 2 seconds
+
+
+# end     : 2026-11-13T01:37:47+00:00
+# exit    : 0
+# wall_s  : 4.097

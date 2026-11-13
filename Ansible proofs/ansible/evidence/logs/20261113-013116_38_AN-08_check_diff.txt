@@ -1,0 +1,173 @@
+# command : ansible-playbook playbooks/linux_servers.yml --limit srv-acq-01 --check --diff
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:31:17+00:00
+
+
+PLAY [Apply the NEL Linux baseline and web service] ****************************
+
+TASK [Gathering Facts] *********************************************************
+Friday 13 November 2026  01:31:19 +0000 (0:00:00.262)       0:00:00.262 ******* 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Install baseline packages] ******************************
+Friday 13 November 2026  01:31:22 +0000 (0:00:02.413)       0:00:02.675 ******* 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Set the system timezone] ********************************
+Friday 13 November 2026  01:31:24 +0000 (0:00:02.430)       0:00:05.106 ******* 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Configure chrony with the NEL NTP servers] **************
+Friday 13 November 2026  01:31:25 +0000 (0:00:01.293)       0:00:06.399 ******* 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Ensure chrony is enabled and running] *******************
+Friday 13 November 2026  01:31:27 +0000 (0:00:02.058)       0:00:08.457 ******* 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Set the pre-login banner shown by SSH] ******************
+Friday 13 November 2026  01:31:29 +0000 (0:00:01.803)       0:00:10.260 ******* 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed)] ***
+Friday 13 November 2026  01:31:31 +0000 (0:00:01.532)       0:00:11.793 ******* 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Refuse a firewall policy that would lock Ansible out] ***
+Friday 13 November 2026  01:31:32 +0000 (0:00:01.548)       0:00:13.342 ******* 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Apply the approved firewall rules] **********************
+Friday 13 November 2026  01:31:33 +0000 (0:00:00.204)       0:00:13.546 ******* 
+ok: [srv-acq-01] => (item=allow 22/tcp)
+ok: [srv-acq-01] => (item=allow 80/tcp)
+
+TASK [linux_baseline : Set the approved default policies] **********************
+Friday 13 November 2026  01:31:35 +0000 (0:00:02.790)       0:00:16.336 ******* 
+ok: [srv-acq-01] => (item=incoming -> deny)
+ok: [srv-acq-01] => (item=outgoing -> allow)
+
+TASK [linux_baseline : Enable the host firewall] *******************************
+Friday 13 November 2026  01:31:37 +0000 (0:00:01.708)       0:00:18.045 ******* 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Read the rules currently configured in ufw (read-only, also in check mode)] ***
+Friday 13 November 2026  01:31:38 +0000 (0:00:00.855)       0:00:18.901 ******* 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Work out which configured rules are not in the approved policy] ***
+Friday 13 November 2026  01:31:39 +0000 (0:00:01.053)       0:00:19.955 ******* 
+ok: [srv-acq-01]
+
+TASK [linux_baseline : Report unapproved rules (shows as a change in --check so drift is visible)] ***
+Friday 13 November 2026  01:31:39 +0000 (0:00:00.183)       0:00:20.138 ******* 
+changed: [srv-acq-01] => 
+    msg: 'Unapproved ufw rules that would be removed: ["allow 8080/tcp comment ''AN-08
+        unapproved test''", ''allow from 192.168.56.0/24 to any port 3306 proto tcp'']'
+
+TASK [linux_baseline : Remove firewall rules that are not in the approved policy] ***
+Friday 13 November 2026  01:31:39 +0000 (0:00:00.174)       0:00:20.313 ******* 
+skipping: [srv-acq-01] => (item=allow 8080/tcp comment 'AN-08 unapproved test') 
+skipping: [srv-acq-01] => (item=allow from 192.168.56.0/24 to any port 3306 proto tcp) 
+skipping: [srv-acq-01]
+
+TASK [web_service : Install nginx] *********************************************
+Friday 13 November 2026  01:31:41 +0000 (0:00:01.362)       0:00:21.675 ******* 
+ok: [srv-acq-01]
+
+TASK [web_service : Create the web root (owned by root, readable only by the nginx group)] ***
+Friday 13 November 2026  01:31:43 +0000 (0:00:02.096)       0:00:23.772 ******* 
+ok: [srv-acq-01]
+
+TASK [web_service : Deploy the identification page] ****************************
+Friday 13 November 2026  01:31:43 +0000 (0:00:00.711)       0:00:24.483 ******* 
+ok: [srv-acq-01]
+
+TASK [web_service : Deploy the NEL site configuration] *************************
+Friday 13 November 2026  01:31:45 +0000 (0:00:01.406)       0:00:25.890 ******* 
+ok: [srv-acq-01]
+
+TASK [web_service : Enable the NEL site] ***************************************
+Friday 13 November 2026  01:31:46 +0000 (0:00:01.501)       0:00:27.392 ******* 
+ok: [srv-acq-01]
+
+TASK [web_service : Disable the distribution default site] *********************
+Friday 13 November 2026  01:31:47 +0000 (0:00:01.018)       0:00:28.410 ******* 
+ok: [srv-acq-01]
+
+TASK [web_service : Allow HTTP through the host firewall] **********************
+Friday 13 November 2026  01:31:48 +0000 (0:00:00.784)       0:00:29.195 ******* 
+ok: [srv-acq-01]
+
+TASK [web_service : Ensure nginx is enabled at boot and running] ***************
+Friday 13 November 2026  01:31:50 +0000 (0:00:01.319)       0:00:30.514 ******* 
+ok: [srv-acq-01]
+
+TASK [web_service : Apply pending nginx changes before verification] ***********
+Friday 13 November 2026  01:31:51 +0000 (0:00:01.204)       0:00:31.719 ******* 
+
+TASK [web_service : Collect service state] *************************************
+Friday 13 November 2026  01:31:51 +0000 (0:00:00.051)       0:00:31.771 ******* 
+ok: [srv-acq-01]
+
+TASK [web_service : Assert nginx is running and enabled] ***********************
+Friday 13 November 2026  01:31:59 +0000 (0:00:08.570)       0:00:40.341 ******* 
+ok: [srv-acq-01] => 
+    changed: false
+    msg: nginx running and enabled on srv-acq-01
+
+TASK [web_service : Fetch the page locally on the server] **********************
+Friday 13 November 2026  01:32:00 +0000 (0:00:00.177)       0:00:40.519 ******* 
+ok: [srv-acq-01]
+
+TASK [web_service : Fetch the page from the control node over the lab network] ***
+Friday 13 November 2026  01:32:01 +0000 (0:00:01.495)       0:00:42.014 ******* 
+ok: [srv-acq-01 -> localhost]
+
+TASK [web_service : Assert both fetches return this host's identification page] ***
+Friday 13 November 2026  01:32:02 +0000 (0:00:00.840)       0:00:42.855 ******* 
+ok: [srv-acq-01] => 
+    changed: false
+    msg: srv-acq-01 serves its own page (Acquired site)
+
+TASK [web_service : Assert the server does not advertise its nginx version] ****
+Friday 13 November 2026  01:32:02 +0000 (0:00:00.144)       0:00:42.999 ******* 
+ok: [srv-acq-01] => 
+    changed: false
+    msg: Server header hides the nginx version
+
+PLAY RECAP *********************************************************************
+srv-acq-01                 : ok=28   changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+
+TASKS RECAP ********************************************************************
+Friday 13 November 2026  01:32:02 +0000 (0:00:00.169)       0:00:43.169 ******* 
+=============================================================================== 
+web_service : Collect service state ------------------------------------- 8.57s
+linux_baseline : Apply the approved firewall rules ---------------------- 2.79s
+linux_baseline : Install baseline packages ------------------------------ 2.43s
+Gathering Facts --------------------------------------------------------- 2.41s
+web_service : Install nginx --------------------------------------------- 2.10s
+linux_baseline : Configure chrony with the NEL NTP servers -------------- 2.06s
+linux_baseline : Ensure chrony is enabled and running ------------------- 1.80s
+linux_baseline : Set the approved default policies ---------------------- 1.71s
+linux_baseline : Apply SSH hardening drop-in (validated with sshd -t before it is installed) --- 1.55s
+linux_baseline : Set the pre-login banner shown by SSH ------------------ 1.53s
+web_service : Deploy the NEL site configuration ------------------------- 1.50s
+web_service : Fetch the page locally on the server ---------------------- 1.50s
+web_service : Deploy the identification page ---------------------------- 1.41s
+linux_baseline : Remove firewall rules that are not in the approved policy --- 1.36s
+web_service : Allow HTTP through the host firewall ---------------------- 1.32s
+linux_baseline : Set the system timezone -------------------------------- 1.29s
+web_service : Ensure nginx is enabled at boot and running --------------- 1.21s
+linux_baseline : Read the rules currently configured in ufw (read-only, also in check mode) --- 1.05s
+web_service : Enable the NEL site --------------------------------------- 1.02s
+linux_baseline : Enable the host firewall ------------------------------- 0.86s
+
+PLAYBOOK RECAP *****************************************************************
+Playbook run took 0 days, 0 hours, 0 minutes, 43 seconds
+
+
+# end     : 2026-11-13T01:32:02+00:00
+# exit    : 0
+# wall_s  : 45.480

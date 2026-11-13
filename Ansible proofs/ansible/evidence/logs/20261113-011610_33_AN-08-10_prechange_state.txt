@@ -1,0 +1,56 @@
+# command : ansible linux_servers -m ansible.builtin.shell -a echo "--- ufw status verbose"; ufw status verbose; echo "--- ufw show added"; ufw show added; echo "--- host key fingerprints"; for f in /etc/ssh/ssh_host_*_key.pub; do ssh-keygen -lf "$f"; done; echo "--- authorized_keys (ansible) sha256"; sha256sum /home/ansible/.ssh/authorized_keys
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:16:11+00:00
+
+srv-acq-01 | CHANGED | rc=0 >>
+--- ufw status verbose
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    Anywhere                   # NEL management SSH
+80/tcp                     ALLOW IN    Anywhere                   # NEL internal web service
+22/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL management SSH
+80/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL internal web service
+
+--- ufw show added
+Added user rules (see 'ufw status' for running firewall):
+ufw allow 22/tcp comment 'NEL management SSH'
+ufw allow 80/tcp comment 'NEL internal web service'
+--- host key fingerprints
+256 SHA256:JugftJKDQxAP3c6SLRCgc6ecqMvviUCep6D5Svl+jrw root@vagrant (ECDSA)
+256 SHA256:VjufUgJCRplYbNSq6ATc0g/DLpYxoTbOJ7Eaml2Enlc root@vagrant (ED25519)
+3072 SHA256:9iM/KPaKIF9KIXrzD68PVPOHtbG432peFiAyeMndMm8 root@vagrant (RSA)
+--- authorized_keys (ansible) sha256
+7c8d8156e6cf92b7f17c63fd6e7157c3db21bd056ec36e97ca7a014f04bb439b  /home/ansible/.ssh/authorized_keys
+srv-main-01 | CHANGED | rc=0 >>
+--- ufw status verbose
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    Anywhere                   # NEL management SSH
+80/tcp                     ALLOW IN    Anywhere                   # NEL internal web service
+22/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL management SSH
+80/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL internal web service
+
+--- ufw show added
+Added user rules (see 'ufw status' for running firewall):
+ufw allow 22/tcp comment 'NEL management SSH'
+ufw allow 80/tcp comment 'NEL internal web service'
+--- host key fingerprints
+256 SHA256:JugftJKDQxAP3c6SLRCgc6ecqMvviUCep6D5Svl+jrw root@vagrant (ECDSA)
+256 SHA256:VjufUgJCRplYbNSq6ATc0g/DLpYxoTbOJ7Eaml2Enlc root@vagrant (ED25519)
+3072 SHA256:9iM/KPaKIF9KIXrzD68PVPOHtbG432peFiAyeMndMm8 root@vagrant (RSA)
+--- authorized_keys (ansible) sha256
+7c8d8156e6cf92b7f17c63fd6e7157c3db21bd056ec36e97ca7a014f04bb439b  /home/ansible/.ssh/authorized_keys
+
+# end     : 2026-11-13T01:16:16+00:00
+# exit    : 0
+# wall_s  : 5.019

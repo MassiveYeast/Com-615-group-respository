@@ -1,0 +1,9 @@
+﻿# command : vagrant ssh <vm> -c hostname (Windows host; Vagrant does not use the control node's known_hosts)
+# start   : 2026-11-13T01:37:56.7313986+00:00
+
+srv-main-01
+# exit srv-main-01 : 0
+srv-acq-01
+# exit srv-acq-01 : 0
+
+# end     : 2026-11-13T01:38:25.5514534+00:00

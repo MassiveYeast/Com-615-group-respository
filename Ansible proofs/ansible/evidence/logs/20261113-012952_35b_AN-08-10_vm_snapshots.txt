@@ -1,0 +1,19 @@
+﻿# command : vagrant snapshot save <vm> pre-AN08-10 (Windows host)
+# start   : 2026-11-13T01:29:52.1955137+00:00
+
+==> srv-main-01: Snapshotting the machine as 'pre-AN08-10'...
+==> srv-main-01: Snapshot saved! You can restore the snapshot at any time by
+==> srv-main-01: using `vagrant snapshot restore`. You can delete it using
+==> srv-main-01: `vagrant snapshot delete`.
+# exit srv-main-01 : 0
+==> srv-acq-01: Snapshotting the machine as 'pre-AN08-10'...
+==> srv-acq-01: Snapshot saved! You can restore the snapshot at any time by
+==> srv-acq-01: using `vagrant snapshot restore`. You can delete it using
+==> srv-acq-01: `vagrant snapshot delete`.
+# exit srv-acq-01 : 0
+==> srv-main-01: 
+pre-AN08-10
+==> srv-acq-01: 
+pre-AN08-10
+
+# end     : 2026-11-13T01:30:46.6219195+00:00

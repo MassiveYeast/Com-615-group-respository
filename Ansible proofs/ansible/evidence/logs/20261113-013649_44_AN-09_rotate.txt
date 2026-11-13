@@ -1,0 +1,214 @@
+# command : ansible-playbook playbooks/rotate_host_keys.yml -e hostkey_rotate=true
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:36:50+00:00
+
+
+PLAY [Detect SSH host keys shared between servers] *****************************
+
+TASK [Read this server's ED25519 host key fingerprint] *************************
+Friday 13 November 2026  01:36:52 +0000 (0:00:00.254)       0:00:00.254 ******* 
+ok: [srv-acq-01]
+ok: [srv-main-01]
+
+TASK [Record the fingerprint] **************************************************
+Friday 13 November 2026  01:36:53 +0000 (0:00:01.133)       0:00:01.387 ******* 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [Find other servers presenting the same key] ******************************
+Friday 13 November 2026  01:36:53 +0000 (0:00:00.129)       0:00:01.516 ******* 
+ok: [srv-main-01]
+ok: [srv-acq-01]
+
+TASK [Report] ******************************************************************
+Friday 13 November 2026  01:36:53 +0000 (0:00:00.184)       0:00:01.700 ******* 
+ok: [srv-main-01] => 
+    msg: SHA256:VjufUgJCRplYbNSq6ATc0g/DLpYxoTbOJ7Eaml2Enlc - SHARED with srv-acq-01
+ok: [srv-acq-01] => 
+    msg: SHA256:VjufUgJCRplYbNSq6ATc0g/DLpYxoTbOJ7Eaml2Enlc - SHARED with srv-main-01
+
+PLAY [Replace shared SSH host keys, one server at a time] **********************
+
+TASK [Leave servers alone unless rotation was requested and their key is shared] ***
+Friday 13 November 2026  01:36:53 +0000 (0:00:00.175)       0:00:01.876 ******* 
+skipping: [srv-main-01]
+
+TASK [Find the current host key files] *****************************************
+Friday 13 November 2026  01:36:53 +0000 (0:00:00.059)       0:00:01.935 ******* 
+ok: [srv-main-01]
+
+TASK [Create a root-only backup directory] *************************************
+Friday 13 November 2026  01:36:54 +0000 (0:00:00.931)       0:00:02.867 ******* 
+changed: [srv-main-01]
+
+TASK [Back up the current host keys on the server] *****************************
+Friday 13 November 2026  01:36:55 +0000 (0:00:00.891)       0:00:03.758 ******* 
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_rsa_key)
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_ed25519_key)
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_ed25519_key.pub)
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_rsa_key.pub)
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_ecdsa_key)
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_ecdsa_key.pub)
+
+TASK [Back up the control node's known_hosts] **********************************
+Friday 13 November 2026  01:37:00 +0000 (0:00:05.024)       0:00:08.782 ******* 
+changed: [srv-main-01 -> localhost]
+
+TASK [Remove the shared host keys] *********************************************
+Friday 13 November 2026  01:37:02 +0000 (0:00:01.455)       0:00:10.238 ******* 
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_rsa_key)
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_ed25519_key)
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_ed25519_key.pub)
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_rsa_key.pub)
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_ecdsa_key)
+changed: [srv-main-01] => (item=/etc/ssh/ssh_host_ecdsa_key.pub)
+
+TASK [Generate new host keys] **************************************************
+Friday 13 November 2026  01:37:06 +0000 (0:00:04.450)       0:00:14.689 ******* 
+changed: [srv-main-01]
+
+TASK [Check the SSH server configuration with the new keys] ********************
+Friday 13 November 2026  01:37:08 +0000 (0:00:01.925)       0:00:16.614 ******* 
+ok: [srv-main-01]
+
+TASK [Reload sshd so new connections use the new keys (existing sessions stay up)] ***
+Friday 13 November 2026  01:37:09 +0000 (0:00:00.808)       0:00:17.423 ******* 
+changed: [srv-main-01]
+
+TASK [Read the new ED25519 public key over the existing authenticated session] ***
+Friday 13 November 2026  01:37:11 +0000 (0:00:01.918)       0:00:19.341 ******* 
+ok: [srv-main-01]
+
+TASK [Read the new fingerprints (evidence)] ************************************
+Friday 13 November 2026  01:37:12 +0000 (0:00:01.037)       0:00:20.379 ******* 
+ok: [srv-main-01]
+
+TASK [Show the new fingerprints] ***********************************************
+Friday 13 November 2026  01:37:13 +0000 (0:00:00.833)       0:00:21.212 ******* 
+ok: [srv-main-01] => 
+    hostkey_new_fps.stdout_lines:
+    - 256 SHA256:KPFu1Rt7R1c3YRrI8c/JTlxNEpIREwfL+oFAboCY8NQ root@srv-main-01 (ECDSA)
+    - 256 SHA256:L+6UdFrNfoTCKhDUiuoBoiyD6jPizA0tvmuawi8wj/Y root@srv-main-01 (ED25519)
+    - 3072 SHA256:D00ZaFtdvfeehIG1LImeY9Cm5hQi0lO7NVXUXe3RoIY root@srv-main-01 (RSA)
+
+TASK [Trust the new key on the control node (replaces the old entry for this address)] ***
+Friday 13 November 2026  01:37:13 +0000 (0:00:00.111)       0:00:21.323 ******* 
+changed: [srv-main-01 -> localhost]
+
+TASK [Close the existing SSH connection so the next task must check the new key] ***
+Friday 13 November 2026  01:37:14 +0000 (0:00:00.971)       0:00:22.295 ******* 
+
+TASK [Reconnect with host-key checking (proves access survived the change)] ****
+Friday 13 November 2026  01:37:14 +0000 (0:00:00.097)       0:00:22.392 ******* 
+ok: [srv-main-01]
+
+PLAY [Replace shared SSH host keys, one server at a time] **********************
+
+TASK [Leave servers alone unless rotation was requested and their key is shared] ***
+Friday 13 November 2026  01:37:17 +0000 (0:00:02.570)       0:00:24.962 ******* 
+skipping: [srv-acq-01]
+
+TASK [Find the current host key files] *****************************************
+Friday 13 November 2026  01:37:17 +0000 (0:00:00.041)       0:00:25.004 ******* 
+ok: [srv-acq-01]
+
+TASK [Create a root-only backup directory] *************************************
+Friday 13 November 2026  01:37:17 +0000 (0:00:00.777)       0:00:25.782 ******* 
+changed: [srv-acq-01]
+
+TASK [Back up the current host keys on the server] *****************************
+Friday 13 November 2026  01:37:18 +0000 (0:00:00.774)       0:00:26.557 ******* 
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_rsa_key)
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_ed25519_key)
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_ed25519_key.pub)
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_rsa_key.pub)
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_ecdsa_key)
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_ecdsa_key.pub)
+
+TASK [Back up the control node's known_hosts] **********************************
+Friday 13 November 2026  01:37:23 +0000 (0:00:04.978)       0:00:31.536 ******* 
+changed: [srv-acq-01 -> localhost]
+
+TASK [Remove the shared host keys] *********************************************
+Friday 13 November 2026  01:37:24 +0000 (0:00:01.228)       0:00:32.764 ******* 
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_rsa_key)
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_ed25519_key)
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_ed25519_key.pub)
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_rsa_key.pub)
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_ecdsa_key)
+changed: [srv-acq-01] => (item=/etc/ssh/ssh_host_ecdsa_key.pub)
+
+TASK [Generate new host keys] **************************************************
+Friday 13 November 2026  01:37:29 +0000 (0:00:04.240)       0:00:37.005 ******* 
+changed: [srv-acq-01]
+
+TASK [Check the SSH server configuration with the new keys] ********************
+Friday 13 November 2026  01:37:31 +0000 (0:00:02.320)       0:00:39.325 ******* 
+ok: [srv-acq-01]
+
+TASK [Reload sshd so new connections use the new keys (existing sessions stay up)] ***
+Friday 13 November 2026  01:37:32 +0000 (0:00:00.784)       0:00:40.109 ******* 
+changed: [srv-acq-01]
+
+TASK [Read the new ED25519 public key over the existing authenticated session] ***
+Friday 13 November 2026  01:37:33 +0000 (0:00:01.236)       0:00:41.346 ******* 
+ok: [srv-acq-01]
+
+TASK [Read the new fingerprints (evidence)] ************************************
+Friday 13 November 2026  01:37:34 +0000 (0:00:00.835)       0:00:42.181 ******* 
+ok: [srv-acq-01]
+
+TASK [Show the new fingerprints] ***********************************************
+Friday 13 November 2026  01:37:34 +0000 (0:00:00.771)       0:00:42.953 ******* 
+ok: [srv-acq-01] => 
+    hostkey_new_fps.stdout_lines:
+    - 256 SHA256:t3/ALaJnGM9dvSPsBzxtXMxI0Kp4utCM1eE5gzrDQzA root@srv-acq-01 (ECDSA)
+    - 256 SHA256:7DQvT/tKUKYZJZuso6vCodBy2gJ1S8y9pvEjlyKC05o root@srv-acq-01 (ED25519)
+    - 3072 SHA256:xzZpDjLuG50kDn7suDhoZH4zsLdMPSDuGRaL9H5uNSM root@srv-acq-01 (RSA)
+
+TASK [Trust the new key on the control node (replaces the old entry for this address)] ***
+Friday 13 November 2026  01:37:35 +0000 (0:00:00.085)       0:00:43.038 ******* 
+changed: [srv-acq-01 -> localhost]
+
+TASK [Close the existing SSH connection so the next task must check the new key] ***
+Friday 13 November 2026  01:37:35 +0000 (0:00:00.762)       0:00:43.801 ******* 
+
+TASK [Reconnect with host-key checking (proves access survived the change)] ****
+Friday 13 November 2026  01:37:35 +0000 (0:00:00.070)       0:00:43.871 ******* 
+ok: [srv-acq-01]
+
+PLAY RECAP *********************************************************************
+srv-acq-01                 : ok=17   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+srv-main-01                : ok=17   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+TASKS RECAP ********************************************************************
+Friday 13 November 2026  01:37:37 +0000 (0:00:01.975)       0:00:45.847 ******* 
+=============================================================================== 
+Back up the current host keys on the server ---------------------------- 10.00s
+Remove the shared host keys --------------------------------------------- 8.69s
+Reconnect with host-key checking (proves access survived the change) ---- 4.55s
+Generate new host keys -------------------------------------------------- 4.25s
+Reload sshd so new connections use the new keys (existing sessions stay up) --- 3.15s
+Back up the control node's known_hosts ---------------------------------- 2.68s
+Read the new ED25519 public key over the existing authenticated session --- 1.87s
+Trust the new key on the control node (replaces the old entry for this address) --- 1.73s
+Find the current host key files ----------------------------------------- 1.71s
+Create a root-only backup directory ------------------------------------- 1.67s
+Read the new fingerprints (evidence) ------------------------------------ 1.61s
+Check the SSH server configuration with the new keys -------------------- 1.59s
+Read this server's ED25519 host key fingerprint ------------------------- 1.13s
+Show the new fingerprints ----------------------------------------------- 0.20s
+Find other servers presenting the same key ------------------------------ 0.18s
+Report ------------------------------------------------------------------ 0.18s
+Close the existing SSH connection so the next task must check the new key --- 0.17s
+Record the fingerprint -------------------------------------------------- 0.13s
+Leave servers alone unless rotation was requested and their key is shared --- 0.10s
+
+PLAYBOOK RECAP *****************************************************************
+Playbook run took 0 days, 0 hours, 0 minutes, 45 seconds
+
+
+# end     : 2026-11-13T01:37:38+00:00
+# exit    : 0
+# wall_s  : 47.556

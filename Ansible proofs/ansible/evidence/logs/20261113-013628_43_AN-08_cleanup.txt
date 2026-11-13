@@ -1,0 +1,10 @@
+# command : ansible srv-acq-01 -m ansible.builtin.shell -a systemctl stop an08-listener; systemctl is-active an08-listener || true
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:36:29+00:00
+
+srv-acq-01 | CHANGED | rc=0 >>
+inactive
+
+# end     : 2026-11-13T01:36:32+00:00
+# exit    : 0
+# wall_s  : 2.546

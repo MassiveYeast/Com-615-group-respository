@@ -1,0 +1,17 @@
+# command : ansible srv-acq-01 -m ansible.builtin.shell -a ufw allow 8080/tcp comment 'AN-08 unapproved test'; ufw allow from 192.168.56.0/24 to any port 3306 proto tcp; systemd-run --unit=an08-listener python3 -m http.server 8080; sleep 1; ufw show added
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:31:09+00:00
+
+srv-acq-01 | CHANGED | rc=0 >>
+Rule added
+Rule added (v6)
+Rule added
+Added user rules (see 'ufw status' for running firewall):
+ufw allow 22/tcp comment 'NEL management SSH'
+ufw allow 80/tcp comment 'NEL internal web service'
+ufw allow 8080/tcp comment 'AN-08 unapproved test'
+ufw allow from 192.168.56.0/24 to any port 3306 proto tcpRunning as unit: an08-listener.service; invocation ID: a6d9d9daca414b6ab5f65a3bf540912c
+
+# end     : 2026-11-13T01:31:15+00:00
+# exit    : 0
+# wall_s  : 6.077

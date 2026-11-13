@@ -222,3 +222,101 @@ Raw output: `evidence/logs/20261112-215000_32_AN-06_manual_session_transcript.tx
 - **Design decision:**
   - Use Ansible for repeatable server configuration and verification at both sites (B1, T1, T2).
   - Keep manual changes for one-off investigation only, followed by a `--check --diff` run to detect the resulting drift (AN-04).
+
+## EXP-13 - AN-08: fully managed host firewall (S1, T3) - DONE 13 Nov 2026
+
+- **Goal:** close the AN-04 limitation (an unmanaged `ufw allow 8080/tcp` survived correction). The approved policy is deny inbound and allow outbound, with only 22/tcp (SSH) and 80/tcp (web) open; Ansible deletes anything else.
+- **Design:** `roles/linux_baseline/tasks/firewall.yml`. Approved rules are listed in `group_vars/linux_servers.yml`.
+  - The play asserts that SSH is in the approved list before doing anything (lock-out guard).
+  - Approved rules and default deny are applied first.
+  - `ufw show added` is then compared with the approved list, and only the rules outside it are deleted.
+  - In `--check` mode the unapproved rules are reported as a change.
+  - "routed" is not managed: with forwarding off, ufw reports it as "disabled", and the module would report a change on every run (T2).
+- **Safety:** approved by the user before running.
+  - VirtualBox snapshots `pre-AN08-10` of both VMs were taken first (log 35b).
+  - srv-acq-01 was done first as the canary.
+  - A rule existed to stop at the first UNREACHABLE.
+  - Plan and recovery: `docs/AN-07-10_PLAN.md` §1.
+- **Pre-checks (no changes):**
+  - log 33: state before the change.
+  - log 34: new code in `--check` on today's rules gave **changed=0** on both hosts, so the parser treats existing rules as approved.
+- **Method and result:**
+
+| Step | Log | Result |
+|---|---|---|
+| Plant 2 unapproved rules (`8080/tcp`, `3306/tcp from 192.168.56.0/24`) and a temporary listener on 8080 | 36 | both rules present |
+| Probe 8080 from the control node | 37 | `http 200` (reachable) |
+| `--check --diff` | 38 | exactly the 2 planted rules reported "would be removed"; changed=1, nothing altered |
+| Apply on srv-acq-01 | 39 | both rules deleted; ok=29 changed=1, 65.5 s |
+| Verify (new SSH session, ufw, probes) | 40 | fresh SSH OK; only 22/tcp and 80/tcp remain; **8080 → `000` (blocked)**, 80 → `200` |
+| Apply to both servers | 41 | changed=0 on both |
+| Rerun | 42 | changed=0 on both (idempotent) |
+| Stop test listener | 43 | inactive |
+
+- **Analysis:** Ansible now enforces the whole firewall state, not just the rules it added. A rule someone adds by hand is reported by `--check` and removed on the next run. SSH access was never interrupted.
+- **Limitations:**
+  - The approved list is the same for every Linux server. Per-role ports would need group or host variables.
+  - Rules are compared exactly as ufw prints them, so a rule that matches an approved one except for its comment counts as unapproved. It is deleted, and the approved one is re-added on the same run.
+  - Console recovery (`vagrant`/`vagrant` login) was documented but not tested.
+
+## EXP-14 - AN-09: unique SSH host keys (S1, T4) - DONE 13 Nov 2026
+
+- **Goal:** fix the EXP-11 finding. Both VMs shared the public bento box's host keys (ED25519 `SHA256:VjufUgJC…Enlc`), so anyone holding the box could impersonate either server.
+- **Design:** `playbooks/rotate_host_keys.yml`.
+  - **Play 1 (read-only):** compares fingerprints across the group and flags shared keys.
+  - **Play 2:** runs only with `-e hostkey_rotate=true`, one server at a time (`serial: 1`, `max_fail_percentage: 0`). For each server it:
+    1. backs up the keys to `/root/ssh-hostkey-backup/` and backs up the control node's `known_hosts`;
+    2. deletes the keys and runs `ssh-keygen -A`, then `sshd -t`, then **reloads** ssh. A rescue block restores the old keys if this step fails.
+    3. reads the new public key over the existing authenticated session and writes it to `known_hosts`, so it is not trusted blindly from the network;
+    4. closes the connection and reconnects with host-key checking.
+  - `authorized_keys` is never touched.
+- **Safety:** approved by the user. Snapshots `pre-AN08-10`. Plan and recovery: `docs/AN-07-10_PLAN.md` §2.
+
+| Step | Log | Result |
+|---|---|---|
+| Detect only | 35 | both hosts **SHARED** (same ED25519 fingerprint) |
+| Rotate | 44 | srv-main-01 then srv-acq-01: ok=17 changed=7 each; reconnect (`ping`) succeeded on both; 47.6 s |
+| Strict host-key SSH to both | 45 | both connect; new keys `root@srv-main-01` (ED25519 `SHA256:L+6UdFrN…wj/Y`) and `root@srv-acq-01` (ED25519 `SHA256:7DQvT/tK…C05o`) - all 3 key types now differ |
+| Connect using the pre-rotation known_hosts | 46 | **refused**: "REMOTE HOST IDENTIFICATION HAS CHANGED", exit 255 (expected: the old key is no longer valid) |
+| Rerun with rotation enabled | 47 | both "unique", changed=0 (idempotent: nothing to rotate) |
+| `vagrant ssh <vm> -c hostname` | 48 | both work (out-of-band recovery path intact) |
+
+- **Analysis:** shared host keys can be detected and fixed automatically without losing management access. The key is accepted on the control node from the authenticated session, which is stronger than trust-on-first-use. The real fix belongs at build time, in Jack's PXE first-boot `ssh-keygen -A`. This playbook is the remediation for servers that already exist, and a check that can run regularly.
+- **Notes:**
+  - `known_hosts.pre-rotation-srv-acq-01` was saved after srv-main-01 had already been rotated, so it holds srv-main-01's new key and srv-acq-01's old key. This is correct for the negative test.
+  - The key backups in `/root/ssh-hostkey-backup/` hold the publicly known bento private keys. They were left in place for rollback; deleting them is a separate step that needs approval.
+
+## EXP-15 - AN-10: repeated drift detection and correction (T2, T3, S1) - DONE 13 Nov 2026
+
+- **Goal:** show that AN-04 (one drift and correction) and AN-03 (idempotency) hold up when repeated, now that the firewall is fully managed (EXP-13).
+- **Method:** `evidence/scripts/drift_cycles.sh 3`, run on both servers, 01:38-01:48 UTC, approved by the user. Each cycle made the same 5 manual changes:
+  1. an extra NTP server in `chrony.conf`;
+  2. `MaxAuthTries 6` in the sshd drop-in (file only);
+  3. an edit to the web page;
+  4. chrony disabled at boot;
+  5. an unapproved `ufw allow 8080/tcp`.
+
+  It then ran `--check --diff`, the correcting run, a second run and a read-only verification.
+- **Result** (`20261113-013830_AN-10_drift_cycles_summary.csv`, `_verdict.txt`, 15 logs `*_AN-10_c{1,2,3}_*`):
+
+| Cycle | Detect (check mode) changed | Correct changed | Rerun changed | Exit codes | Verdict |
+|---|---|---|---|---|---|
+| 1 | 14 | 14 | 0 | all 0 | PASS |
+| 2 | 14 | 14 | 0 | all 0 | PASS |
+| 3 | 14 | 14 | 0 | all 0 | PASS |
+
+  - Times: detect 53.8-58.2 s, correct 67.8-74.2 s, rerun 61.8-65.1 s, for both servers in parallel.
+  - The final verification on both servers showed:
+    - `maxauthtries 3`;
+    - chrony `enabled`;
+    - only 22/tcp and 80/tcp in ufw (the 8080 rule was removed each cycle, which closes the AN-04 limitation);
+    - HTTP 200.
+  - The `chrony.conf` and sshd drop-in hashes are identical on both servers and match the AN-06 reference (log 28). srv-acq-01's `index.html` hash also matches log 28. srv-main-01's page has no earlier reference hash, so it was not compared.
+- **Analysis:**
+  - Detection and correction were identical in every cycle: 7 changes per server, all 5 drifts plus the 2 handlers (chrony restart, ssh reload).
+  - The second run was always changed=0.
+  - Check mode reported all 5 drift types, including the firewall rule, without changing anything.
+- **Limitations:**
+  - The same drift set was used each cycle (repeatability, not coverage).
+  - n = 3 cycles on 2 lab VMs.
+  - Drift was introduced with root access via Ansible ad-hoc commands; a real attacker could also tamper with Ansible's own access.

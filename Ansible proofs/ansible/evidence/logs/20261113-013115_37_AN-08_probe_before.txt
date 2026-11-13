@@ -1,0 +1,9 @@
+# command : curl -s -m 5 -o /dev/null -w 8080 -> http %{http_code}\n http://192.168.56.22:8080/
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:31:16+00:00
+
+8080 -> http 200
+
+# end     : 2026-11-13T01:31:16+00:00
+# exit    : 0
+# wall_s  : 0.048

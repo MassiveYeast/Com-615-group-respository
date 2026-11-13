@@ -1,0 +1,20 @@
+# command : bash -c for h in 192.168.56.21 192.168.56.22; do echo "== $h"; ssh -o StrictHostKeyChecking=yes -o ControlMaster=no -o BatchMode=yes -i ~/.ssh/nel_ansible_ed25519 ansible@$h "hostname; for f in /etc/ssh/ssh_host_*_key.pub; do ssh-keygen -lf \$f; done" 2>&1 | grep -v Authorised; echo "exit: ${PIPESTATUS[0]}"; done
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:37:39+00:00
+
+== 192.168.56.21
+srv-main-01
+256 SHA256:KPFu1Rt7R1c3YRrI8c/JTlxNEpIREwfL+oFAboCY8NQ root@srv-main-01 (ECDSA)
+256 SHA256:L+6UdFrNfoTCKhDUiuoBoiyD6jPizA0tvmuawi8wj/Y root@srv-main-01 (ED25519)
+3072 SHA256:D00ZaFtdvfeehIG1LImeY9Cm5hQi0lO7NVXUXe3RoIY root@srv-main-01 (RSA)
+exit: 0
+== 192.168.56.22
+srv-acq-01
+256 SHA256:t3/ALaJnGM9dvSPsBzxtXMxI0Kp4utCM1eE5gzrDQzA root@srv-acq-01 (ECDSA)
+256 SHA256:7DQvT/tKUKYZJZuso6vCodBy2gJ1S8y9pvEjlyKC05o root@srv-acq-01 (ED25519)
+3072 SHA256:xzZpDjLuG50kDn7suDhoZH4zsLdMPSDuGRaL9H5uNSM root@srv-acq-01 (RSA)
+exit: 0
+
+# end     : 2026-11-13T01:37:40+00:00
+# exit    : 0
+# wall_s  : 1.273

@@ -1,0 +1,16 @@
+cycle,step,log,exit,wall_s,ok,changed,unreachable,failed
+1,1_introduce,20261113-013830_AN-10_c1_1_introduce.txt,0,6.377,0,0,0,0
+1,2_detect,20261113-013838_AN-10_c1_2_detect.txt,0,53.788,60,14,0,0
+1,3_correct,20261113-013932_AN-10_c1_3_correct.txt,0,67.817,62,14,0,0
+1,4_rerun,20261113-014041_AN-10_c1_4_rerun.txt,0,61.784,54,0,0,0
+1,5_verify,20261113-014144_AN-10_c1_5_verify.txt,0,2.982,0,0,0,0
+2,1_introduce,20261113-014148_AN-10_c2_1_introduce.txt,0,5.825,0,0,0,0
+2,2_detect,20261113-014155_AN-10_c2_2_detect.txt,0,55.796,60,14,0,0
+2,3_correct,20261113-014252_AN-10_c2_3_correct.txt,0,74.205,62,14,0,0
+2,4_rerun,20261113-014407_AN-10_c2_4_rerun.txt,0,61.819,54,0,0,0
+2,5_verify,20261113-014510_AN-10_c2_5_verify.txt,0,2.849,0,0,0,0
+3,1_introduce,20261113-014514_AN-10_c3_1_introduce.txt,0,5.907,0,0,0,0
+3,2_detect,20261113-014520_AN-10_c3_2_detect.txt,0,58.196,60,14,0,0
+3,3_correct,20261113-014620_AN-10_c3_3_correct.txt,0,70.347,62,14,0,0
+3,4_rerun,20261113-014731_AN-10_c3_4_rerun.txt,0,65.059,54,0,0,0
+3,5_verify,20261113-014837_AN-10_c3_5_verify.txt,0,3.051,0,0,0,0

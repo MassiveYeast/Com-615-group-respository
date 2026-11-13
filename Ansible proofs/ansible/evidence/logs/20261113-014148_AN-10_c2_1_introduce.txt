@@ -1,0 +1,30 @@
+# command : ansible linux_servers -m ansible.builtin.shell -a set -e
+echo "server 192.0.2.123 iburst  # AN-10 drift" >> /etc/chrony/chrony.conf
+sed -i "s/^MaxAuthTries .*/MaxAuthTries 6/" /etc/ssh/sshd_config.d/10-nel-hardening.conf
+echo "<p>AN-10 unauthorised edit</p>" >> /var/www/nel/index.html
+systemctl disable chrony 2>&1
+ufw allow 8080/tcp comment "AN-10 unapproved rule"
+echo drift-introduced
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:41:49+00:00
+
+srv-main-01 | CHANGED | rc=0 >>
+Synchronizing state of chrony.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install disable chrony
+Removed "/etc/systemd/system/chronyd.service".
+Removed "/etc/systemd/system/multi-user.target.wants/chrony.service".
+Rule added
+Rule added (v6)
+drift-introduced
+srv-acq-01 | CHANGED | rc=0 >>
+Synchronizing state of chrony.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install disable chrony
+Removed "/etc/systemd/system/chronyd.service".
+Removed "/etc/systemd/system/multi-user.target.wants/chrony.service".
+Rule added
+Rule added (v6)
+drift-introduced
+
+# end     : 2026-11-13T01:41:55+00:00
+# exit    : 0
+# wall_s  : 5.825

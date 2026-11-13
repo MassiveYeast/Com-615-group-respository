@@ -1,0 +1,32 @@
+# command : ansible linux_servers -m ansible.builtin.shell -a sha256sum /etc/chrony/chrony.conf /etc/ssh/sshd_config.d/10-nel-hardening.conf /var/www/nel/index.html
+sshd -T | grep -i "^maxauthtries"
+echo "chrony enabled: $(systemctl is-enabled chrony)"
+ufw show added
+curl -s -o /dev/null -w "http %{http_code}\n" http://localhost/
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:41:45+00:00
+
+srv-main-01 | CHANGED | rc=0 >>
+8097c11b74119aa66f61c046b5f5d664cb774d71b8342299fb4fea53631f1c9e  /etc/chrony/chrony.conf
+9b0ce30a17fc9c76e40dc37f6dc2196078386cf4ea000cbf59e69b4a6c867b05  /etc/ssh/sshd_config.d/10-nel-hardening.conf
+34ad2d403c65731e9163f61364766f19a9a39cfae473f5256572f15efaf4f4f8  /var/www/nel/index.html
+maxauthtries 3
+chrony enabled: enabled
+Added user rules (see 'ufw status' for running firewall):
+ufw allow 22/tcp comment 'NEL management SSH'
+ufw allow 80/tcp comment 'NEL internal web service'
+http 200
+srv-acq-01 | CHANGED | rc=0 >>
+8097c11b74119aa66f61c046b5f5d664cb774d71b8342299fb4fea53631f1c9e  /etc/chrony/chrony.conf
+9b0ce30a17fc9c76e40dc37f6dc2196078386cf4ea000cbf59e69b4a6c867b05  /etc/ssh/sshd_config.d/10-nel-hardening.conf
+b4e2348c9f1ee7cb7a8d7df01115f734044f1524223829c64dce6063e422881a  /var/www/nel/index.html
+maxauthtries 3
+chrony enabled: enabled
+Added user rules (see 'ufw status' for running firewall):
+ufw allow 22/tcp comment 'NEL management SSH'
+ufw allow 80/tcp comment 'NEL internal web service'
+http 200
+
+# end     : 2026-11-13T01:41:48+00:00
+# exit    : 0
+# wall_s  : 2.982

@@ -1,0 +1,42 @@
+# command : ansible-playbook -i inventory/devnet_iosxe.yml playbooks/iosxe_interface_description.yml -e phase=precheck
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:58:46+00:00
+
+
+PLAY [AN-07 IOS XE interface description - change, verify, roll back] **********
+
+TASK [Check the requested phase and interface] *********************************
+Friday 13 November 2026  01:58:47 +0000 (0:00:00.211)       0:00:00.211 ******* 
+ok: [sbx-iosxe]
+
+TASK [Read software version and privilege level] *******************************
+Friday 13 November 2026  01:58:48 +0000 (0:00:00.554)       0:00:00.766 ******* 
+[ERROR]: Task failed: Action failed: Failed to authenticate: Failed to authenticate: Authentication failed.
+Origin: /mnt/c/Users/yassi/Com-615-group-respository/Ansible proofs/ansible/playbooks/iosxe_interface_description.yml:40:7
+
+38         quiet: true
+39
+40     - name: Read software version and privilege level
+         ^ column 7
+
+fatal: [sbx-iosxe]: FAILED! => 
+    changed: false
+    msg: 'Failed to authenticate: Failed to authenticate: Authentication failed.'
+
+PLAY RECAP *********************************************************************
+sbx-iosxe                  : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
+
+TASKS RECAP ********************************************************************
+Friday 13 November 2026  01:58:53 +0000 (0:00:05.449)       0:00:06.216 ******* 
+=============================================================================== 
+Read software version and privilege level ------------------------------- 5.45s
+Check the requested phase and interface --------------------------------- 0.55s
+
+PLAYBOOK RECAP *****************************************************************
+Playbook run took 0 days, 0 hours, 0 minutes, 6 seconds
+
+
+# end     : 2026-11-13T01:58:54+00:00
+# exit    : 2
+# wall_s  : 7.913

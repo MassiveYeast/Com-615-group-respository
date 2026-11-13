@@ -1,0 +1,27 @@
+# command : bash -c ssh -o ControlMaster=no -o BatchMode=yes -i ~/.ssh/nel_ansible_ed25519 ansible@192.168.56.22 "echo fresh-ssh-session-ok; sudo ufw status verbose; sudo ufw show added" || echo SSH-FAILED; curl -s -m 5 -o /dev/null -w "8080 -> http %{http_code}\n" http://192.168.56.22:8080/; curl -s -m 5 -o /dev/null -w "80 -> http %{http_code}\n" http://192.168.56.22/; true
+# host    : control node REDX (ansible [core 2.21.5])
+# start   : 2026-11-13T01:34:05+00:00
+
+Authorised access to Northstar Engineering Ltd systems only. All activity is logged and monitored.
+fresh-ssh-session-ok
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    Anywhere                   # NEL management SSH
+80/tcp                     ALLOW IN    Anywhere                   # NEL internal web service
+22/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL management SSH
+80/tcp (v6)                ALLOW IN    Anywhere (v6)              # NEL internal web service
+
+Added user rules (see 'ufw status' for running firewall):
+ufw allow 22/tcp comment 'NEL management SSH'
+ufw allow 80/tcp comment 'NEL internal web service'
+8080 -> http 000
+80 -> http 200
+
+# end     : 2026-11-13T01:34:13+00:00
+# exit    : 0
+# wall_s  : 7.148
